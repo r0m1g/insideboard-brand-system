@@ -1,0 +1,1351 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>InsideBoard AI — Brand System · Layers 1 · 2 · 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --white:#FFFFFF;--ivory:#FAFAF9;--stone:#EAE6DF;--ink:#1B1712;--ember:#EE2E20;
+  --gray-200:#DDD4C4;--gray-300:#C9BEAB;--gray-400:#AFA38E;--gray-500:#8F8472;
+  --gray-600:#6F6656;--gray-700:#4F483C;--gray-800:#332E26;--gray-900:#1B1712;
+  --fn-red:#D64545;--fn-coral:#F08B73;--fn-brown:#8B5A3C;--fn-orange:#E3893A;
+  --fn-yellow:#E5B94A;--fn-sage:#B8D29C;--fn-green:#4F8B5E;--fn-teal:#3E8C93;
+  --fn-blue:#7DA8E8;--fn-indigo:#3F4FA8;--fn-lavender:#B79BE8;--fn-pink:#D97BA8;
+  --bg-canvas:var(--ivory);--bg-paper:var(--white);--bg-surface:var(--stone);
+  --text-primary:var(--ink);--text-primary-inverse:var(--ivory);
+  --text-muted:rgba(250,250,249,0.55);--text-on-color:var(--ivory);
+  --s1:4px;--s2:8px;--s3:16px;--s4:24px;--s5:32px;--s6:48px;--s7:64px;--s8:96px;--s9:128px;
+  --sans:"Outfit","Helvetica Neue",Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --density:1;
+}
+[data-density="comfortable"]{--density:1.15;}
+[data-density="compact"]{--density:0.85;}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{font-family:var(--sans);font-size:16px;font-weight:400;line-height:1.55;color:var(--ink);background:var(--ivory);-webkit-font-smoothing:antialiased;}
+a{color:inherit;}button{font:inherit;cursor:pointer;border:0;background:none;color:inherit;}
+.shell{display:grid;grid-template-columns:272px minmax(0,1fr);max-width:1440px;margin:0 auto;min-height:100vh;}
+@media(max-width:960px){.shell{grid-template-columns:1fr;}}
+
+/* NAV */
+nav.side{position:sticky;top:0;align-self:start;height:100vh;padding:var(--s7) var(--s5) var(--s6);border-right:1px solid var(--gray-200);overflow-y:auto;background:var(--ivory);}
+nav.side .brand{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s5);}
+nav.side .mark-box{width:32px;height:32px;background:var(--ink);color:var(--ivory);display:grid;place-items:center;font:500 10px/1 var(--mono);letter-spacing:.1em;border-radius:4px;}
+nav.side .wordmark{font-weight:500;font-size:13px;letter-spacing:.04em;text-transform:uppercase;}
+.ng{margin-bottom:var(--s4);}
+.ngl{font:500 9px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-bottom:var(--s2);padding:var(--s2) 0;border-bottom:1px solid var(--gray-200);}
+nav.side ol{list-style:none;padding:0;margin:0;counter-reset:s;}
+nav.side ol li{counter-increment:s;margin-bottom:2px;}
+nav.side ol a{display:flex;gap:var(--s3);align-items:baseline;text-decoration:none;color:var(--gray-700);padding:var(--s2) 0;font-size:13px;line-height:1.3;transition:color 160ms cubic-bezier(.2,0,0,1);}
+nav.side ol a::before{content:counter(s,decimal-leading-zero);font:500 10px/1 var(--mono);color:var(--gray-400);min-width:20px;}
+nav.side ol a:hover,nav.side ol a.active{color:var(--ink);}
+nav.side ol a.active::before{color:var(--ember);}
+nav.side .meta{margin-top:var(--s6);padding-top:var(--s4);border-top:1px solid var(--gray-200);font-size:11px;font-family:var(--mono);color:var(--gray-500);line-height:1.7;}
+
+/* MAIN */
+main.doc{padding:var(--s8) var(--s8) var(--s9);max-width:1000px;}
+@media(max-width:960px){main.doc{padding:var(--s6) var(--s5);}}
+
+/* HERO */
+.hero{padding-bottom:var(--s8);border-bottom:1px solid var(--gray-200);margin-bottom:var(--s8);}
+.hero .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500);margin-bottom:var(--s5);display:flex;gap:var(--s3);align-items:center;}
+.dot{width:6px;height:6px;background:var(--ember);border-radius:50%;display:inline-block;}
+.hero h1{font-size:72px;font-weight:500;line-height:1.05;letter-spacing:-.02em;margin:0 0 var(--s5);}
+.hero .lede{font-size:20px;line-height:1.5;max-width:62ch;color:var(--gray-700);}
+.hero .mg{margin-top:var(--s7);display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s5);font-family:var(--mono);font-size:11px;}
+.hero .mg div b{color:var(--gray-500);font-weight:400;display:block;margin-bottom:4px;letter-spacing:.08em;text-transform:uppercase;}
+.hero .mg div span{color:var(--ink);font-weight:500;}
+.lbadges{display:inline-flex;gap:var(--s3);flex-wrap:wrap;margin-top:var(--s6);}
+.lb{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--gray-300);color:var(--gray-600);}
+.lb.on{background:var(--ink);color:var(--ivory);border-color:var(--ink);}
+
+/* LAYER DIVIDER */
+.ldiv{padding:var(--s5) 0 var(--s4);border-bottom:2px solid var(--ink);margin-bottom:var(--s6);font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500);display:flex;align-items:center;gap:var(--s4);}
+.ldiv em{color:var(--ember);font-style:normal;}
+
+/* CHAPTER */
+section.chapter{padding:var(--s8) 0;border-bottom:1px solid var(--gray-200);scroll-margin-top:var(--s5);}
+section.chapter:last-child{border-bottom:0;}
+.ch{display:grid;grid-template-columns:60px 1fr;gap:var(--s5);margin-bottom:var(--s6);align-items:start;}
+.cn{font-family:var(--mono);font-size:12px;color:var(--gray-500);padding-top:12px;}
+.ch h2{font-size:48px;font-weight:500;letter-spacing:-.015em;line-height:1.1;margin:0 0 var(--s3);}
+.ch .pr{font-size:18px;color:var(--gray-700);max-width:62ch;margin:0;}
+/* HIGHLIGHT SYSTEM — Ember 50% underline. Used on em inside .pr (chapter principles).
+   Rule: highlight signals importance without overpowering the reading line.
+   Opacity: 50% — below this the signal is lost, above it competes with Ember signal uses.
+   Never use on dark backgrounds. Never combine with bold. */
+.ch .pr em{font-style:normal;color:var(--ink);font-weight:500;background:linear-gradient(180deg,transparent 60%,rgba(238,46,32,.50) 60%);padding:0 2px;}
+.cb{padding-left:calc(60px + var(--s5));}
+@media(max-width:720px){.ch{grid-template-columns:1fr;}.cb{padding-left:0;}}
+h3.sub{font-size:22px;font-weight:500;letter-spacing:-.005em;margin:var(--s7) 0 var(--s4);}
+h3.sub:first-child{margin-top:0;}
+h4.mi{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin:var(--s5) 0 var(--s3);font-weight:400;}
+p{margin:0 0 var(--s3);max-width:66ch;}
+
+/* RULES */
+ul.rules{list-style:none;padding:0;margin:var(--s3) 0 var(--s5);border-top:1px solid var(--gray-200);}
+ul.rules li{border-bottom:1px solid var(--gray-200);padding:var(--s3) 0;display:grid;grid-template-columns:80px 1fr;gap:var(--s4);font-size:15px;line-height:1.5;align-items:baseline;}
+ul.rules li b{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;}
+ul.rules li.do b{color:#2F7A4F;}
+ul.rules li.dont b{color:var(--ember);}
+ul.rules li.note b{color:var(--gray-500);}
+
+/* CALLOUT */
+.callout{background:var(--stone);padding:var(--s5);border-left:2px solid var(--ink);margin:var(--s5) 0;font-size:14px;max-width:66ch;}
+.callout b{display:block;font-weight:500;margin-bottom:4px;font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gray-600);}
+.callout.warn{border-left-color:var(--ember);background:#FBECE9;}
+.callout.warn b{color:var(--ember);}
+
+/* FORMULA */
+.fd{background:var(--ink);color:var(--ivory);padding:var(--s7);margin:var(--s5) 0;max-width:66ch;}
+.fd .flab{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--s4);}
+.fd .ftxt{font-size:28px;font-weight:500;line-height:1.2;letter-spacing:-.01em;}
+.fd .ftxt em{font-style:normal;color:var(--ember);}
+.fd.light{background:var(--ivory);color:var(--ink);}
+.fd.light .flab{color:var(--gray-500);}
+
+/* POSTURE CARD */
+.pc{background:var(--ink);color:var(--ivory);padding:var(--s8) var(--s7);margin:var(--s5) 0;}
+.pc .pcl{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--s5);}
+.pc .pct{font-size:56px;font-weight:500;line-height:1.05;letter-spacing:-.02em;}
+.pc .pcr{margin-top:var(--s5);font-size:13px;color:var(--text-muted);font-family:var(--mono);}
+
+/* VERBAL TABLE */
+.vtbl{border:1px solid var(--gray-200);margin:var(--s5) 0;overflow:hidden;font-size:14px;}
+.vrow{display:grid;grid-template-columns:120px 1fr 1fr;border-bottom:1px solid var(--gray-200);}
+.vrow:last-child{border-bottom:0;}
+.vrow.hd{background:var(--stone);font:500 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-700);}
+.vc{padding:var(--s4);border-right:1px solid var(--gray-200);}
+.vc:last-child{border-right:0;}
+.vrow.hd .vc{padding:var(--s3) var(--s4);}
+.vlv{font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--ember);display:block;margin-bottom:4px;}
+
+/* AUDIENCE CARDS */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin:var(--s5) 0;}
+.acard{border:1px solid var(--gray-200);padding:var(--s5);background:var(--white);}
+.acard .ar{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:var(--s3);}
+.acard .at{font-size:18px;font-weight:500;margin-bottom:var(--s3);}
+.acard .as{font-size:12px;color:var(--gray-600);font-family:var(--mono);margin-bottom:var(--s3);}
+.acard .ak{background:var(--ink);color:var(--gray-300);padding:var(--s3) var(--s4);font-size:14px;line-height:1.55;border-left:2px solid var(--gray-600);margin-top:var(--s3);font-style:italic;font-weight:400;}
+.acard .am{margin-top:var(--s3);font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gray-600);}
+.acard .am em{font-style:normal;color:var(--ink);}
+@media(max-width:720px){.agrid{grid-template-columns:1fr;}}
+
+/* COPY EXAMPLES */
+.cpex{margin:var(--s5) 0;border-top:1px solid var(--gray-200);}
+.ce{border-bottom:1px solid var(--gray-200);padding:var(--s4) 0;display:grid;grid-template-columns:80px 1fr;gap:var(--s4);align-items:baseline;}
+.cen{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray-400);}
+.ceq{font-size:17px;font-weight:400;line-height:1.45;font-style:italic;color:var(--ink);}
+
+/* REG EXAMPLE */
+.rex{background:var(--white);border:1px solid var(--gray-200);padding:var(--s5);margin:var(--s3) 0;max-width:66ch;}
+.rex .rl{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin-bottom:var(--s3);}
+.rex p{font-size:15px;line-height:1.5;margin:0;font-style:italic;}
+
+/* REF CARD */
+.refc{font-family:var(--mono);font-size:12px;line-height:1.7;background:var(--ink);color:var(--ivory);padding:var(--s6) var(--s7);margin:var(--s5) 0;border-left:3px solid var(--ember);}
+.refc .rcs{margin-bottom:var(--s4);}
+.refc .rck{color:var(--ember);font-weight:500;display:block;margin-bottom:2px;}
+.refc .rcv{color:var(--text-primary-inverse);opacity:.85;}
+.refc .rcd{border-top:1px solid rgba(244,239,230,.15);margin:var(--s4) 0;}
+
+/* LOOP */
+.loop{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap;margin:var(--s5) 0;padding:var(--s6);background:var(--white);border:1px solid var(--gray-200);}
+.lst{font:500 13px/1 var(--sans);padding:var(--s3) var(--s4);background:var(--ink);color:var(--ivory);white-space:nowrap;}
+.lar{color:var(--ember);font-weight:500;font-size:16px;}
+
+/* DIFF TABLE */
+.dtbl{border:1px solid var(--gray-200);margin:var(--s5) 0;font-size:13px;overflow:hidden;}
+.drow{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--gray-200);}
+.drow:last-child{border-bottom:0;}
+.drow.hd{background:var(--stone);font:500 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;}
+.dc{padding:var(--s3) var(--s4);border-right:1px solid var(--gray-200);line-height:1.5;}
+.dc:last-child{border-right:0;}
+.dc.vs{color:var(--gray-600);}
+.dc.ib{color:var(--ink);font-weight:500;}
+
+/* ANTI TABLE */
+.atbl{border:1px solid var(--gray-200);margin:var(--s5) 0;font-size:13px;overflow:hidden;}
+.arow{display:grid;grid-template-columns:1.2fr 1.5fr 1.5fr;border-bottom:1px solid var(--gray-200);}
+.arow:last-child{border-bottom:0;}
+.arow.hd{background:var(--stone);font:500 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;}
+.ac{padding:var(--s3) var(--s4);border-right:1px solid var(--gray-200);line-height:1.5;}
+.ac:last-child{border-right:0;}
+.ac .apn{font-weight:500;color:var(--ember);}
+
+/* TRUST */
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);margin:var(--s4) 0;}
+.tcol .tcl{font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin-bottom:var(--s3);}
+.tcol .tcli{display:flex;flex-wrap:wrap;gap:var(--s2);}
+.chip{font-size:12px;font-weight:500;padding:4px 10px;border:1px solid var(--gray-300);color:var(--ink);}
+.chip.dep{border-color:var(--ink);}
+.chip.par{border-color:var(--gray-400);color:var(--gray-600);}
+@media(max-width:720px){.tgrid{grid-template-columns:1fr;}}
+
+/* TERRITORY */
+.tergrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin:var(--s5) 0;}
+.terc{border:1px solid var(--gray-200);padding:var(--s5);}
+.terc .tern{font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ember);margin-bottom:var(--s3);}
+.terc h4{font-size:16px;font-weight:500;margin:0 0 var(--s3);}
+.terc p{font-size:13px;line-height:1.5;color:var(--gray-700);margin:0;}
+@media(max-width:720px){.tergrid{grid-template-columns:1fr;}}
+
+/* IRON */
+.ironw{margin:var(--s5) 0;}
+.ironh{background:var(--ink);color:var(--ivory);padding:var(--s5) var(--s6);margin-bottom:2px;}
+.ironh h4{margin:0 0 var(--s2);font-size:18px;font-weight:500;}
+.ironh p{margin:0;font-size:13px;opacity:.7;font-family:var(--mono);}
+.ironm{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.im{padding:var(--s4);display:flex;flex-direction:column;justify-content:space-between;min-height:100px;}
+.im b{font-size:13px;font-weight:500;}
+.im span{font:400 11px/1 var(--mono);opacity:.75;margin-top:var(--s2);display:block;}
+.im.k{background:var(--fn-coral);color:var(--ivory);}
+.im.d{background:var(--fn-blue);color:var(--ivory);}
+.im.m{background:var(--fn-sage);color:var(--ink);}
+.im.c{background:var(--fn-lavender);color:var(--ink);}
+
+/* TYPE SPECIMEN */
+.tspec{border:1px solid var(--gray-200);background:var(--white);padding:var(--s6);margin:var(--s4) 0;}
+.tspec .row{display:grid;grid-template-columns:140px 1fr;gap:var(--s5);padding:var(--s4) 0;border-bottom:1px solid var(--gray-200);align-items:baseline;}
+.tspec .row:last-child{border-bottom:0;padding-bottom:0;}
+.tspec .row:first-child{padding-top:0;}
+.tspec .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray-500);}
+.tspec .lbl span{display:block;color:var(--gray-700);margin-top:4px;font-size:10px;}
+.tspec .disp{font-size:72px;font-weight:500;line-height:1.05;letter-spacing:-.02em;}
+.tspec .titl{font-size:48px;font-weight:500;line-height:1.1;letter-spacing:-.01em;}
+.tspec .subt{font-size:28px;font-weight:400;line-height:1.3;}
+.tspec .body{font-size:16px;font-weight:400;line-height:1.55;}
+.tspec .capt{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600);font-family:var(--mono);}
+
+/* SPACING */
+.spr{display:grid;grid-template-columns:repeat(9,1fr);gap:var(--s3);margin:var(--s4) 0;align-items:end;}
+.spr .st{background:var(--white);border:1px solid var(--gray-200);padding:var(--s3);font-family:var(--mono);font-size:10px;}
+.spr .st .bar{background:var(--ink);height:8px;margin-bottom:var(--s2);}
+.spr .st b{display:block;font-weight:500;font-size:13px;color:var(--ink);margin-bottom:2px;}
+.spr .st span{color:var(--gray-600);}
+
+/* GRID DEMO */
+.gdemo{background:var(--white);border:1px solid var(--gray-200);padding:var(--s5);margin:var(--s4) 0;}
+.gdemo .cols{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;height:140px;}
+.gdemo .cols div{background:repeating-linear-gradient(135deg,rgba(238,46,32,.08),rgba(238,46,32,.08) 4px,transparent 4px,transparent 8px);border:1px dashed rgba(238,46,32,.35);}
+.gdemo .cap{font-family:var(--mono);font-size:10px;color:var(--gray-600);margin-top:var(--s3);display:flex;justify-content:space-between;}
+
+/* SWATCHES */
+.sw-g{display:grid;gap:var(--s3);margin:var(--s4) 0;}
+.sw-g.p5{grid-template-columns:repeat(5,1fr);}
+.sw-g.p6{grid-template-columns:repeat(6,1fr);}
+@media(max-width:720px){.sw-g.p5{grid-template-columns:repeat(2,1fr);}.sw-g.p6{grid-template-columns:repeat(3,1fr);}}
+.sw{display:block;border:1px solid var(--gray-200);overflow:hidden;font-family:var(--mono);font-size:10px;}
+.sw .ch{aspect-ratio:1/1;display:flex;align-items:flex-end;padding:var(--s3);color:var(--ivory);}
+.sw .mt{padding:var(--s2) var(--s3);background:var(--white);display:flex;flex-direction:column;gap:2px;}
+.sw .mt .nm{color:var(--ink);font-weight:500;letter-spacing:.03em;text-transform:uppercase;font-size:10px;}
+.sw .mt .hx{color:var(--gray-600);}
+
+/* GRAY BAR */
+.gbar{display:grid;grid-template-columns:repeat(11,1fr);border:1px solid var(--gray-200);font-family:var(--mono);font-size:9px;margin:var(--s4) 0;}
+.gbar div{aspect-ratio:1/1.4;padding:var(--s2);display:flex;flex-direction:column;justify-content:space-between;color:var(--ink);}
+.gbar div.dk{color:var(--ivory);}
+.gbar div b{font-weight:500;font-size:10px;}
+
+/* COMBO */
+.cm-mx{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin:var(--s4) 0;}
+.comb{padding:var(--s5);aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--mono);font-size:10px;border:1px solid var(--gray-200);}
+.comb .cl{letter-spacing:.08em;text-transform:uppercase;opacity:.7;}
+.comb .cs{font-family:var(--sans);font-size:22px;line-height:1.1;font-weight:500;letter-spacing:-.01em;max-width:18ch;}
+.comb .cr{letter-spacing:.04em;}
+@media(max-width:720px){.cm-mx{grid-template-columns:repeat(2,1fr);}}
+
+/* FN USAGE */
+.fnu{border:1px solid var(--gray-200);margin:var(--s4) 0;font-size:13px;}
+.fnr{display:grid;grid-template-columns:1.2fr .7fr .7fr .7fr 2fr;gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--gray-200);align-items:center;}
+.fnr:last-child{border-bottom:0;}
+.fnr.hd{background:var(--stone);font:500 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-700);}
+.fnr span{display:flex;align-items:center;gap:10px;}
+.fnr i{width:14px;height:14px;border-radius:3px;display:inline-block;}
+.fnr .yes{color:#2F7A4F;font-weight:500;}
+.fnr .no{color:var(--ember);font-weight:500;}
+.fnr .sft{color:var(--gray-600);font-weight:500;}
+@media(max-width:720px){.fnr{grid-template-columns:1fr;gap:4px;}}
+
+/* IRON DEMO */
+.ird{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin:var(--s4) 0;}
+.irc{aspect-ratio:1/1.1;border-radius:8px;padding:var(--s4);display:flex;align-items:flex-end;color:var(--ivory);}
+.irl{font:500 13px/1.2 var(--sans);letter-spacing:-.005em;}
+@media(max-width:720px){.ird{grid-template-columns:repeat(2,1fr);}}
+
+/* VIZ */
+.vseq{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin:var(--s4) 0;}
+.vz{aspect-ratio:2/1;display:flex;align-items:flex-end;padding:8px;font:500 10px/1 var(--mono);color:var(--ivory);letter-spacing:.05em;}
+
+/* CHART */
+.chmk{border:1px solid var(--gray-200);padding:var(--s5) var(--s5) calc(var(--s5) + 24px);margin:var(--s4) 0;background:var(--white);}
+.cmh{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:var(--s5);flex-wrap:wrap;gap:var(--s3);}
+.cmt{font:500 14px/1.2 var(--sans);}
+.cml{display:flex;gap:var(--s4);flex-wrap:wrap;font:500 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-600);}
+.cml span{display:inline-flex;align-items:center;gap:6px;}
+.cml i{width:10px;height:10px;display:inline-block;border-radius:2px;}
+.cmb{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s4);height:220px;align-items:end;border-bottom:1px solid var(--gray-600);}
+.cmc{display:flex;flex-direction:column;align-items:center;gap:var(--s2);height:100%;justify-content:flex-end;position:relative;}
+.cmbar{width:70%;min-height:4px;}
+.cmc span{font:500 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-600);position:absolute;bottom:-18px;}
+
+/* TABLE */
+.tdemo{border:1px solid var(--gray-200);margin:var(--s4) 0;overflow:hidden;}
+.tdemo table{width:100%;border-collapse:collapse;font-size:13px;}
+.tdemo th{text-align:left;background:var(--stone);padding:var(--s3) var(--s4);font:500 10px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-700);border-bottom:1px solid var(--gray-600);}
+.tdemo td{padding:var(--s3) var(--s4);border-bottom:1px solid var(--gray-200);font-variant-numeric:tabular-nums;}
+.tdemo td:nth-child(n+2),.tdemo th:nth-child(n+2){text-align:right;}
+.tdemo tr:last-child td{border-bottom:0;}
+.tdemo .dot2{width:10px;height:10px;display:inline-block;border-radius:50%;margin-right:10px;vertical-align:middle;}
+.tdemo .pos{color:#2F7A4F;font-weight:500;}
+.tdemo .neg{color:var(--ember);font-weight:500;}
+
+/* ICONS */
+.icg{display:grid;grid-template-columns:repeat(8,1fr);gap:0;border:1px solid var(--gray-200);margin:var(--s4) 0;}
+.icg .ic{aspect-ratio:1/1;display:grid;place-items:center;border-right:1px solid var(--gray-200);border-bottom:1px solid var(--gray-200);color:var(--ink);position:relative;}
+.icg .ic span{position:absolute;bottom:6px;right:6px;font:400 9px/1 var(--mono);color:var(--gray-400);}
+@media(max-width:720px){.icg{grid-template-columns:repeat(4,1fr);}}
+
+/* BUTTERFLY */
+.bfly{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin:var(--s4) 0;}
+.bm{aspect-ratio:4/3;border:1px solid var(--gray-200);position:relative;display:grid;place-items:center;}
+.bm.id{background:var(--ivory);}
+.bm.sg{background:var(--ink);}
+.bm .bcap{position:absolute;top:var(--s3);left:var(--s3);font:500 9px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:inherit;}
+.bm.sg .bcap{color:var(--ivory);}
+.bm .lku{display:flex;align-items:center;gap:var(--s3);}
+.bm .lku .mk{width:36px;height:36px;background:var(--ink);color:var(--ivory);display:grid;place-items:center;font:500 9px/1 var(--mono);border-radius:4px;}
+.bm.id .lku .wm{font-size:14px;font-weight:500;letter-spacing:.08em;}
+.bm.sg .mhuge{width:33%;aspect-ratio:1/1;border:1px dashed var(--ivory);display:grid;place-items:center;color:var(--ivory);font:500 10px/1 var(--mono);}
+@media(max-width:720px){.bfly{grid-template-columns:1fr;}}
+
+/* MOTION */
+.mog{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--s3);margin:var(--s4) 0;}
+.moc{padding:var(--s5);border:1px solid var(--gray-200);background:var(--white);}
+.moc b{display:block;font:500 14px/1.2 var(--sans);margin-bottom:var(--s2);}
+.moc code{font:400 11px/1 var(--mono);color:var(--gray-600);display:block;margin-bottom:var(--s3);}
+.moc p{font-size:13px;line-height:1.5;color:var(--gray-700);margin:0;}
+@media(max-width:720px){.mog{grid-template-columns:1fr;}}
+
+/* COMP */
+.cpg{display:grid;grid-template-columns:1fr 1fr;gap:var(--s4);margin:var(--s4) 0;}
+@media(max-width:720px){.cpg{grid-template-columns:1fr;}}
+.cp{border:1px solid var(--gray-200);overflow:hidden;position:relative;}
+.cp.wide{grid-column:span 2;}
+.cp .cpf{width:100%;height:100%;position:relative;}
+.cp .capt2{position:absolute;top:var(--s3);left:var(--s3);font:500 9px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:4px 6px;background:var(--ivory);color:var(--ink);z-index:4;}
+.cp-hero{background:var(--ink);color:var(--ivory);padding:var(--s7);display:flex;flex-direction:column;justify-content:center;min-height:280px;}
+.cp-hero .fml{font-size:44px;font-weight:500;line-height:1.02;letter-spacing:-.02em;max-width:14ch;}
+.cp-hero .fml em{font-style:normal;color:var(--ember);}
+.cp-hero .mk2{position:absolute;bottom:var(--s5);right:var(--s5);width:44px;height:44px;border:1px dashed var(--text-muted);display:grid;place-items:center;font:500 9px/1 var(--mono);color:var(--text-muted);}
+.cp-sec{background:var(--ivory);padding:var(--s7);display:flex;flex-direction:column;justify-content:space-between;min-height:220px;}
+.cp-sec .sn{font:500 11px/1 var(--mono);color:var(--ember);letter-spacing:.12em;}
+.cp-sec .st{font-size:40px;font-weight:500;line-height:1.05;letter-spacing:-.01em;max-width:12ch;margin-top:var(--s5);}
+.cp-kpi{background:var(--white);padding:var(--s6);display:grid;grid-template-columns:repeat(3,1fr);align-items:center;gap:var(--s5);min-height:180px;}
+.cp-kpi .kpi b{display:block;font-size:48px;font-weight:500;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
+.cp-kpi .kpi:nth-child(2) b{color:var(--ember);}
+.cp-kpi .kpi span{display:block;margin-top:var(--s2);font-size:11px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--gray-600);}
+.cp-fml{background:var(--ink);color:var(--ivory);padding:var(--s6) var(--s7);display:flex;align-items:center;min-height:200px;}
+.cp-fml .ft{font-size:28px;font-weight:500;line-height:1.3;letter-spacing:-.015em;max-width:20ch;}
+.cp-em{background:var(--white);padding:var(--s5);font-size:13px;line-height:1.55;display:flex;flex-direction:column;justify-content:center;min-height:160px;}
+.cp-em b.nm{font-weight:500;}
+.cp-em .rl{color:var(--gray-600);font-size:12px;}
+.cp-em hr{border:0;border-top:1px solid var(--gray-300);margin:var(--s3) 0;}
+.cp-em .sig{display:flex;align-items:center;gap:var(--s3);font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600);}
+.cp-em .sig .mk3{width:20px;height:20px;background:var(--ink);color:var(--ivory);display:grid;place-items:center;font-size:8px;border-radius:3px;}
+.cp-bn{background:var(--ink);color:var(--ivory);padding:var(--s7);display:flex;justify-content:space-between;align-items:center;gap:var(--s5);min-height:200px;}
+.cp-bn .lft b{display:block;font-size:32px;font-weight:500;line-height:1.05;letter-spacing:-.01em;max-width:18ch;}
+.cp-bn .lft span{display:block;margin-top:var(--s3);font:500 10px/1 var(--mono);color:var(--ember);letter-spacing:.15em;}
+.cp-bn .mbig{width:80px;height:80px;border:1px dashed var(--text-muted);display:grid;place-items:center;font:500 9px/1 var(--mono);color:var(--text-muted);flex-shrink:0;}
+
+/* REGISTER SWITCHER */
+.rsw{display:flex;gap:4px;padding:4px;background:var(--stone);border-radius:6px;margin:var(--s4) 0 var(--s5);flex-wrap:wrap;}
+.rsw button{padding:var(--s2) var(--s4);font-size:12px;font-weight:500;letter-spacing:.02em;border-radius:4px;color:var(--gray-700);transition:all 160ms cubic-bezier(.2,0,0,1);}
+.rsw button.active{background:var(--ink);color:var(--ivory);}
+.rsw button:hover:not(.active){background:rgba(0,0,0,.04);}
+.rdemo{padding:var(--s7);border:1px solid var(--gray-200);margin-bottom:var(--s4);min-height:420px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;}
+.rdemo .rey{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;}
+.rdemo .rti{font-size:56px;font-weight:500;line-height:1.05;letter-spacing:-.02em;max-width:16ch;margin:var(--s4) 0;}
+.rdemo .rbo{font-size:15px;line-height:1.5;max-width:46ch;opacity:.8;}
+.rdemo .rft{display:flex;justify-content:space-between;align-items:end;margin-top:var(--s6);font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.55;}
+.rdemo .rmk{width:40px;height:40px;border:1px dashed currentColor;display:grid;place-items:center;font:500 8px/1 var(--mono);opacity:.7;}
+[data-register="enterprise"] .rdemo{background:var(--ivory);color:var(--ink);}
+[data-register="event"] .rdemo{background:var(--ink);color:var(--ivory);}
+[data-register="event"] .rdemo .rti em{font-style:normal;color:var(--ember);}
+[data-register="product"] .rdemo{background:var(--white);color:var(--ink);border-left:2px solid var(--fn-blue);}
+[data-register="partner"] .rdemo{background:var(--stone);color:var(--ink);}
+.rdemo .acc{position:absolute;top:var(--s5);right:var(--s5);width:12px;height:12px;border-radius:50%;}
+[data-register="enterprise"] .acc{background:var(--gray-300);}
+[data-register="event"] .acc{background:var(--ember);}
+[data-register="product"] .acc{background:var(--fn-blue);}
+[data-register="partner"] .acc{background:var(--fn-sage);}
+
+/* REG TABLE */
+.rtbl{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin:var(--s5) 0;}
+.rcol{border:1px solid var(--gray-200);overflow:hidden;}
+.rch{padding:var(--s4);display:flex;flex-direction:column;gap:4px;}
+.rch b{font-size:13px;font-weight:500;}
+.rch span{font:400 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;}
+.rcol dl{padding:var(--s3) var(--s4);margin:0;font-size:12px;}
+.rcol dt{font:500 9px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--gray-500);margin-top:var(--s2);}
+.rcol dd{margin:2px 0 0;color:var(--ink);font-size:12px;line-height:1.4;}
+@media(max-width:720px){.rtbl{grid-template-columns:1fr 1fr;}}
+
+/* DECISION */
+.dtree{margin:var(--s4) 0;border:1px solid var(--gray-200);}
+.dn{display:grid;grid-template-columns:1fr auto;gap:var(--s5);padding:var(--s4);border-bottom:1px solid var(--gray-200);align-items:center;}
+.dn:last-child{border-bottom:0;}
+.dq{font-size:14px;color:var(--ink);}
+.da{font:500 12px/1 var(--mono);letter-spacing:.08em;color:var(--ember);white-space:nowrap;}
+
+/* QUESTIONS */
+.qs{margin-top:var(--s6);padding:var(--s6) var(--s7);background:var(--ink);color:var(--ivory);border-left:3px solid var(--ember);}
+.qs b{font:500 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.12em;display:block;margin-bottom:var(--s4);color:var(--ember);}
+.qs ol{margin:0;padding-left:var(--s4);line-height:1.8;color:rgba(250,250,249,.8);}
+.qs ol li{margin-bottom:var(--s3);font-size:15px;}
+
+/* TWEAKS */
+.tweaks{position:fixed;right:var(--s5);bottom:var(--s5);background:var(--ink);color:var(--ivory);border-radius:8px;padding:var(--s4);z-index:100;width:240px;font-size:12px;display:none;box-shadow:0 8px 32px rgba(0,0,0,.15);}
+.tweaks.visible{display:block;}
+.tweaks h5{margin:0 0 var(--s3);font:500 10px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);}
+.tweaks .tr{margin-bottom:var(--s3);}
+.tweaks .tr label{display:block;font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--s2);}
+.tweaks .seg{display:flex;gap:2px;background:rgba(255,255,255,.08);padding:2px;border-radius:4px;}
+.tweaks .seg button{flex:1;padding:6px 4px;font-size:11px;font-weight:500;border-radius:3px;color:var(--text-muted);}
+.tweaks .seg button.on{background:var(--ivory);color:var(--ink);}
+</style>
+</head>
+<body data-register="enterprise" data-density="default">
+<div class="shell">
+
+<nav class="side">
+  <div class="brand"><div class="mark-box">IB</div><div class="wordmark">Insideboard AI</div></div>
+  <div class="ng"><div class="ngl">Layer 1 · Strategy</div>
+  <ol>
+    <li><a href="#s11">Positioning</a></li>
+    <li><a href="#s12">The Closed Loop</a></li>
+    <li><a href="#s13">The Success Formula</a></li>
+    <li><a href="#s14">Audiences</a></li>
+    <li><a href="#s15">Application territories</a></li>
+    <li><a href="#s16">IRON</a></li>
+    <li><a href="#s17">Trust architecture</a></li>
+  </ol></div>
+  <div class="ng"><div class="ngl">Layer 2 · Verbal</div>
+  <ol>
+    <li><a href="#s21">Verbal architecture</a></li>
+    <li><a href="#s22">Tone &amp; voice</a></li>
+    <li><a href="#s23">Verbal registers</a></li>
+    <li><a href="#s24">Audience messaging</a></li>
+    <li><a href="#s25">Non-negotiable rules</a></li>
+    <li><a href="#s26">Anti-patterns</a></li>
+    <li><a href="#s27">Reference card</a></li>
+  </ol></div>
+  <div class="ng"><div class="ngl">Layer 3 · Visual</div>
+  <ol>
+    <li><a href="#s01">Type system</a></li>
+    <li><a href="#s02">Color system</a></li>
+    <li><a href="#s02b">Data visualisation</a></li>
+    <li><a href="#s03">Space &amp; grid</a></li>
+    <li><a href="#s04">Iconography</a></li>
+    <li><a href="#s05">Illustration</a></li>
+    <li><a href="#s06">Butterfly mark</a></li>
+    <li><a href="#s07">Composition</a></li>
+    <li><a href="#s08">Photography</a></li>
+    <li><a href="#s09">Motion</a></li>
+    <li><a href="#s10">Coherence</a></li>
+  </ol></div>
+  <div class="meta">LAYERS 1 · 2 · 3<br>Brand System<br>April 2026 · Rev 2<br><br>Internal document.<br>Do not distribute.</div>
+</nav>
+
+<main class="doc">
+
+<header class="hero">
+  <div class="eyebrow"><span class="dot"></span> Brand System · Layers 1 · 2 · 3 · April 2026</div>
+  <h1>InsideBoard AI<br>Brand System.</h1>
+  <p class="lede">Three layers. One system. Strategy, verbal identity, and visual language aligned into a single operational reference for every team that produces or validates brand content.</p>
+  <div class="lbadges">
+    <span class="lb on">Layer 1 · Brand Strategy</span>
+    <span class="lb on">Layer 2 · Verbal Identity</span>
+    <span class="lb on">Layer 3 · Visual Identity</span>
+  </div>
+  <div class="mg" style="margin-top:var(--s6)">
+    <div><b>Posture</b><span>Always by your side.</span></div>
+    <div><b>Strategic positioning</b><span>Performance Orchestration Platform</span></div>
+    <div><b>Visual anchor</b><span>Outfit · Ember · Butterfly</span></div>
+    <div><b>Status</b><span>Rev 2 · Internal</span></div>
+  </div>
+</header>
+
+<div class="ldiv"><em>Layer 1</em> · Brand Strategy</div>
+
+<section class="chapter" id="s11">
+  <div class="ch"><div class="cn">1·1</div><div>
+    <h2>Positioning</h2>
+    <p class="pr">InsideBoard AI is the <em>performance layer</em> that sits on top of the client's existing ecosystem. It addresses what nobody else covers: what happens between tool deployment and actual team performance.</p>
+  </div></div>
+  <div class="cb">
+    <h3 class="sub">Strategic definition</h3>
+    <ul class="rules">
+      <li class="note"><b>Internal</b>Performance Orchestration Platform.</li>
+      <li class="note"><b>Tagline</b><em>Always by your side.</em></li>
+      <li class="note"><b style="color:transparent;user-select:none">——</b><span style="font:400 12px/1.4 var(--mono);letter-spacing:0.06em;color:var(--gray-500)">Always alone, never combined. Its strength comes from its isolation.</span></li>
+      <li class="note"><b>Promise (EN)</b>Your team's success isn't a matter of luck. We orchestrate it by your side, day after day.</li>
+      <li class="note"><b>Promise (FR)</b>Le succès de vos équipes ne se joue pas au hasard. Nous l'orchestrons à vos côtés, jour après jour.</li>
+      <li class="dont"><b>Former</b>"Activate your success" — phased out. Must not appear in any new material.</li>
+    </ul>
+    <div class="callout warn"><b>What InsideBoard is not</b>An LMS, an IT tool, a digitized consulting firm, an additional reporting layer, or a CRM add-on.</div>
+    <h3 class="sub">Client trajectory</h3>
+    <div class="fd light"><div class="flab">Maturity path</div><div class="ftxt">Onboarding → Adoption → Business Performance → Operational Excellence</div></div>
+    <p style="font-size:14px;color:var(--gray-700)">The client enters with a simple need and progressively discovers the platform's depth. We never promise transformation. We promise what makes transformation last.</p>
+    <h3 class="sub">Visual references</h3>
+    <ul class="rules">
+      <li class="note"><b>Linear</b>Rigor, purity, density without heaviness.</li>
+      <li class="note"><b>Notion</b>Human tone, accessible, without being casual.</li>
+      <li class="note"><b>Figma</b>Dual register: event-driven AND enterprise depending on context.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s12">
+  <div class="ch"><div class="cn">1·2</div><div>
+    <h2>The Closed Loop</h2>
+    <p class="pr">InsideBoard's engine is a <em>closed-loop system</em>. This is what transforms a static program into a living system.</p>
+  </div></div>
+  <div class="cb">
+    <div class="loop">
+      <div class="lst">KPI</div><div class="lar">→</div>
+      <div class="lst">Insight</div><div class="lar">→</div>
+      <div class="lst">Action</div><div class="lar">→</div>
+      <div class="lst">Behavior</div><div class="lar">→</div>
+      <div class="lst">Performance</div><div class="lar">→</div>
+      <div class="lst">KPI</div>
+    </div>
+    <p>InsideBoard doesn't just orchestrate — it measures the impact of what it orchestrates, and feeds that measurement back into the next cycle. This is the fundamental difference with every tool that stops at content delivery or reporting.</p>
+    <h3 class="sub">Differentiation</h3>
+    <div class="dtbl">
+      <div class="drow hd"><div class="dc">Vs.</div><div class="dc">What they do</div><div class="dc">What InsideBoard does instead</div></div>
+      <div class="drow"><div class="dc">LMS (Cornerstone, etc.)</div><div class="dc vs">Delivers content</div><div class="dc ib">Activates performance</div></div>
+      <div class="drow"><div class="dc">CRM-native tools</div><div class="dc vs">Tracks activity</div><div class="dc ib">Drives behavior and outcomes</div></div>
+      <div class="drow"><div class="dc">Consulting</div><div class="dc vs">Provides strategy and frameworks</div><div class="dc ib">Executes at scale</div></div>
+      <div class="drow"><div class="dc">Standalone AI tools</div><div class="dc vs">Produces insights</div><div class="dc ib">Delivers action, orchestration, measurable impact</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s13">
+  <div class="ch"><div class="cn">1·3</div><div>
+    <h2>The Success Formula</h2>
+    <p class="pr">InsideBoard's value architecture captured in a single formula. The <em>Loop</em> is the engine. The <em>Formula</em> is the architecture of value.</p>
+  </div></div>
+  <div class="cb">
+    <div class="fd"><div class="flab">The Success Formula</div><div class="ftxt">Performance + Engagement + Training + Collaboration <em>=</em> Success</div></div>
+    <p>Each dimension is powered by a dedicated IRON Agent. Together with the Closed Loop, they form the mechanism of proof in the verbal system: what makes the brand promise credible and defendable.</p>
+    <h3 class="sub">The four agents</h3>
+    <div class="ird">
+      <div class="irc" style="background:var(--fn-lavender)"><span class="irl">Performance Agent</span></div>
+      <div class="irc" style="background:var(--fn-coral)"><span class="irl">Engagement Agent</span></div>
+      <div class="irc" style="background:var(--fn-blue)"><span class="irl">Training Agent</span></div>
+      <div class="irc" style="background:var(--fn-sage);color:var(--ink)"><span class="irl">Collaboration Agent</span></div>
+    </div>
+    <h3 class="sub">Structural model — The Community</h3>
+    <p>The entire platform is organized around communities — a shared space where KPIs, content, coaching, and gamification converge around common goals. Every use case is a community.</p>
+    <ul class="rules">
+      <li class="note"><b>Architecture</b>One transversal community (BU, program) + role-based communities (account managers, service, ops).</li>
+      <li class="note"><b>References</b>General Motors and Michelin both follow this two-layer model.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s14">
+  <div class="ch"><div class="cn">1·4</div><div>
+    <h2>Audiences</h2>
+    <p class="pr">Four targets with distinct <em>roles, access points, and purchase stakes</em>. The platform addresses all four — but not through the same channel, nor with the same voice.</p>
+  </div></div>
+  <div class="cb">
+    <div class="agrid">
+      <div class="acard">
+        <div class="ar">Target 1 · Commercial target</div>
+        <div class="at">The Decision Maker</div>
+        <div class="as">CHRO · CFO · CIO · Transformation Director</div>
+        <p style="font-size:13px;color:var(--gray-700);margin-bottom:var(--s3)">We sell to this audience. Invested heavily in tools and deployment. Behaviors haven't followed. Purchase trigger: board pressure on transformation ROI, licence renewal forcing the question "are we actually using what we're paying for?"</p>
+        <div class="ak">"You paid for deployment. You expected performance. No one stayed for what happens in between."</div>
+        <div class="am">Brand thread mode: <em>Revelation</em></div>
+      </div>
+      <div class="acard">
+        <div class="ar">Target 2 · Critical pivot</div>
+        <div class="at">The Manager</div>
+        <div class="as">Team lead · Regional manager</div>
+        <p style="font-size:13px;color:var(--gray-700);margin-bottom:var(--s3)">The project doesn't take off without them. Runs communities. Senses what's happening in their team but lacks the data and time to act. The tipping point: when they realize InsideBoard works <em>for</em> them, not the other way around.</p>
+        <div class="ak">"What's happening in your team — you can feel it. We show it to you, and give you the means to act before it's too late."</div>
+        <div class="am">Brand thread mode: <em>Recognition</em></div>
+      </div>
+      <div class="acard">
+        <div class="ar">Target 3 · Product only</div>
+        <div class="at">The End User</div>
+        <div class="as">Sales rep · Advisor · Field operator</div>
+        <p style="font-size:13px;color:var(--gray-700);margin-bottom:var(--s3)">Not a commercial or marketing audience. Addressed exclusively through the product — UX copy, onboarding, IRON micro-interactions, Success Widget. Out of scope for Enterprise, Event, and Partner registers.</p>
+        <div class="ak">"Bonjour. Que voulez-vous comprendre aujourd'hui ?"</div>
+        <div class="am">Brand thread mode: <em>Presence</em></div>
+      </div>
+      <div class="acard">
+        <div class="ar">Target 4 · Partner ecosystem</div>
+        <div class="at">The Partner / Integrator</div>
+        <div class="as">PwC · Deloitte · BearingPoint · IBM</div>
+        <p style="font-size:13px;color:var(--gray-700);margin-bottom:var(--s3)">Sells transformations. Knows a significant portion don't last. Core concern: does it integrate cleanly? Can I resell it with confidence? Addressed through the Partner register — peer-to-peer, same rigour on substance.</p>
+        <div class="ak">"Your clients ask what happens after deployment. Now you have the answer — and the platform to deliver it."</div>
+        <div class="am">Brand thread mode: <em>Empowerment</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s15">
+  <div class="ch"><div class="cn">1·5</div><div>
+    <h2>Application territories</h2>
+    <p class="pr">InsideBoard positions by <em>problem type</em>, not by industry. Five primary territories.</p>
+  </div></div>
+  <div class="cb">
+    <div class="tergrid">
+      <div class="terc"><div class="tern">01</div><h4>CRM Adoption</h4><p>Salesforce, Dynamics. Deployment is done, data quality is poor, sales reps work around the tool. InsideBoard activates the right behaviors and measures adoption quality.</p></div>
+      <div class="terc"><div class="tern">02</div><h4>Sales Performance &amp; Coaching</h4><p>Coaching is inconsistent, individual performance visibility is fragmented. InsideBoard connects KPIs to coaching actions and makes them manageable by frontline leaders.</p></div>
+      <div class="terc"><div class="tern">03</div><h4>ERP / S4HANA Transformations</h4><p>Change fatigue, low post-go-live adoption. InsideBoard orchestrates engagement over time and aligns behaviors with program objectives.</p></div>
+      <div class="terc"><div class="tern">04</div><h4>Customer Service / Call Centers</h4><p>High handling times, inconsistent quality. InsideBoard provides real-time guidance and per-agent KPI tracking.</p></div>
+      <div class="terc"><div class="tern">05</div><h4>Learning &amp; Upskilling</h4><p>LMS content exists but goes unused. InsideBoard activates it through performance — learning becomes a lever, not an obligation.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s16">
+  <div class="ch"><div class="cn">1·6</div><div>
+    <h2>IRON</h2>
+    <p class="pr">The unified conversational interface across all platform objects. <em>Never</em> describe it as "an integrated AI assistant" or "an AI feature."</p>
+  </div></div>
+  <div class="cb">
+    <div class="ironw">
+      <div class="ironh"><h4>IRON — The interaction layer</h4><p>Provides access to the entire platform in natural language. Interacts with KPIs, communities, training, teams, documents.</p></div>
+      <div class="ironm">
+        <div class="im k"><b>Knowledge</b><span>RAG</span></div>
+        <div class="im d"><b>Deep Search</b><span>Semantic retrieval</span></div>
+        <div class="im m"><b>Multi-Agent</b><span>Cross-dimension orchestration</span></div>
+        <div class="im c"><b>Coaching</b><span>Roadmap</span></div>
+      </div>
+    </div>
+    <h3 class="sub">Access points</h3>
+    <ul class="rules">
+      <li class="note"><b>Sidebar</b>InsideBoard native sidebar — persistent access across all platform objects.</li>
+      <li class="note"><b>Widget</b>Success Widget embedded in client applications (Salesforce, M365, etc.).</li>
+      <li class="note"><b>Leaders Lab</b>Dedicated coaching interface for frontline managers.</li>
+    </ul>
+    <div class="callout warn"><b>Absolute rule</b>Never describe IRON as "an integrated AI assistant" or "an AI feature." It is the interaction layer that provides access to the entire platform in natural language. Acronym expansion not yet locked — to be arbitrated.</div>
+    <h3 class="sub">Emotional territory</h3>
+    <p><b>Immediate efficiency + Duration. Fast, then long.</b> InsideBoard doesn't promise transformation. It promises what makes transformation last.</p>
+  </div>
+</section>
+
+<section class="chapter" id="s17">
+  <div class="ch"><div class="cn">1·7</div><div>
+    <h2>Trust architecture</h2>
+    <p class="pr">Enterprise client base. Microsoft 365 environments. More than half of the CAC40. <em>The client enters through proof, not through promises.</em></p>
+  </div></div>
+  <div class="cb">
+    <div class="tgrid">
+      <div class="tcol">
+        <div class="tcl">Deployed clients</div>
+        <div class="tcli">
+          <span class="chip dep">Hermès</span><span class="chip dep">Air Liquide</span><span class="chip dep">Stellantis</span><span class="chip dep">ArcelorMittal</span><span class="chip dep">Vodafone</span><span class="chip dep">Adecco</span><span class="chip dep">La Poste</span><span class="chip dep">Crédit Agricole</span><span class="chip dep">Pernod Ricard</span><span class="chip dep">Sanofi</span>
+        </div>
+      </div>
+      <div class="tcol">
+        <div class="tcl">Target / Advanced prospects</div>
+        <div class="tcli"><span class="chip">Michelin</span><span class="chip">General Motors</span><span class="chip">Caterpillar</span><span class="chip">LyondellBasell</span><span class="chip">Micron</span><span class="chip">Publicis</span></div>
+        <div class="tcl" style="margin-top:var(--s4)">Partners</div>
+        <div class="tcli"><span class="chip par">PwC</span><span class="chip par">Deloitte</span><span class="chip par">BearingPoint</span><span class="chip par">IBM</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ldiv" style="margin-top:var(--s8)"><em>Layer 2</em> · Verbal Identity</div>
+
+<section class="chapter" id="s21">
+  <div class="ch"><div class="cn">2·1</div><div>
+    <h2>Verbal architecture</h2>
+    <p class="pr">Three levels. Each has a distinct function. They reinforce each other without <em>replacing</em> each other.</p>
+  </div></div>
+  <div class="cb">
+    <div class="pc">
+      <div class="pcl">Level 1 · Posture · What InsideBoard IS for the client</div>
+      <div class="pct">Always by your side.</div>
+      <div class="pcr">Always appears alone. Never combined with another formulation. Its strength comes from its isolation.</div>
+    </div>
+    <h4 class="mi">Authorized usages</h4>
+    <ul class="rules">
+      <li class="do"><b>Use</b>Tagline of the logo, end-of-deck signature, standalone title in editorial communications, brand campaign signature.</li>
+      <li class="dont"><b>Never</b>Combined with the promise (Level 2) or the formula (Level 3).</li>
+      <li class="dont"><b>Never</b>Translated into French in commercial communications. English version is canonical.</li>
+    </ul>
+    <h3 class="sub">Level 2 — Promise</h3>
+    <div class="fd"><div class="flab">Promise (EN) — canonical</div><div class="ftxt">Your team's success isn't a matter of luck. We orchestrate it by your side, day after day.</div></div>
+    <div class="fd light"><div class="flab">French adaptation</div><div class="ftxt">Le succès de vos équipes ne se joue pas au hasard. Nous l'orchestrons à vos côtés, jour après jour.</div></div>
+    <ul class="rules">
+      <li class="do"><b>Use</b>Hero statement on website, opening slide of commercial decks, major event keynotes.</li>
+      <li class="note"><b>Note</b>The full version (17 words) is dense by design. Never alongside <em>Always by your side</em>.</li>
+    </ul>
+    <h3 class="sub">Level 3 — Mechanism (proof)</h3>
+    <div class="vtbl">
+      <div class="vrow hd"><div class="vc">Level</div><div class="vc">Element</div><div class="vc">Function</div></div>
+      <div class="vrow"><div class="vc"><span class="vlv">Posture</span>Level 1</div><div class="vc"><em>Always by your side.</em></div><div class="vc">What InsideBoard IS for the client</div></div>
+      <div class="vrow"><div class="vc"><span class="vlv">Promise</span>Level 2</div><div class="vc"><em>Your team's success isn't a matter of luck...</em></div><div class="vc">What InsideBoard makes the client EXPERIENCE</div></div>
+      <div class="vrow"><div class="vc"><span class="vlv">Mechanism</span>Level 3</div><div class="vc">Success Formula + The Closed Loop</div><div class="vc">HOW it works, proven</div></div>
+    </div>
+    <div class="callout"><b>Linguistic orientation</b>English-first. All canonical brand formulations are written in English first. French versions are strategic adaptations, not literal translations.</div>
+  </div>
+</section>
+
+<section class="chapter" id="s22">
+  <div class="ch"><div class="cn">2·2</div><div>
+    <h2>Tone &amp; voice</h2>
+    <p class="pr"><em>Direct. Confident. Human. Outcome-oriented.</em> With a deliberate dose of lightness as a sign of confidence — never a sign of looseness.</p>
+  </div></div>
+  <div class="cb">
+    <ul class="rules">
+      <li class="note"><b>Vouvoiement</b>Systematic in French, including in micro-copy.</li>
+      <li class="note"><b>English-first</b>For all canonical formulations. French is strategic adaptation, not literal translation.</li>
+      <li class="dont"><b>Never</b>Hype, buzzwords, "disrupt" language, false intimacy ("Hey there").</li>
+      <li class="do"><b>Do</b>Speak from the silent wound. Do not demonstrate. Displace.</li>
+      <li class="do"><b>Do</b>Arrive as evidence, not as promise.</li>
+    </ul>
+    <h3 class="sub">Copywriting direction — reference benchmarks</h3>
+    <p>These validated examples define the right level. They name a felt reality the audience has never heard formulated with this precision.</p>
+    <div class="cpex">
+      <div class="ce"><div class="cen">Ex 01</div><div class="ceq">"Le projet s'est bien passé. C'est après que ça s'est effondré."</div></div>
+      <div class="ce"><div class="cen">Ex 02</div><div class="ceq">"Votre meilleur élément perd pied. Vous l'apprendrez trop tard, ou pas du tout."</div></div>
+      <div class="ce"><div class="cen">Ex 03</div><div class="ceq">"2 projets sur 3 échouent après le déploiement. Pas avant. Après."</div></div>
+      <div class="ce"><div class="cen">Ex 04</div><div class="ceq">"Ce n'est pas un problème de technologie. Ça ne l'a jamais été."</div></div>
+      <div class="ce"><div class="cen">Ex 05</div><div class="ceq">"La réponse était dans vos données. Vous n'aviez juste pas le moyen de la poser."</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s23">
+  <div class="ch"><div class="cn">2·3</div><div>
+    <h2>Verbal registers</h2>
+    <p class="pr">Four distinct registers. The <em>posture</em> and <em>promise</em> remain consistent — only their delivery adapts.</p>
+  </div></div>
+  <div class="cb">
+    <h3 class="sub">Enterprise</h3>
+    <p><b>Audience:</b> Decision-makers (CHRO, CFO, CIO), large enterprise communications.</p>
+    <ul class="rules">
+      <li class="note"><b>Tone</b>Sober, dense, confident without aggression.</li>
+      <li class="do"><b>Favor</b>Short sentences. Specific numbers. Named realities. Silence around important statements.</li>
+      <li class="dont"><b>Avoid</b>Adjectives, marketing intensifiers, conditional statements, hedge words ("might", "could potentially").</li>
+    </ul>
+    <div class="rex"><div class="rl">Enterprise · reference example</div><p>"Two transformations out of three fail after deployment. Not before. After. We address what comes after."</p></div>
+
+    <h3 class="sub">Event</h3>
+    <p><b>Audience:</b> Conferences, summits, IST, salons, keynotes.</p>
+    <ul class="rules">
+      <li class="note"><b>Tone</b>Rhythmic, energetic, generous.</li>
+      <li class="do"><b>Favor</b>Rhythm. Repetition for emphasis. Surprise. Direct address to the audience.</li>
+      <li class="dont"><b>Avoid</b>Hype, hyperbole, motivational poster tone.</li>
+    </ul>
+    <div class="rex"><div class="rl">Event · reference example</div><p>"You came here to talk about transformation. We'd like to talk about what happens after."</p></div>
+
+    <h3 class="sub">Product</h3>
+    <p><b>Audience:</b> End users — sales reps, advisors, field operators, managers using the platform daily.</p>
+    <ul class="rules">
+      <li class="note"><b>Tone</b>Clear, supportive, present without being intrusive.</li>
+      <li class="do"><b>Favor</b>Action-oriented language. Plain words. Vouvoiement maintained even in micro-copy.</li>
+      <li class="dont"><b>Avoid</b>Jargon, system-speak, condescension.</li>
+    </ul>
+    <div class="rex"><div class="rl">Product · IRON greeting example</div><p>"Bonjour. Que voulez-vous comprendre aujourd'hui ?"</p></div>
+
+    <h3 class="sub">Partner</h3>
+    <p><b>Audience:</b> Integration partners (PwC, Deloitte, BearingPoint, IBM).</p>
+    <ul class="rules">
+      <li class="note"><b>Tone</b>Peer-to-peer, open, slightly more relaxed than Enterprise.</li>
+      <li class="do"><b>Favor</b>Mutual recognition of complexity. Concrete operational benefits.</li>
+      <li class="dont"><b>Avoid</b>Hierarchical posture, vendor-customer asymmetry.</li>
+    </ul>
+    <div class="rex"><div class="rl">Partner · reference example</div><p>"Your clients are asking for what comes after deployment. We give you the answer — and the platform to deliver it."</p></div>
+  </div>
+</section>
+
+<section class="chapter" id="s24">
+  <div class="ch"><div class="cn">2·4</div><div>
+    <h2>Audience messaging</h2>
+    <p class="pr">The brand thread operates differently per audience. Same posture, different <em>activation mode</em>. This section defines how to write for each — not who they are, but how the message lands.</p>
+  </div></div>
+  <div class="cb">
+    <div class="agrid">
+      <div class="acard">
+        <div class="ar">Decision-Maker · Revelation</div>
+        <div class="at">CHRO · CFO · CIO · Transformation Director</div>
+        <p style="font-size:13px;color:var(--gray-700);margin:var(--s3) 0"><b>Psychological truth:</b> Has invested heavily. Senses the results haven't followed. Cannot pinpoint why. Has no data to prove it. Vendors deliver and leave — InsideBoard stays.</p>
+        <div class="ak">"You paid for deployment. You expected performance. No one stayed for what happens in between."</div>
+        <div class="am" style="margin-top:var(--s3);font-size:11px;color:var(--gray-600)">Outbound emails · Decision-maker decks · Executive whitepapers · LinkedIn signed articles</div>
+      </div>
+      <div class="acard">
+        <div class="ar">Manager · Recognition</div>
+        <div class="at">Team lead · Regional manager</div>
+        <p style="font-size:13px;color:var(--gray-700);margin:var(--s3) 0"><b>Psychological truth:</b> Already lives in the space InsideBoard addresses. Carries engagement responsibility without proper means. The platform finally gives them tools — it names what they already experience.</p>
+        <div class="ak">"What's happening in your team — you can feel it. We show it to you, and give you the means to act before it's too late."</div>
+        <div class="am" style="margin-top:var(--s3);font-size:11px;color:var(--gray-600)">Manager-focused product pages · In-app onboarding · Field manager testimonials</div>
+      </div>
+      <div class="acard">
+        <div class="ar">Partner · Empowerment</div>
+        <div class="at">PwC · Deloitte · BearingPoint · IBM</div>
+        <p style="font-size:13px;color:var(--gray-700);margin:var(--s3) 0"><b>Psychological truth:</b> Sells transformations. Knows a significant portion don't last. Needs a differentiated asset for proposals. <em>Always by your side</em> extends to the partner's own client relationship.</p>
+        <div class="ak">"Your clients ask what happens after deployment. Now you have the answer — and the platform to deliver it."</div>
+        <div class="am" style="margin-top:var(--s3);font-size:11px;color:var(--gray-600)">Partner decks · Partner pages on website · Outreach to partner managers</div>
+      </div>
+      <div class="acard">
+        <div class="ar">End User · Presence</div>
+        <div class="at">Sales rep · Advisor · Field operator</div>
+        <p style="font-size:13px;color:var(--gray-700);margin:var(--s3) 0"><b>Psychological truth:</b> Asked to change behavior daily, often without context, support, or proof that it matters. Not addressed through commercial communications — only through product micro-interactions.</p>
+        <div class="ak">"Bonjour. Que voulez-vous comprendre aujourd'hui ?"</div>
+        <div class="am" style="margin-top:var(--s3);font-size:11px;color:var(--gray-600)">Product register only · UX copy · IRON micro-interactions · Success Widget</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s25">
+  <div class="ch"><div class="cn">2·5</div><div>
+    <h2>Non-negotiable rules</h2>
+    <p class="pr">These rules apply across all registers, all audiences, all formats. <em>No exceptions.</em></p>
+  </div></div>
+  <div class="cb">
+    <h3 class="sub">Verbal rules</h3>
+    <ul class="rules">
+      <li class="dont"><b>Never</b><em>Always by your side</em></li>
+      <li class="dont"><b style="color:transparent;user-select:none">——</b><span style="font:400 12px/1.4 var(--mono);letter-spacing:0.06em;color:var(--gray-500)">combined with any other formulation.</span></li>
+      <li class="note"><b>Language</b>English-first. French is strategic adaptation, not literal translation.</li>
+      <li class="note"><b>French</b>Vouvoiement systematic in all contexts including product.</li>
+      <li class="dont"><b>Never</b>"Activate your success" — being phased out.</li>
+      <li class="dont"><b>Never</b>Describe IRON as "an integrated AI assistant" or "an AI feature."</li>
+      <li class="dont"><b>Never</b>Inherit change-management terminology from legacy Confluence docs.</li>
+    </ul>
+    <h3 class="sub">Tone rules</h3>
+    <ul class="rules">
+      <li class="dont"><b>No</b>Hype, "disrupt", startup posture.</li>
+      <li class="dont"><b>No</b>Corporate buzzwords ("synergy", "leverage", "best-in-class").</li>
+      <li class="dont"><b>No</b>False intimacy ("Hey there", first-name basis in commercial communications).</li>
+      <li class="dont"><b>No</b>Claims of transformation. We claim what makes transformation last.</li>
+    </ul>
+    <h3 class="sub">Formatting rules</h3>
+    <ul class="rules">
+      <li class="dont"><b>No</b>Em dashes in body copy. Use periods, commas, or colons.</li>
+      <li class="do"><b>Use</b>Specific numbers over rounded approximations ("2 out of 3" rather than "most").</li>
+      <li class="do"><b>Use</b>Short sentences in Enterprise register.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s26">
+  <div class="ch"><div class="cn">2·6</div><div>
+    <h2>Anti-patterns</h2>
+    <p class="pr">What the brand sounds like when it goes wrong. If a draft falls into one of these, return to the Verbal Architecture and rewrite from there.</p>
+  </div></div>
+  <div class="cb">
+    <div class="atbl">
+      <div class="arow hd"><div class="ac">Anti-pattern</div><div class="ac">Why it's wrong</div><div class="ac">What to do instead</div></div>
+      <div class="arow"><div class="ac"><span class="apn">Aggressive startup voice</span></div><div class="ac">Contradicts the maturity of the client base</div><div class="ac">Sober Enterprise tone</div></div>
+      <div class="arow"><div class="ac"><span class="apn">Cold IT vendor voice</span></div><div class="ac">Contradicts the human dimension of the brand</div><div class="ac">Reintroduce presence and care</div></div>
+      <div class="arow"><div class="ac"><span class="apn">Consulting firm voice</span></div><div class="ac">Contradicts "we execute, we don't advise"</div><div class="ac">Speak from the operational reality</div></div>
+      <div class="arow"><div class="ac"><span class="apn">Generic SaaS marketing</span></div><div class="ac">No differentiation, no felt truth</div><div class="ac">Return to the silent wound</div></div>
+      <div class="arow"><div class="ac"><span class="apn">Motivational poster</span></div><div class="ac">Lightness becomes hollow</div><div class="ac">Specificity, not enthusiasm</div></div>
+      <div class="arow"><div class="ac"><span class="apn">Demonstration mode</span></div><div class="ac">Convinces the head, not the gut</div><div class="ac">Name the felt reality first</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s27">
+  <div class="ch"><div class="cn">2·7</div><div>
+    <h2>Reference card</h2>
+    <p class="pr">Condensed daily reference. <em>Print, pin, share.</em></p>
+  </div></div>
+  <div class="cb">
+    <div class="refc">
+      <div class="rcs"><span class="rck">POSTURE</span><span class="rcv">Always by your side.</span><br><span class="rcv" style="opacity:.5;font-size:11px">(always alone, never combined)</span></div>
+      <div class="rcd"></div>
+      <div class="rcs"><span class="rck">PROMISE</span><span class="rcv">Your team's success isn't a matter of luck.</span><br><span class="rcv">We orchestrate it by your side, day after day.</span></div>
+      <div class="rcd"></div>
+      <div class="rcs"><span class="rck">MECHANISM</span><span class="rcv">Performance + Engagement + Training + Collaboration = Success</span><br><span class="rcv">KPI → Insight → Action → Behavior → Performance → KPI</span></div>
+      <div class="rcd"></div>
+      <div class="rcs"><span class="rck">TONE</span><span class="rcv">Direct. Confident. Human. Outcome-oriented.</span><br><span class="rcv">Lightness as a sign of confidence.</span></div>
+      <div class="rcd"></div>
+      <div class="rcs"><span class="rck">VOICE</span><span class="rcv">English-first. Vouvoiement in French.</span><br><span class="rcv">Speak from the silent wound. Don't demonstrate. Displace.</span></div>
+      <div class="rcd"></div>
+      <div class="rcs"><span class="rck">REGISTERS</span><span class="rcv">Enterprise (sober) · Event (rhythmic) · Product (clear) · Partner (peer-to-peer)</span></div>
+      <div class="rcd"></div>
+      <div class="rcs"><span class="rck">NEVER</span><span class="rcv">"Activate your success" · IRON as "AI assistant"</span><br><span class="rcv">Em dashes in body · Hype · Corporate buzzwords</span><br><span class="rcv">Always by your side combined with anything else</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="ldiv" style="margin-top:var(--s8)"><em>Layer 3</em> · Visual Identity · v1 draft</div>
+
+<section class="chapter" id="s01">
+  <div class="ch"><div class="cn">3·01</div><div>
+    <h2>Type system</h2>
+    <p class="pr">One family, five roles. <em>Outfit</em> carries the entire system; <em>Fraunces</em> lives only inside the logo. No italic anywhere else.</p>
+  </div></div>
+  <div class="cb">
+    <div class="tspec">
+      <div class="row"><div class="lbl">Display<span>500 · 72–96px</span></div><div class="disp">Always by your side.</div></div>
+      <div class="row"><div class="lbl">Title<span>500 · 48–56px</span></div><div class="titl">The formula is the product.</div></div>
+      <div class="row"><div class="lbl">Subtitle<span>400 · 28–32px</span></div><div class="subt">A supporting line that introduces the main idea without competing with it.</div></div>
+      <div class="row"><div class="lbl">Body<span>400 · 16–18px</span></div><div class="body">Body copy stays at a comfortable reading size. Line-height is 1.55 by default.</div></div>
+      <div class="row"><div class="lbl">Caption<span>500 · 12–13px · tracking +10%</span></div><div class="capt">Section · Label · Metadata</div></div>
+    </div>
+    <ul class="rules">
+      <li class="do"><b>Use</b>400 Regular for all running text. 500 Medium for titles, KPIs, captions.</li>
+      <li class="dont"><b>Avoid</b>700 Bold. Contrast comes from size and color, not from Bold.</li>
+      <li class="dont"><b>Avoid</b>Italic Outfit anywhere in the system.</li>
+    </ul>
+    <div class="callout"><b>Why only Outfit</b>Outfit carries enough humanism to avoid the cold-IT register, and enough geometry to stay enterprise-credible.</div>
+    <h3 class="sub">JetBrains Mono — the second voice</h3>
+    <p>JetBrains Mono handles everything that is <b>systemic, indexed, or technical</b> — it is not a display font, it is a distinction device. When something is in Mono, it signals: this is UI, this is metadata, this is a label, not prose.</p>
+    <div class="tspec" style="margin-bottom:var(--s5)">
+      <div class="row">
+        <div class="lbl">Label<span>500 · 13px · tracking +10%</span></div>
+        <div style="font:500 13px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray-600)">Section · Layer · Metadata</div>
+      </div>
+      <div class="row">
+        <div class="lbl">Caption<span>400 · 11px · tracking +8%</span></div>
+        <div style="font:400 11px/1.4 var(--mono);letter-spacing:.08em;color:var(--gray-500)">April 2026 · Rev 2 · Internal document</div>
+      </div>
+      <div class="row">
+        <div class="lbl">Counter<span>500 · 10px · tracking +12%</span></div>
+        <div style="font:500 10px/1 var(--mono);letter-spacing:.12em;color:var(--gray-400)">01 · 02 · 03 · 04</div>
+      </div>
+      <div class="row">
+        <div class="lbl">Code<span>400 · 11px</span></div>
+        <div style="font:400 11px/1.4 var(--mono);color:var(--gray-600)">cubic-bezier(0.2, 0, 0, 1)</div>
+      </div>
+    </div>
+    <ul class="rules">
+      <li class="note"><b>Role</b>Labels, captions, metadata, counters, section numbers, code, navigation indices.</li>
+      <li class="note"><b>Weight</b>400 and 500 only. Never 600 or above.</li>
+      <li class="note"><b>Size</b>Always ≤ 13px in the system. Mono at large sizes reads as code, not as brand.</li>
+      <li class="do"><b>Use</b>Any UI element that names, indexes, or classifies — nav counters, eyebrows, captions, tags, timestamps.</li>
+      <li class="dont"><b>Never</b>Running text, headlines, or any element larger than 13px.</li>
+    </ul>
+    <div class="callout"><b>The contrast rule</b>Outfit speaks. Mono points. The two fonts create a clear system/content distinction — everything structural or technical passes through Mono, everything editorial stays in Outfit. Mixing them at similar sizes breaks this.</div>
+    <h3 class="sub">Highlight system</h3>
+    <p>Une seule technique de mise en valeur autorisée dans le body : le soulignement Ember à 50% en dégradé bas de ligne. Documenté ici pour usage futur dans tout asset produit.</p>
+    <div style="background:var(--white);border:1px solid var(--gray-200);padding:var(--s5);margin:var(--s4) 0;max-width:66ch">
+      <p style="font-size:18px;margin:0">InsideBoard is the <span style="font-weight:500;background:linear-gradient(180deg,transparent 60%,rgba(238,46,32,.50) 60%);padding:0 2px">performance layer</span> that sits on top of the client's existing ecosystem.</p>
+    </div>
+    <ul class="rules">
+      <li class="note"><b>Opacité</b>50% — en dessous, le signal disparaît. Au-dessus, il entre en compétition avec les usages Ember primaires.</li>
+      <li class="note"><b>CSS</b><code style="font:400 11px/1 var(--mono);color:var(--gray-600)">background:linear-gradient(180deg,transparent 60%,rgba(238,46,32,.50) 60%)</code></li>
+      <li class="do"><b>Usage</b>Principes de chapitre, accroches éditoriales, phrases clés dans le body.</li>
+      <li class="dont"><b>Jamais</b>Sur fond sombre, sur du Bold, ni combiné avec la couleur Ember en texte.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s02">
+  <div class="ch"><div class="cn">3·02</div><div>
+    <h2>Color system</h2>
+    <p class="pr">Five primaries carry the identity. Twelve functional anchors carry meaning. <em>Ember</em> is not an accent — it is a <em>signal</em>.</p>
+  </div></div>
+  <div class="cb">
+    <h3 class="sub">Primary palette</h3>
+    <div class="sw-g p5">
+      <div class="sw"><div class="ch" style="background:var(--white);color:var(--ink);border-bottom:1px solid var(--gray-200)">WHITE</div><div class="mt"><span class="nm">White</span><span class="hx">#FFFFFF</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--ivory);color:var(--ink)">IVORY</div><div class="mt"><span class="nm">Ivory</span><span class="hx">#F4EFE6</span></div></div>
+      <div class="sw"><div class="ch" style="background:#EAE6DF;color:var(--ink)">STONE</div><div class="mt"><span class="nm">Stone</span><span class="hx">#EAE6DF</span><span class="hx">C0 M2 Y6 K8*</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--ink);color:var(--ivory)">INK</div><div class="mt"><span class="nm">Ink</span><span class="hx">#1B1712</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--ember);color:var(--ivory)">EMBER</div><div class="mt"><span class="nm">Ember V2</span><span class="hx">#EE2E20</span></div></div>
+    </div>
+    <h3 class="sub">Warm gray scale — 11 steps</h3>
+    <div class="gbar">
+      <div style="background:#F4EFE6"><b>50</b><span>#F4EFE6</span></div>
+      <div style="background:#EAE3D6"><b>100</b><span>#EAE3D6</span></div>
+      <div style="background:#DDD4C4"><b>200</b><span>#DDD4C4</span></div>
+      <div style="background:#C9BEAB"><b>300</b><span>#C9BEAB</span></div>
+      <div style="background:#AFA38E"><b>400</b><span>#AFA38E</span></div>
+      <div style="background:#8F8472"><b>500</b><span>#8F8472</span></div>
+      <div style="background:#6F6656" class="dk"><b>600</b><span>#6F6656</span></div>
+      <div style="background:#4F483C" class="dk"><b>700</b><span>#4F483C</span></div>
+      <div style="background:#332E26" class="dk"><b>800</b><span>#332E26</span></div>
+      <div style="background:#1B1712" class="dk"><b>900</b><span>#1B1712</span></div>
+      <div style="background:#0D0B08" class="dk"><b>950</b><span>#0D0B08</span></div>
+    </div>
+    <h3 class="sub">Functional palette — 12 anchors</h3>
+    <h4 class="mi">IRON agents — reserved colors</h4>
+    <div class="sw-g p6" style="margin-bottom:var(--s5)">
+      <div class="sw"><div class="ch" style="background:var(--fn-coral)"></div><div class="mt"><span class="nm">Coral</span><span class="hx">#F08B73</span><span class="hx" style="color:var(--ember);font-weight:500">IRON · Engagement</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-blue)"></div><div class="mt"><span class="nm">Blue</span><span class="hx">#7DA8E8</span><span class="hx" style="color:var(--ember);font-weight:500">IRON · Training</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-sage);color:var(--ink)"></div><div class="mt"><span class="nm">Sage</span><span class="hx">#B8D29C</span><span class="hx" style="color:var(--ember);font-weight:500">IRON · Collaboration</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-lavender);color:var(--ink)"></div><div class="mt"><span class="nm">Lavender</span><span class="hx">#B79BE8</span><span class="hx" style="color:var(--ember);font-weight:500">IRON · Performance</span></div></div>
+    </div>
+    <h4 class="mi">General functional colors</h4>
+    <div class="sw-g p6">
+      <div class="sw"><div class="ch" style="background:var(--fn-red)"></div><div class="mt"><span class="nm">Red</span><span class="hx">#D64545</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-orange)"></div><div class="mt"><span class="nm">Orange</span><span class="hx">#E3893A</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-yellow);color:var(--ink)"></div><div class="mt"><span class="nm">Yellow</span><span class="hx">#E5B94A</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-green)"></div><div class="mt"><span class="nm">Green</span><span class="hx">#4F8B5E</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-teal)"></div><div class="mt"><span class="nm">Teal</span><span class="hx">#3E8C93</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-indigo)"></div><div class="mt"><span class="nm">Indigo</span><span class="hx">#3F4FA8</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-brown)"></div><div class="mt"><span class="nm">Brown</span><span class="hx">#8B5A3C</span></div></div>
+      <div class="sw"><div class="ch" style="background:var(--fn-pink)"></div><div class="mt"><span class="nm">Pink</span><span class="hx">#D97BA8</span></div></div>
+    </div>
+    <h3 class="sub">Allowed combinations</h3>
+    <div class="cm-mx">
+      <div class="comb" style="background:var(--ivory);color:var(--ink)"><div class="cl">01 · Canvas</div><div class="cs">Ink on Ivory</div><div class="cr">Ratio 13.4 · AAA</div></div>
+      <div class="comb" style="background:var(--ink);color:var(--ivory)"><div class="cl">02 · Deep</div><div class="cs">Ivory on Ink</div><div class="cr">Ratio 13.4 · AAA</div></div>
+      <div class="comb" style="background:var(--ink);color:var(--ember)"><div class="cl">03 · Signal</div><div class="cs">Ember on Ink</div><div class="cr">Ratio 4.9 · AA</div></div>
+      <div class="comb" style="background:var(--stone);color:var(--ink)"><div class="cl">04 · Surface</div><div class="cs">Ink on Stone</div><div class="cr">Ratio 11.2 · AAA</div></div>
+    </div>
+    <div class="callout warn"><b>Forbidden</b>White text on Ivory/Stone. Ember on Stone or Ivory large surfaces. Two functional colors at full saturation in one composition.</div>
+    <h3 class="sub">Functional palette — usage rules</h3>
+    <div class="fnu">
+      <div class="fnr hd"><span>Color</span><span>Large surface</span><span>Object marker</span><span>Typography</span><span>Primary use</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-coral)"></i>Coral</span><span class="yes">Yes</span><span class="yes">Yes</span><span class="no">No</span><span>IRON Engagement — card, icon, agent surface</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-blue)"></i>Blue</span><span class="yes">Yes</span><span class="yes">Yes</span><span class="no">No</span><span>IRON Training — card, icon, agent surface</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-sage)"></i>Sage</span><span class="yes">Yes</span><span class="yes">Yes</span><span class="no">No</span><span>IRON Collaboration — card, icon, agent surface</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-lavender)"></i>Lavender</span><span class="yes">Yes</span><span class="yes">Yes</span><span class="no">No</span><span>IRON Performance — card, icon, agent surface</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-red)"></i>Red</span><span class="no">No</span><span class="yes">Yes</span><span class="yes">Yes</span><span>Error state, destructive</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-green)"></i>Green</span><span class="no">No</span><span class="yes">Yes</span><span class="yes">Yes</span><span>Success state, positive delta</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-yellow)"></i>Yellow</span><span class="no">No</span><span class="yes">Yes</span><span class="yes">Yes</span><span>Warning, pending, attention</span></div>
+      <div class="fnr"><span><i style="background:var(--fn-orange)"></i>Orange</span><span class="no">No</span><span class="yes">Yes</span><span class="no">No</span><span>Data-viz only — too close to Ember to use as surface</span></div>
+    </div>
+    <h3 class="sub">IRON family — visual signature</h3>
+    <div class="ird">
+      <div class="irc" style="background:var(--fn-coral)"><span class="irl">Engagement</span></div>
+      <div class="irc" style="background:var(--fn-blue)"><span class="irl">Training</span></div>
+      <div class="irc" style="background:var(--fn-sage);color:var(--ink)"><span class="irl">Collaboration</span></div>
+      <div class="irc" style="background:var(--fn-lavender);color:var(--ink)"><span class="irl">Performance</span></div>
+    </div>
+    <h4 class="mi">Dark vs Light — règle de lisibilité</h4>
+    <ul class="rules">
+      <li class="do"><b>Ink text</b>Sur Sage et Lavender — ces deux couleurs sont trop claires pour du texte ivory.</li>
+      <li class="do"><b>Ivory text</b>Sur Coral et Blue — ces deux couleurs sont suffisamment sombres pour porter du texte clair.</li>
+      <li class="note"><b>Sur fond Ink</b>Toutes les quatre couleurs IRON sont autorisées comme surfaces. Le texte interne reste ivory ou ink selon la règle ci-dessus.</li>
+      <li class="dont"><b>Jamais</b>Du texte Ink sur Coral ou Blue. Du texte Ivory sur Sage ou Lavender.</li>
+    </ul>
+    <div class="callout warn"><b>Ember signal integrity</b>One Ember, unambiguous, reserved for the moment the brand chooses to speak. If it appears next to another loud color, it loses meaning.</div>
+  </div>
+</section>
+
+<section class="chapter" id="s02b">
+  <div class="ch"><div class="cn">3·02·</div><div>
+    <h2>Data visualisation</h2>
+    <p class="pr">Charts are where a brand system dies or holds. The rule: <em>mapping before decoration</em>.</p>
+  </div></div>
+  <div class="cb">
+    <h3 class="sub">Categorical sequence — max 6</h3>
+    <p>Pour les données non liées aux agents IRON, utiliser cette séquence ordinale. Les couleurs IRON (Coral, Blue, Sage, Lavender) sont réservées exclusivement aux agents.</p>
+    <div class="vseq">
+      <div class="vz" style="background:var(--fn-teal)"><span>01</span></div>
+      <div class="vz" style="background:var(--fn-indigo)"><span>02</span></div>
+      <div class="vz" style="background:var(--fn-brown)"><span>03</span></div>
+      <div class="vz" style="background:var(--fn-orange)"><span>04</span></div>
+      <div class="vz" style="background:var(--fn-green)"><span>05</span></div>
+      <div class="vz" style="background:var(--fn-yellow);color:var(--ink)"><span>06</span></div>
+    </div>
+    <h3 class="sub">Chart mock — données génériques</h3>
+    <div class="chmk">
+      <div class="cmh">
+        <div class="cmt">Performance par région · Q2</div>
+        <div class="cml">
+          <span><i style="background:var(--fn-teal)"></i>EMEA</span>
+          <span><i style="background:var(--fn-indigo)"></i>APAC</span>
+          <span><i style="background:var(--fn-brown)"></i>AMER</span>
+          <span><i style="background:var(--fn-orange)"></i>LATAM</span>
+        </div>
+      </div>
+      <div class="cmb">
+        <div class="cmc"><div class="cmbar" style="height:68%;background:var(--fn-teal)"></div><span>Jan</span></div>
+        <div class="cmc"><div class="cmbar" style="height:82%;background:var(--fn-indigo)"></div><span>Feb</span></div>
+        <div class="cmc"><div class="cmbar" style="height:54%;background:var(--fn-brown)"></div><span>Mar</span></div>
+        <div class="cmc"><div class="cmbar" style="height:91%;background:var(--fn-teal)"></div><span>Apr</span></div>
+        <div class="cmc"><div class="cmbar" style="height:76%;background:var(--fn-indigo)"></div><span>May</span></div>
+        <div class="cmc"><div class="cmbar" style="height:88%;background:var(--fn-brown)"></div><span>Jun</span></div>
+      </div>
+    </div>
+    <div class="callout"><b>Exception IRON</b>Quand les données représentent spécifiquement les quatre agents (adoption par agent, activité par agent), utiliser Coral / Blue / Sage / Lavender. Dans tous les autres contextes, utiliser la séquence data-viz ci-dessus.</div>
+    <ul class="rules">
+      <li class="do"><b>Axes</b>1px stroke, gray-300. No gridlines other than the zero line.</li>
+      <li class="dont"><b>Avoid</b>3D charts, shadows, beveled bars. Pie charts above 3 slices. Dual-axis charts.</li>
+    </ul>
+    <h3 class="sub">Tables — dense data</h3>
+    <div class="tdemo">
+      <table>
+        <thead><tr><th>Région</th><th>Comptes actifs</th><th>Adoption</th><th>Delta vs Q1</th></tr></thead>
+        <tbody>
+          <tr><td><i class="dot2" style="background:var(--fn-teal)"></i>EMEA</td><td>14</td><td>68%</td><td class="pos">+12 pts</td></tr>
+          <tr><td><i class="dot2" style="background:var(--fn-indigo)"></i>APAC</td><td>9</td><td>82%</td><td class="pos">+18 pts</td></tr>
+          <tr><td><i class="dot2" style="background:var(--fn-brown)"></i>AMER</td><td>11</td><td>54%</td><td class="neg">−3 pts</td></tr>
+          <tr><td><i class="dot2" style="background:var(--fn-orange)"></i>LATAM</td><td>6</td><td>91%</td><td class="pos">+9 pts</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s03">
+  <div class="ch"><div class="cn">3·03</div><div>
+    <h2>Space &amp; grid</h2>
+    <p class="pr">The system breathes on an <em>8-pixel</em> base. Four was tempting for UI finesse — eight forces respiration.</p>
+  </div></div>
+  <div class="cb">
+    <div class="spr">
+      <div class="st"><div class="bar" style="width:4px"></div><b>4</b><span>s-1</span></div>
+      <div class="st"><div class="bar" style="width:8px"></div><b>8</b><span>s-2</span></div>
+      <div class="st"><div class="bar" style="width:16px"></div><b>16</b><span>s-3</span></div>
+      <div class="st"><div class="bar" style="width:24px"></div><b>24</b><span>s-4</span></div>
+      <div class="st"><div class="bar" style="width:32px"></div><b>32</b><span>s-5</span></div>
+      <div class="st"><div class="bar" style="width:48px"></div><b>48</b><span>s-6</span></div>
+      <div class="st"><div class="bar" style="width:64px"></div><b>64</b><span>s-7</span></div>
+      <div class="st"><div class="bar" style="width:96px"></div><b>96</b><span>s-8</span></div>
+      <div class="st"><div class="bar" style="width:128px"></div><b>128</b><span>s-9</span></div>
+    </div>
+    <ul class="rules">
+      <li class="note"><b>Web</b>12 columns, gutter 24, outer margin 64 (≥1440px) / 24 (mobile).</li>
+      <li class="note"><b>Slide</b>12 columns on 1920×1080, padding top 100 / bottom 80 / side 100.</li>
+      <li class="note"><b>Print HP Indigo</b>8 columns, gutter 6mm, outer margins ≥15mm, bleed 3mm.</li>
+      <li class="note"><b>Confluence / Google Slides</b>Use 6 columns as working grid.</li>
+    </ul>
+    <div class="gdemo">
+      <div class="cols"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      <div class="cap"><span>12 COLUMNS · GUTTER 24 · MARGIN 64</span><span>WEB BASE GRID</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="chapter" id="s04">
+  <div class="ch"><div class="cn">3·04</div><div>
+    <h2>Iconography</h2>
+    <p class="pr">One style: <em>outline, 1.5 px stroke, 24×24 grid, 2 px corners</em>. Not filled, not duotone.</p>
+  </div></div>
+  <div class="cb">
+    <ul class="rules">
+      <li class="do"><b>Use</b>Outline 1.5px. Square caps. 2px corner radius. 24×24 native grid.</li>
+      <li class="dont"><b>Avoid</b>Filled icons. Duotone. Literal figuration (dumbbell for Training, handshake for Collaboration).</li>
+    </ul>
+    <div class="icg">
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><circle cx="12" cy="12" r="8"/><path d="M8 12h8M12 8v8"/></svg><span>01</span></div>
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/></svg><span>02</span></div>
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 20V8l8-4 8 4v12"/><path d="M10 20v-6h4v6"/></svg><span>03</span></div>
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg><span>04</span></div>
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M3 17l4-4 4 4 7-7"/><path d="M14 6h6v6"/></svg><span>05</span></div>
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg><span>06</span></div>
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 6l8 7 8-7"/><path d="M4 6v12h16V6"/></svg><span>07</span></div>
+      <div class="ic"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><circle cx="6" cy="12" r="3"/><circle cx="18" cy="6" r="3"/><circle cx="18" cy="18" r="3"/><path d="M8.5 10.5l7-3.5M8.5 13.5l7 3.5"/></svg><span>08</span></div>
+    </div>
+    <div class="callout"><b>IRON icons</b>The four IRON agents ship with designed icons and tagged colors (Coral, Blue, Sage, Lavender) so they travel consistently across every surface.</div>
+  </div>
+</section>
+
+<section class="chapter" id="s05">
+  <div class="ch"><div class="cn">3·05</div><div>
+    <h2>Illustration &amp; visual treatment</h2>
+    <p class="pr">No figurative illustration. Three registers only: <em>type as image</em>, <em>butterfly signature</em>, and <em>documentary photography</em>.</p>
+  </div></div>
+  <div class="cb">
+    <ul class="rules">
+      <li class="do"><b>Type</b>The Formula, KPIs, verbatim set very large. The brand has a strong verbal system; it deserves to be looked at, not just read.</li>
+      <li class="do"><b>Mark</b>The butterfly in signature mode as the sole decorative element we allow.</li>
+      <li class="dont"><b>No</b>Isometric / vector illustration / blobs / gradient meshes.</li>
+      <li class="dont"><b>No</b>3D abstraction, glassmorphism, glows.</li>
+      <li class="dont"><b>No</b>Stock photography. Non-negotiable.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s06">
+  <div class="ch"><div class="cn">3·06</div><div>
+    <h2>The butterfly mark</h2>
+    <p class="pr">Two modes, no third. <em>Identity</em> — inside the logo lockup. <em>Signature</em> — large, rare, as the closing gesture.</p>
+  </div></div>
+  <div class="cb">
+    <div class="bfly">
+      <div class="bm id"><div class="bcap">01 · Identity</div><div class="lku"><div class="mk">MARK</div><div class="wm">INSIDEBOARD AI</div></div></div>
+      <div class="bm sg"><div class="bcap">02 · Signature</div><div class="mhuge">MARK<br>1/6 MIN</div></div>
+    </div>
+    <ul class="rules">
+      <li class="do"><b>Identity</b>Always in the validated lockup. Minimum clear space = 1× mark height on all sides.</li>
+      <li class="do"><b>Signature</b>Minimum size = 1/6 of the support width. On Ink or Ivory only. At most one per support.</li>
+      <li class="dont"><b>No</b>Pattern, watermark behind text, multi-color or gradient version.</li>
+      <li class="note"><b>Animation</b>Stroke-dasharray reveal. 800ms, cubic-bezier(0.2,0,0,1), on load only, once. It builds, then holds. It does not fly.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s07">
+  <div class="ch"><div class="cn">3·07</div><div>
+    <h2>Composition patterns</h2>
+    <p class="pr">Seven root compositions. Consistency comes from <em>what is forbidden everywhere</em> — no shadows, no border-radius over 8px, no more than two colors.</p>
+  </div></div>
+  <div class="cb">
+    <div class="cpg">
+      <div class="cp wide"><div class="capt2">01 · Hero-Posture</div><div class="cp-hero cpf"><div class="fml">Always <em>by your side</em>.</div><div class="mk2">MARK</div></div></div>
+      <div class="cp"><div class="capt2">02 · Section title</div><div class="cp-sec cpf"><div class="sn">§ 03</div><div class="st">The four agents, one formula.</div></div></div>
+      <div class="cp"><div class="capt2">03 · Formula slide</div><div class="cp-fml cpf"><div class="ft">Insight is the starting move. Action is the product.</div></div></div>
+      <div class="cp"><div class="capt2">04 · KPI slide</div><div class="cp-kpi cpf" style="min-height:220px;padding:var(--s7)"><div class="kpi"><b>3.4×</b><span>adoption lift</span></div><div class="kpi"><b>62%</b><span>faster ramp</span></div><div class="kpi"><b>N=84</b><span>pilot cohort</span></div></div></div>
+      <div class="cp"><div class="capt2">05 · Email signature</div><div class="cp-em cpf"><b class="nm">Lea Moreau</b><span class="rl">Head of Customer Strategy</span><hr><div class="sig"><div class="mk3">IB</div> INSIDEBOARD AI</div></div></div>
+      <div class="cp wide"><div class="capt2">06 · Event banner</div><div class="cp-bn cpf"><div class="lft"><b>The next operating model for customer-facing AI.</b><span>LAS VEGAS · 04.24</span></div><div class="mbig">MARK</div></div></div>
+    </div>
+    <ul class="rules">
+      <li class="dont"><b>No</b>More than 2 colors per composition (excluding data-viz).</li>
+      <li class="dont"><b>No</b>Drop shadows, glows, blur effects.</li>
+      <li class="dont"><b>No</b>border-radius greater than 8px (except on the butterfly mark itself).</li>
+      <li class="dont"><b>No</b>Center-aligned body text. Centered is reserved for Formula/Hero only.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s08">
+  <div class="ch"><div class="cn">3·08</div><div>
+    <h2>Photography</h2>
+    <p class="pr">One direction only: <em>documentary</em>. Photography exists as proof — of a room, a person, a moment. Not as mood.</p>
+  </div></div>
+  <div class="cb">
+    <ul class="rules">
+      <li class="do"><b>Subjects</b>People at work (not posed). Spaces, materials, event captures.</li>
+      <li class="do"><b>Light</b>Natural, available light. Shadows welcome.</li>
+      <li class="dont"><b>No</b>Diverse teams smiling at laptops. Handshakes. Boardroom power-poses.</li>
+      <li class="dont"><b>No</b>Aesthetic desk flat-lays. Anything retouched to look spontaneous.</li>
+      <li class="dont"><b>No</b>Duotone treatments toward brand colors. No Ember overlay.</li>
+    </ul>
+    <div class="callout warn"><b>Default</b>If in doubt about a photo, it should not be used. Type-as-image carries the weight.</div>
+  </div>
+</section>
+
+<section class="chapter" id="s09">
+  <div class="ch"><div class="cn">3·09</div><div>
+    <h2>Motion &amp; interaction</h2>
+    <p class="pr">Three principles, not a system. Movement exists to confirm a decision — never to perform. The brand decides, then holds.</p>
+  </div></div>
+  <div class="cb">
+    <div class="mog">
+      <div class="moc"><b>Default duration</b><code>240ms</code><p>Below 160ms, motion is not perceived. Above 400ms, it becomes a demonstration. 240 is the floor of confidence.</p></div>
+      <div class="moc"><b>Default curve</b><code>cubic-bezier(0.2, 0, 0, 1)</code><p>Standard-out. Starts fast, ends soft. Reads as "decision first, settle second."</p></div>
+      <div class="moc"><b>Trigger rule</b><code>user-initiated</code><p>Nothing animates on a loop. Exception: the butterfly signature reveal, once, on page load.</p></div>
+    </div>
+    <ul class="rules">
+      <li class="dont"><b>No</b>Bounce, spring overshoot, elastic curves.</li>
+      <li class="dont"><b>No</b>Scroll-triggered parallax.</li>
+      <li class="dont"><b>No</b>Staggered fade-ins on lists — SaaS cliché.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="chapter" id="s10">
+  <div class="ch"><div class="cn">3·10</div><div>
+    <h2>Transversal coherence</h2>
+    <p class="pr">Four registers exist so the system can flex. They share everything except <em>background</em>, <em>density</em>, and <em>Ember presence</em>.</p>
+  </div></div>
+  <div class="cb">
+    <h3 class="sub">Register switcher — live</h3>
+    <div class="rsw" id="registerSwitcher">
+      <button data-r="enterprise" class="active">Enterprise sobre</button>
+      <button data-r="event">Événementiel</button>
+      <button data-r="product">Produit clair</button>
+      <button data-r="partner">Partenaire</button>
+    </div>
+    <div class="rdemo">
+      <div class="rey" id="rEyebrow">01 · Enterprise · RFP, commercial docs, LinkedIn</div>
+      <div><div class="rti" id="rTitle">A quiet operating system for customer-facing AI.</div><div class="rbo" id="rBody">Four agents. One formula. A posture that holds across enterprise rollout, partner onboarding, and keynote stage. The register changes — the identity does not.</div></div>
+      <div class="rft"><span id="rFoot">Canvas · Ivory / Ink · no Ember</span><div class="rmk">MARK</div></div>
+      <div class="acc"></div>
+    </div>
+    <h3 class="sub">Register specs — side by side</h3>
+    <div class="rtbl">
+      <div class="rcol"><div class="rch" style="background:var(--ivory);color:var(--ink)"><b>01 · Enterprise</b><span>sobre</span></div><dl><dt>Canvas</dt><dd>Ivory</dd><dt>Ember</dt><dd>Forbidden</dd><dt>Density</dt><dd>Airy (+15%)</dd><dt>Type peak</dt><dd>Title 48–56</dd><dt>Supports</dt><dd>RFPs, commercial one-pagers, LinkedIn</dd></dl></div>
+      <div class="rcol"><div class="rch" style="background:var(--ink);color:var(--ivory)"><b>02 · Event</b><span style="color:var(--ember)">énergétique</span></div><dl><dt>Canvas</dt><dd>Ink</dd><dt>Ember</dt><dd>Authorized — one element</dd><dt>Density</dt><dd>Default</dd><dt>Type peak</dt><dd>Display 72–96</dd><dt>Supports</dt><dd>Keynote decks, launch assets, event banners</dd></dl></div>
+      <div class="rcol"><div class="rch" style="background:var(--white);color:var(--ink);border-left:2px solid var(--fn-blue)"><b>03 · Product</b><span>clair</span></div><dl><dt>Canvas</dt><dd>White</dd><dt>Ember</dt><dd>Forbidden in UI chrome</dd><dt>Density</dt><dd>Compact (−15%)</dd><dt>Type peak</dt><dd>Subtitle 28–32</dd><dt>Supports</dt><dd>App UI, documentation, onboarding</dd></dl></div>
+      <div class="rcol"><div class="rch" style="background:var(--stone);color:var(--ink)"><b>04 · Partner</b><span>ouvert</span></div><dl><dt>Canvas</dt><dd>Stone</dd><dt>Ember</dt><dd>Forbidden — Ember belongs to us alone</dd><dt>Density</dt><dd>Default</dd><dt>Type peak</dt><dd>Title 48–56</dd><dt>Supports</dt><dd>Co-branded material, integration pages</dd></dl></div>
+    </div>
+    <h3 class="sub">Decision rules — which register to pick</h3>
+    <div class="dtree">
+      <div class="dn"><span class="dq">Is this a product UI surface?</span><span class="da">→ Product</span></div>
+      <div class="dn"><span class="dq">Is this a keynote, launch or event-bound moment?</span><span class="da">→ Event</span></div>
+      <div class="dn"><span class="dq">Is a partner co-present in the output?</span><span class="da">→ Partner</span></div>
+      <div class="dn"><span class="dq">Anything else?</span><span class="da">→ Enterprise (default)</span></div>
+    </div>
+    <div class="callout"><b>Default is Enterprise</b>When a non-designer is unsure, the answer is always Enterprise. Enterprise is the brand at rest — and a brand at rest never embarrasses its team.</div>
+    <h3 class="sub">Invariants across all registers</h3>
+    <ul class="rules">
+      <li class="do"><b>Type</b>Outfit only, five roles, no italic, no Bold.</li>
+      <li class="do"><b>Grid</b>Base 8, 12-column working grid, same exclusion zones.</li>
+      <li class="do"><b>Mark</b>Two modes — identity or signature — never a third.</li>
+      <li class="do"><b>Motion</b>240ms, standard-out, user-initiated.</li>
+      <li class="do"><b>Composition</b>No shadow, no radius >8, no centered body, max 2 colors.</li>
+    </ul>
+    <div class="qs">
+      <b>Open questions · to decide together</b>
+      <ol>
+        <li>Exact HEX values for Ivory and Stone — currently running on plausible proposals.</li>
+        <li>Functional palette: validate the 12 anchors, then map the remaining 12 from your 24-color Pantone list.</li>
+        <li>IRON acronym: arbitrate and lock the official expanded name.</li>
+        <li>IRON agent colors — keep Coral/Blue/Sage/Lavender as-is, or recalibrate?</li>
+        <li>Photography — committed to documentary, or "no photo by default, escalation per case"?</li>
+        <li>Butterfly "signature" mode — minimum size per support (slide / print / web)?</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<div class="tweaks" id="tweaks">
+  <h5>Tweaks</h5>
+  <div class="tr"><label>Register</label>
+  <div class="seg" data-tweak="register">
+    <button data-v="enterprise" class="on">Ent.</button>
+    <button data-v="event">Evt.</button>
+    <button data-v="product">Prod.</button>
+    <button data-v="partner">Part.</button>
+  </div></div>
+  <div class="tr"><label>Density</label>
+  <div class="seg" data-tweak="density">
+    <button data-v="compact">Compact</button>
+    <button data-v="default" class="on">Default</button>
+    <button data-v="comfortable">Airy</button>
+  </div></div>
+</div>
+
+<script>
+(function(){
+  const tw=document.getElementById('tweaks');
+  window.addEventListener('message',e=>{const d=e.data||{};if(d.type==='__activate_edit_mode')tw.classList.add('visible');if(d.type==='__deactivate_edit_mode')tw.classList.remove('visible');});
+  try{window.parent.postMessage({type:'__edit_mode_available'},'*');}catch(_){}
+})();
+const rc={
+  enterprise:{eyebrow:'01 · Enterprise · RFP, commercial docs, LinkedIn',title:'A quiet operating system for customer-facing AI.',body:'Four agents. One formula. A posture that holds across enterprise rollout, partner onboarding, and keynote stage. The register changes — the identity does not.',foot:'Canvas · Ivory / Ink · no Ember'},
+  event:{eyebrow:'02 · Event · Keynote, launch, trade show',title:'Always <em>by your side</em>.',body:'Event register takes the stage. Ink background, Ivory voice, one Ember signal. The Formula carries, and the butterfly signature closes the gesture.',foot:'Deep · Ink / Ivory · Ember authorized'},
+  product:{eyebrow:'03 · Product · UI, documentation, embedded surfaces',title:'Four agents. One interface.',body:'Product register is the mechanics register. White canvas, Ink text, IRON functional colors differentiate states and objects. No Ember — product surfaces do not shout.',foot:'Paper · White / Ink · functional accents'},
+  partner:{eyebrow:'04 · Partner · Co-branded material, integrations',title:'Built alongside, not on top of, our partners.',body:'Partner register sits on Stone — warm, open, non-competitive. Partner colors travel as functional anchors. Our mark remains in identity mode, not signature.',foot:'Surface · Stone / Ink · partner accent'}
+};
+function applyReg(r){
+  document.body.setAttribute('data-register',r);
+  const c=rc[r];
+  document.getElementById('rEyebrow').textContent=c.eyebrow;
+  document.getElementById('rTitle').innerHTML=c.title;
+  document.getElementById('rBody').textContent=c.body;
+  document.getElementById('rFoot').textContent=c.foot;
+  document.querySelectorAll('#registerSwitcher button').forEach(b=>b.classList.toggle('active',b.dataset.r===r));
+  document.querySelectorAll('[data-tweak="register"] button').forEach(b=>b.classList.toggle('on',b.dataset.v===r));
+}
+document.querySelectorAll('#registerSwitcher button').forEach(b=>b.addEventListener('click',()=>applyReg(b.dataset.r)));
+document.querySelectorAll('[data-tweak="register"] button').forEach(b=>b.addEventListener('click',()=>applyReg(b.dataset.v)));
+document.querySelectorAll('[data-tweak="density"] button').forEach(b=>b.addEventListener('click',()=>{document.body.setAttribute('data-density',b.dataset.v);document.querySelectorAll('[data-tweak="density"] button').forEach(x=>x.classList.toggle('on',x===b));}));
+const secs=[...document.querySelectorAll('section.chapter')];
+const navs=[...document.querySelectorAll('nav.side ol a')];
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const id=e.target.id;navs.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));}});},{rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
