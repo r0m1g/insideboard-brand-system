@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Docs — InsideBoard Design System</title>
+  <link rel="stylesheet" href="../brandOS-tokens.css">
+  <link rel="stylesheet" href="../brandOS-components.css">
+</head>
+<body class="sys">
+
+  <div class="sys-layout">
+    <aside class="sys-sidebar" id="sys-sidebar"></aside>
+    <main class="sys-main">
+
+    <header class="sys-header" id="sys-header"></header>
+
+    <!-- ROADMAP -->
+    <section class="sys-section">
+      <h2 class="sys-section-title">Roadmap</h2>
+      <div class="roadmap-wrap">
+
+        <div class="roadmap-filters">
+          <span class="rf-label">Show</span>
+          <button class="rf-btn rf-btn--done active"   data-filter="done">✓ Complete</button>
+          <button class="rf-btn rf-btn--active active" data-filter="active">◔ Active</button>
+          <button class="rf-btn rf-btn--future active" data-filter="future">… Future</button>
+        </div>
+
+        <div class="roadmap-scroll">
+          <div class="roadmap-track">
+            <button class="phase-card phase-card--done" data-phase="1a" data-status="done">
+              <span class="phase-tag phase-tag--done">✓ Complete</span>
+              <span class="phase-card-num">Phase 1A</span>
+              <span class="phase-card-name">Design system foundation</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--done" data-phase="1b" data-status="done">
+              <span class="phase-tag phase-tag--done">✓ Complete</span>
+              <span class="phase-card-num">Phase 1B</span>
+              <span class="phase-card-name">Tokens W3C migration</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--done" data-phase="1c" data-status="done">
+              <span class="phase-tag phase-tag--done">✓ Complete</span>
+              <span class="phase-card-num">Phase 1C</span>
+              <span class="phase-card-name">3-tier token architecture</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--done" data-phase="1d" data-status="done">
+              <span class="phase-tag phase-tag--done">✓ Complete</span>
+              <span class="phase-card-num">Phase 1D</span>
+              <span class="phase-card-name">Component doc anatomy</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--future" data-phase="2" data-status="future">
+              <span class="phase-tag phase-tag--future">… Future</span>
+              <span class="phase-card-num">Phase 2</span>
+              <span class="phase-card-name">Figma sync</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--active" data-phase="3" data-status="active">
+              <span class="phase-tag phase-tag--active">◔ Active</span>
+              <span class="phase-card-num">Phase 3</span>
+              <span class="phase-card-name">Iconography system</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--future" data-phase="4" data-status="future">
+              <span class="phase-tag phase-tag--future">… Future</span>
+              <span class="phase-card-num">Phase 4</span>
+              <span class="phase-card-name">Asset library</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--future" data-phase="5" data-status="future">
+              <span class="phase-tag phase-tag--future">… Future</span>
+              <span class="phase-card-num">Phase 5</span>
+              <span class="phase-card-name">GitLab process</span>
+            </button>
+            <span class="roadmap-connector" aria-hidden="true"></span>
+            <button class="phase-card phase-card--future" data-phase="future" data-status="future">
+              <span class="phase-tag phase-tag--future">… Future</span>
+              <span class="phase-card-num"></span>
+              <span class="phase-card-name">On the radar</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="roadmap-detail" id="roadmap-detail" hidden></div>
+
+      </div>
+    </section>
+
+    <!-- DECISIONS -->
+    <section class="sys-section">
+      <h2 class="sys-section-title">Decisions</h2>
+      <div class="adr-list">
+        <div class="adr-row">
+          <span class="adr-num">ADR-001</span>
+          <span class="adr-title">Design System Architecture</span>
+          <span class="adr-status adr-status--accepted">Accepted</span>
+        </div>
+        <div class="adr-row">
+          <span class="adr-num">ADR-002</span>
+          <span class="adr-title">W3C Design Tokens Format</span>
+          <span class="adr-status adr-status--implemented">Implemented</span>
+        </div>
+        <div class="adr-row">
+          <span class="adr-num">ADR-003</span>
+          <span class="adr-title">System/ Workbench Skin</span>
+          <span class="adr-status adr-status--accepted">Accepted</span>
+        </div>
+        <div class="adr-row">
+          <span class="adr-num">ADR-004</span>
+          <span class="adr-title">Port ui-test.html Redesign to Brand OS</span>
+          <span class="adr-status adr-status--accepted">Accepted</span>
+        </div>
+        <div class="adr-row">
+          <span class="adr-num">ADR-005</span>
+          <span class="adr-title">3-Tier Token Architecture</span>
+          <span class="adr-status adr-status--implemented">Implemented</span>
+        </div>
+        <div class="adr-row">
+          <span class="adr-num">ADR-006</span>
+          <span class="adr-title">Component Documentation Anatomy</span>
+          <span class="adr-status adr-status--accepted">Accepted</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEVLOG -->
+    <section class="sys-section">
+      <h2 class="sys-section-title">Devlog</h2>
+      <div class="devlog-list">
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-26</span>
+          <span class="devlog-title">Phase 1D — Component documentation anatomy (ADR-006, spec-block system defined)</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-26</span>
+          <span class="devlog-title">UI system fixes — backlog filters, status color system, active roadmap → steel, mobile sys-nav, UI state &amp; priority in Brand OS 3·02</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-26</span>
+          <span class="devlog-title">Backlog restructure — 5 categories + filterable visual display in docs</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-26</span>
+          <span class="devlog-title">Writing rules enforcement — Brand OS, IRON, InsideBoard AI</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-26</span>
+          <span class="devlog-title">Phase 1C — 3-tier token architecture</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-26</span>
+          <span class="devlog-title">Phase 1B — W3C Design Tokens migration</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-25</span>
+          <span class="devlog-title">From one-pager to design system</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-24</span>
+          <span class="devlog-title">Layer architecture, nav refactor, and governance — .layer-intro, .cap-tag consolidation, assets migration</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-23</span>
+          <span class="devlog-title">CSS externalization and multi-file architecture — str_replace-only protocol, five-file structure</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-22</span>
+          <span class="devlog-title">Founding Day — GitHub Pages, Brand System → Brand OS, Sections 00/04/05, mobile sprint</span>
+        </div>
+        <div class="devlog-entry">
+          <span class="devlog-date">2026-04-02</span>
+          <span class="devlog-title">Project genesis (retrospective) — visual exploration, Layers 1 &amp; 2, IRON positioning, 6-layer architecture</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BACKLOG -->
+    <section class="sys-section">
+      <h2 class="sys-section-title">Backlog</h2>
+      <div class="roadmap-wrap">
+      <div class="roadmap-filters">
+        <span class="rf-label">Show</span>
+        <button class="rf-btn rf-btn--bug active"      data-backlog-filter="bug">Bug</button>
+        <button class="rf-btn rf-btn--todo active"     data-backlog-filter="todo">Todo</button>
+        <button class="rf-btn rf-btn--idea active"     data-backlog-filter="idea">Idea</button>
+        <button class="rf-btn rf-btn--question active" data-backlog-filter="question">Question</button>
+        <button class="rf-btn rf-btn--workflow active" data-backlog-filter="workflow">Workflow</button>
+      </div>
+      <div class="backlog-table">
+
+        <div class="backlog-group" data-group="bug">
+          <span class="backlog-group-label backlog-group-label--bug">Bug</span>
+          <div class="backlog-row" data-cat="bug">
+            <span class="backlog-cat backlog-cat--bug">Bug</span>
+            <span class="backlog-text">Verbal Rules — IRON label/body misalignment (bold/italic pushes text into label column)</span>
+            <span class="backlog-status backlog-status--med">med</span>
+          </div>
+          <div class="backlog-row" data-cat="bug">
+            <span class="backlog-cat backlog-cat--bug">Bug</span>
+            <span class="backlog-text">Register switcher strings not in brandOS-content.md — violates content-first rule</span>
+            <span class="backlog-status backlog-status--low">low</span>
+          </div>
+        </div>
+
+        <div class="backlog-group" data-group="todo">
+          <span class="backlog-group-label backlog-group-label--todo">Todo</span>
+          <div class="backlog-row" data-cat="todo">
+            <span class="backlog-cat backlog-cat--todo">Todo</span>
+            <span class="backlog-text">Audit permission prompts — build allowlist in .claude/settings.json for all routine "always yes" approvals</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="todo">
+            <span class="backlog-cat backlog-cat--todo">Todo</span>
+            <span class="backlog-text">Create GitHub README</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row backlog-row--done" data-cat="todo">
+            <span class="backlog-cat backlog-cat--todo">Todo</span>
+            <span class="backlog-text">Add discreet link from Brand OS to docs.html</span>
+            <span class="backlog-status backlog-status--done">done</span>
+          </div>
+          <div class="backlog-row" data-cat="todo">
+            <span class="backlog-cat backlog-cat--todo">Todo</span>
+            <span class="backlog-text">Resolve public GitHub visibility (Google Connect, coordinate with devs)</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row backlog-row--done" data-cat="todo">
+            <span class="backlog-cat backlog-cat--todo">Todo</span>
+            <span class="backlog-text">System nav link from Brand OS</span>
+            <span class="backlog-status backlog-status--done">done</span>
+          </div>
+          <div class="backlog-row backlog-row--done" data-cat="todo">
+            <span class="backlog-cat backlog-cat--todo">Todo</span>
+            <span class="backlog-text">Visual roadmap (system/docs.html frise)</span>
+            <span class="backlog-status backlog-status--done">done</span>
+          </div>
+          <div class="backlog-row backlog-row--done" data-cat="todo">
+            <span class="backlog-cat backlog-cat--todo">Todo</span>
+            <span class="backlog-text">Writing rules enforced across all files (Brand OS / IRON / InsideBoard AI)</span>
+            <span class="backlog-status backlog-status--done">done</span>
+          </div>
+        </div>
+
+        <div class="backlog-group" data-group="idea">
+          <span class="backlog-group-label">Idea</span>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">Better component descriptions — richer names and display text for components, patterns, foundations</span>
+            <span class="backlog-status backlog-status--active">active</span>
+          </div>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">Iconography display with downloadable assets + tab/category system</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">Pedagogy blocks — explain token system and atomic design in a distinct visual style</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">Production memory — flag excellent outputs as saved references for reuse</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">Layer 6–9 content — Do/Don't, Design Language, Component System, Automation</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">AI generation pipeline for brand assets within token constraints</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">Public component library extracted from brandOS-components.css</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="idea">
+            <span class="backlog-cat backlog-cat--idea">Idea</span>
+            <span class="backlog-text">Visual regression testing (Percy / Chromatic)</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+        </div>
+
+        <div class="backlog-group" data-group="question">
+          <span class="backlog-group-label">Question</span>
+          <div class="backlog-row" data-cat="question">
+            <span class="backlog-cat backlog-cat--question">Question</span>
+            <span class="backlog-text">Should IRON color tokens be renamed after their associated concept or agent? (e.g. Coral → IRON Engagement)</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="question">
+            <span class="backlog-cat backlog-cat--question">Question</span>
+            <span class="backlog-text">Is Jira worth adopting at this stage?</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="question">
+            <span class="backlog-cat backlog-cat--question">Question</span>
+            <span class="backlog-text">Obsidian + Claude as second brain — worth the maintenance overhead?</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="question">
+            <span class="backlog-cat backlog-cat--question">Question</span>
+            <span class="backlog-text">Could IRON be a viable Claude team agent connected to InsideBoard AI?</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+        </div>
+
+        <div class="backlog-group" data-group="workflow">
+          <span class="backlog-group-label">Workflow</span>
+          <div class="backlog-row" data-cat="workflow">
+            <span class="backlog-cat backlog-cat--workflow">Workflow</span>
+            <span class="backlog-text">Add "sound human" rule to AI calibration checklist</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="workflow">
+            <span class="backlog-cat backlog-cat--workflow">Workflow</span>
+            <span class="backlog-text">Custom /commands — /ghost (human tone), /syncmain, /syncproject</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="workflow">
+            <span class="backlog-cat backlog-cat--workflow">Workflow</span>
+            <span class="backlog-text">Design team personas with French family names (Raymonde, Jean, Jacques…) — each with a defined role</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="workflow">
+            <span class="backlog-cat backlog-cat--workflow">Workflow</span>
+            <span class="backlog-text">QCM brief check — Claude asks multiple-choice questions before proceeding in Brand OS team context</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+          <div class="backlog-row" data-cat="workflow">
+            <span class="backlog-cat backlog-cat--workflow">Workflow</span>
+            <span class="backlog-text">Evaluate "Ask the council" Claude skill</span>
+            <span class="backlog-status backlog-status--open">open</span>
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </section>
+
+  </main>
+  </div>
+
+<script>
+const phasesData = {
+  '1a': {
+    name: 'Phase 1A · Design system foundation',
+    steps: [
+      { id: '1A.0', s: 'done', label: 'Port redesigned nav, layer-intro, animations from <code>ui-test.html</code> to the Brand OS' },
+      { id: '1A.1', s: 'done', label: 'Build <code>system/</code> scaffold consuming existing CSS' },
+      { id: '1A.2', s: 'done', label: 'Archive lab files into <code>system/lab/</code>' },
+      { id: '1A.3', s: 'done', label: 'Extend <code>PROCESS.md</code> with Update type 6 protocol' },
+    ],
+    note: 'Decisions: ADR-001, ADR-003, ADR-004'
+  },
+  '1b': {
+    name: 'Phase 1B · Tokens W3C migration',
+    steps: [
+      { id: '1B.1', s: 'done', label: 'Author <code>tokens.json</code> mirroring current CSS variables' },
+      { id: '1B.2', s: 'done', label: 'Build minimal Node generator (<code>tokens.json</code> → <code>brandOS-tokens.css</code>)' },
+      { id: '1B.3', s: 'done', label: 'Document tokens in <code>system/foundations.html</code>' },
+    ],
+    note: 'Decisions: ADR-002'
+  },
+  '1c': {
+    name: 'Phase 1C · 3-tier token architecture',
+    steps: [
+      { id: '1C.1', s: 'done', label: 'Define primitive layer (raw values)' },
+      { id: '1C.2', s: 'done', label: 'Define semantic layer (intent-based, references primitives)' },
+      { id: '1C.3', s: 'done', label: 'Define component-scoped tokens for major components' },
+    ],
+    note: 'Decisions: ADR-005'
+  },
+  '1d': {
+    name: 'Phase 1D · Component documentation anatomy',
+    desc: 'Define a consistent spec-block structure for all entries in components.html, patterns.html, and foundations.html. Pilot with .chapter, then migrate remaining entries.',
+    steps: [
+      { id: '1D.1', s: 'done',    label: 'Define spec-block anatomy and slot structure (ADR-006)' },
+      { id: '1D.2', s: 'done',    label: 'Add <code>spec-*</code> CSS classes to <code>brandOS-components.css</code>' },
+      { id: '1D.3', s: 'done',    label: 'Pilot implementation — <code>.chapter</code> as reference entry' },
+      { id: '1D.4', s: 'done',    label: 'Migrate remaining entries in components.html, patterns.html, foundations.html' },
+    ],
+    note: 'Decisions: ADR-006'
+  },
+  '2': {
+    name: 'Phase 2 · Figma sync',
+    desc: 'Bidirectional sync between Figma Variables and <code>tokens.json</code> via Tokens Studio plugin.',
+    steps: [
+      { id: '2.1', s: 'planned', label: 'Install and configure Tokens Studio in Figma' },
+      { id: '2.2', s: 'planned', label: 'Connect to GitHub (this repo)' },
+      { id: '2.3', s: 'planned', label: 'Validate sync workflow (Figma → repo, repo → Figma)' },
+    ],
+    note: 'Prerequisite (manual): GitHub personal access token with repo read/write scope.'
+  },
+  '3': {
+    name: 'Phase 3 · Iconography system',
+    desc: 'Build, optimize, register, and consume the InsideBoard icon library — bridging Figma exports and AI content generation.',
+    steps: [
+      { id: '3.1', s: 'done',    label: '<code>/svg</code> command — protocol for outline detection, anatomical naming, standardization, active states, duplicate detection' },
+      { id: '3.2', s: 'done',    label: '<code>assets/icons/icons.md</code> — registry with anatomy, semantic aliases, functional mapping, inline SVG code' },
+      { id: '3.3', s: 'done',    label: 'Migrate <code>assets/svg/</code> (logos) → <code>assets/logos/</code>, update all HTML references' },
+      { id: '3.4', s: 'planned', label: 'Optimize and register first batch of brand icons (Figma exports)' },
+      { id: '3.5', s: 'planned', label: 'Optimize and register first batch of platform icons (Figma exports)' },
+      { id: '3.6', s: 'done',    label: '<code>system/icons.html</code> — searchable visual gallery, color context, active state toggle, download + copy SVG' },
+      { id: '3.7', s: 'future',  label: 'Functional Mapping reverse index — auto-regenerated from <code>icons.md</code> for AI content generation' },
+    ],
+    note: 'Protocol: <code>/svg</code> command. Registry: <code>assets/icons/icons.md</code>.'
+  },
+  '4': {
+    name: 'Phase 4 · Asset library (médiathèque)',
+    desc: 'Generalize the iconography pattern (anatomical naming + registry + functional mapping + gallery + reverse index) to all non-token brand assets — logos, illustrations, photos, motion, patterns, templates, sonic identity.',
+    steps: [
+      { id: '4.1', s: 'future', label: 'Lock unified registry format (per-type files, shared functional vocabulary schema)' },
+      { id: '4.2', s: 'future', label: 'Define authoring-protocol skeleton — what every <code>/asset-type</code> command must validate' },
+      { id: '4.3', s: 'future', label: '<code>system/library.html</code> — médiathèque with type filter, category filter, functional search, download/copy' },
+      { id: '4.4', s: 'future', label: 'Cross-asset functional reverse index — <code>functional-map.json</code> for AI asset retrieval by feature' },
+      { id: '4.5', s: 'future', label: 'Migrate iconography into unified system — <code>icons.md</code> becomes first canonical registry, <code>icons.html</code> retires' },
+      { id: '4.6', s: 'future', label: 'Onboard next asset families (logos → illustrations → motion)' },
+    ],
+    note: 'Starts after Phase 3 closes. Uncommitted. Foundation: ADR-007.'
+  },
+  '5': {
+    name: 'Phase 5 · GitLab process',
+    desc: 'Migrate from personal GitHub to InsideBoard GitLab. Consolidate branches. Establish the permanent exploration workflow.',
+    steps: [
+      { id: 'G.1', s: 'planned', label: 'Create repo on InsideBoard GitLab (Romain\'s space)' },
+      { id: 'G.2', s: 'planned', label: 'Configure Google Workspace SSO — employees access Brand OS via company Google mail' },
+      { id: 'G.3', s: 'planned', label: 'Push full history to GitLab (both branches)' },
+      { id: 'G.4', s: 'planned', label: 'Update Figma Tokens Studio — swap GitHub PAT for GitLab access token (Phase 2 prerequisite)' },
+      { id: 'G.5', s: 'planned', label: 'Consolidate branches — merge <code>feat/ui-exploration</code> into <code>main</code>. Single source of truth, all files on <code>main</code>.' },
+      { id: 'G.6', s: 'planned', label: 'Update <code>CLAUDE.md</code> + <code>PROCESS.md</code> — new strategy: work on <code>main</code>, use <code>experiment/*</code> for risky explorations' },
+      { id: 'G.7', s: 'planned', label: 'Deprecate sync tooling — delete <code>scripts/syncmain.sh</code> and <code>/syncmain</code> command' },
+      { id: 'G.8', s: 'planned', label: 'Verify GitLab Pages — confirm <code>index.html</code> is served, update any hardcoded URL references' },
+    ],
+    note: 'Prerequisite: G.2 (SSO) confirmed before G.3 (push) — no content on GitLab before access control is in place. Exploration model after G.5: <code>experiment/&lt;name&gt;</code> branches off <code>main</code>, temporary, full source copy, merge or close.'
+  },
+  'future': {
+    name: 'Future — uncommitted',
+    steps: [
+      { id: '', s: 'future', label: "Layer 6–9 content — Do/Don't, Design Language, Component System, Automation" },
+      { id: '', s: 'future', label: 'AI generation pipeline for brand assets' },
+      { id: '', s: 'future', label: 'Public component library from <code>brandOS-components.css</code>' },
+      { id: '', s: 'future', label: 'Visual regression testing (Percy / Chromatic)' },
+    ]
+  }
+};
+
+const detail = document.getElementById('roadmap-detail');
+const cards  = [...document.querySelectorAll('.phase-card')];
+const conns  = [...document.querySelectorAll('.roadmap-connector')];
+let current  = null;
+
+function syncConnectors() {
+  conns.forEach((c, i) => {
+    const hide = cards[i].classList.contains('rf-hidden') || cards[i + 1].classList.contains('rf-hidden');
+    c.classList.toggle('rf-hidden', hide);
+  });
+  // If hidden cards create a break between two visible groups, mark the
+  // first visible card after the break with .rf-gapped so it gets a visual gap.
+  cards.forEach((card, i) => {
+    if (card.classList.contains('rf-hidden')) return;
+    const prevVisible = cards.slice(0, i).filter(c => !c.classList.contains('rf-hidden')).pop();
+    const hasHiddenBetween = prevVisible && cards.slice(cards.indexOf(prevVisible) + 1, i).some(c => c.classList.contains('rf-hidden'));
+    card.classList.toggle('rf-gapped', !!hasHiddenBetween);
+  });
+}
+
+document.querySelectorAll('.rf-btn[data-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('active');
+    const filter = btn.dataset.filter;
+    cards.filter(c => c.dataset.status === filter).forEach(card => {
+      card.classList.toggle('rf-hidden', !btn.classList.contains('active'));
+      if (card.classList.contains('rf-hidden') && card.dataset.phase === current) {
+        card.classList.remove('selected');
+        current = null;
+        detail.hidden = true;
+      }
+    });
+    syncConnectors();
+  });
+});
+
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const phase = card.dataset.phase;
+    if (current === phase) {
+      card.classList.remove('selected');
+      current = null;
+      detail.hidden = true;
+      return;
+    }
+    cards.forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    current = phase;
+    const d = phasesData[phase];
+    let html = `<p class="phase-name" style="margin:0 0 var(--s3)">${d.name}</p>`;
+    if (d.desc) html += `<p class="phase-desc">${d.desc}</p>`;
+    html += `<ul class="phase-steps">`;
+    d.steps.forEach(step => {
+      const dot = step.s === 'done' ? '✓' : '';
+      html += `<li class="phase-step"><span class="step-id">${step.id}</span><span class="step-dot step-dot--${step.s === 'planned' ? 'planned' : step.s}">${dot}</span><span>${step.label}</span></li>`;
+    });
+    html += `</ul>`;
+    if (d.note) html += `<p class="phase-note">${d.note}</p>`;
+    detail.innerHTML = html;
+    detail.hidden = false;
+  });
+});
+
+document.querySelectorAll('[data-backlog-filter]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.classList.toggle('active');
+    const cat = btn.dataset.backlogFilter;
+    document.querySelectorAll(`.backlog-group[data-group="${cat}"]`).forEach(group => {
+      group.classList.toggle('rf-hidden', !btn.classList.contains('active'));
+    });
+  });
+});
+</script>
+
+  <script src="nav.js"></script>
+</body>
+</html>

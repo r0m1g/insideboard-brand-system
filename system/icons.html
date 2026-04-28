@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Icons — InsideBoard Design System</title>
+  <link rel="stylesheet" href="../brandOS-tokens.css">
+  <link rel="stylesheet" href="../brandOS-components.css">
+</head>
+<body class="sys">
+
+  <div class="sys-layout">
+    <aside class="sys-sidebar" id="sys-sidebar"></aside>
+    <main class="sys-main">
+
+    <header class="sys-header" id="sys-header"></header>
+
+    <section class="sys-section">
+
+      <div class="icon-toolbar">
+        <input class="icon-search" type="search" id="icon-search" placeholder="Search by name, alias, or function…" autocomplete="off">
+
+        <div class="icon-filter-group" id="sys-filters" aria-label="Filter by system">
+          <button class="icon-filter-btn active" data-sys="all">All systems</button>
+          <button class="icon-filter-btn" data-sys="brand">Brand</button>
+          <button class="icon-filter-btn" data-sys="platform">Platform</button>
+        </div>
+
+        <div class="icon-filter-group" id="cat-filters" aria-label="Filter by category">
+          <button class="icon-filter-btn active" data-cat="all">All categories</button>
+          <button class="icon-filter-btn" data-cat="agents">Agents</button>
+          <button class="icon-filter-btn" data-cat="modes">Modes</button>
+          <button class="icon-filter-btn" data-cat="navigation">Navigation</button>
+          <button class="icon-filter-btn" data-cat="layout">Layout</button>
+          <button class="icon-filter-btn" data-cat="actions">Actions</button>
+          <button class="icon-filter-btn" data-cat="objects">Objects</button>
+          <button class="icon-filter-btn" data-cat="states">States</button>
+          <button class="icon-filter-btn" data-cat="communication">Communication</button>
+          <button class="icon-filter-btn" data-cat="controls">Controls</button>
+        </div>
+
+        <div class="icon-filter-group" aria-label="Preview background">
+          <button class="icon-context-btn active" data-ctx="light">Light</button>
+          <button class="icon-context-btn" data-ctx="mid">Grey</button>
+          <button class="icon-context-btn" data-ctx="dark">Dark</button>
+        </div>
+
+        <label class="icon-active-toggle">
+          <input type="checkbox" id="active-toggle"> Active state
+        </label>
+
+        <div class="color-picker-row">
+          <span class="color-picker-label">Color</span>
+          <div class="color-swatches" id="toolbar-swatches"></div>
+          <input class="color-custom" type="color" id="toolbar-color-custom" value="#1B1712" title="Custom color">
+          <span class="color-hex-label" id="toolbar-color-hex">#1B1712</span>
+        </div>
+      </div>
+
+      <p class="icon-stats" id="icon-stats"></p>
+      <div class="icon-grid" id="icon-grid"></div>
+      <div class="icon-empty" id="icon-empty" hidden>No icons match your search.</div>
+      <div class="icon-detail" id="icon-detail"></div>
+
+    </section>
+
+  </main>
+  </div>
+
+<script>
+const ICONS = [
+  {
+    name: 'layout-sidebar-left',
+    system: 'platform',
+    category: 'layout',
+    anatomy: 'A rectangle divided into two columns, with a narrow sidebar on the left.',
+    aliases: ['icon-menu-toggle', 'icon-sidebar-collapse', 'icon-sidebar-open', 'icon-nav-panel'],
+    functional: ['Navigation panel toggle', 'Left panel collapse', 'Sidebar open'],
+    activeState: 'container',
+    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="icon-title-layout-sidebar-left icon-desc-layout-sidebar-left"><title id="icon-title-layout-sidebar-left">Layout Sidebar Left</title><desc id="icon-desc-layout-sidebar-left">A rectangle divided into two columns, with a narrow sidebar on the left.</desc><rect width="18" height="16" x="3" y="4" rx="2"/><line x1="9" y1="4" x2="9" y2="20"/></svg>',
+    svgActive: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="icon-title-layout-sidebar-left icon-desc-layout-sidebar-left"><title id="icon-title-layout-sidebar-left">Layout Sidebar Left</title><desc id="icon-desc-layout-sidebar-left">A rectangle divided into two columns, with a narrow sidebar on the left.</desc><rect width="18" height="16" x="3" y="4" rx="2" fill="currentColor" fill-opacity="0.15" stroke="none"/><rect width="18" height="16" x="3" y="4" rx="2"/><line x1="9" y1="4" x2="9" y2="20"/></svg>'
+  },
+  {
+    name: 'arrows-left-right',
+    system: 'platform',
+    category: 'actions',
+    anatomy: 'Two horizontal arrows pointing outward from a shared center line.',
+    aliases: ['icon-resize-h', 'icon-slide-control', 'icon-swap', 'icon-periodic-profile-fixed'],
+    functional: ['Periodic Profile — Fixed mode', 'IRON — Resize window width'],
+    activeState: 'none',
+    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="icon-title-arrows-left-right icon-desc-arrows-left-right"><title id="icon-title-arrows-left-right">Arrows Left Right</title><desc id="icon-desc-arrows-left-right">Two horizontal arrows pointing outward from a shared center line.</desc><path d="M3 12h18M7.5 16.5 3 12l4.5-4.5m9 9L21 12l-4.5-4.5"/></svg>',
+    svgActive: null
+  },
+  {
+    name: 'camera-plus',
+    system: 'platform',
+    category: 'objects',
+    anatomy: 'A camera body with a trapezoidal mount at the top, a circular lens at the center, and a plus sign at the top right.',
+    aliases: ['icon-add-media', 'icon-upload-photo'],
+    functional: ['Media upload', 'Add photo'],
+    activeState: 'container',
+    svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="icon-title-camera-plus icon-desc-camera-plus"><title id="icon-title-camera-plus">Camera Plus</title><desc id="icon-desc-camera-plus">A camera body with a trapezoidal mount at the top, a circular lens at the center, and a plus sign at the top right.</desc><path d="M13 7L12.5 5H6.5L6 7H3V19H19V13"/><circle cx="11" cy="13" r="3"/><path d="M19 5V9M17 7H21"/></svg>',
+    svgActive: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-labelledby="icon-title-camera-plus icon-desc-camera-plus"><title id="icon-title-camera-plus">Camera Plus</title><desc id="icon-desc-camera-plus">A camera body with a trapezoidal mount at the top, a circular lens at the center, and a plus sign at the top right. Active state with interior fill.</desc><path d="M3 7L6 7L6.5 5H12.5L13 7H19V19H3Z" fill="currentColor" fill-opacity="0.15" stroke="none"/><path d="M13 7L12.5 5H6.5L6 7H3V19H19V13"/><circle cx="11" cy="13" r="3"/><path d="M19 5V9M17 7H21"/></svg>'
+  }
+];
+
+const PALETTE = [
+  { name: 'White',    hex: '#FFFFFF' },
+  { name: 'Ivory',    hex: '#FAFAF9' },
+  { name: 'Stone',    hex: '#EAE6DF' },
+  { name: 'Ink',      hex: '#1B1712' },
+  { name: 'Ember',    hex: '#EE2E20' },
+  null,
+  { name: 'Gray 50',  hex: '#F4EFE6' },
+  { name: 'Gray 100', hex: '#EAE3D6' },
+  { name: 'Gray 200', hex: '#DDD4C4' },
+  { name: 'Gray 300', hex: '#C9BEAB' },
+  { name: 'Gray 400', hex: '#AFA38E' },
+  { name: 'Gray 500', hex: '#8F8472' },
+  { name: 'Gray 600', hex: '#6F6656' },
+  { name: 'Gray 700', hex: '#4F483C' },
+  { name: 'Gray 800', hex: '#332E26' },
+  { name: 'Gray 950', hex: '#0D0B08' },
+  null,
+  { name: 'Coral',    hex: '#F08B73' },
+  { name: 'Blue',     hex: '#7DA8E8' },
+  { name: 'Sage',     hex: '#B8D29C' },
+  { name: 'Lavender', hex: '#B79BE8' },
+  { name: 'Red',      hex: '#C94040' },
+  { name: 'Brick',    hex: '#D4725A' },
+  { name: 'Amber',    hex: '#C8882A' },
+  { name: 'Ochre',    hex: '#B8963E' },
+  { name: 'Moss',     hex: '#6B8F5A' },
+  { name: 'Pine',     hex: '#3D7A62' },
+  { name: 'Teal',     hex: '#2E7A82' },
+  { name: 'Steel',    hex: '#4A7FBF' },
+  { name: 'Slate',    hex: '#4A5F8A' },
+  { name: 'Plum',     hex: '#7A5A8F' },
+  { name: 'Mauve',    hex: '#9E6B82' },
+  { name: 'Brown',    hex: '#7A4F35' },
+];
+
+let ctx = 'light';
+let showActive = false;
+let filterSys = 'all';
+let filterCat = 'all';
+let searchQuery = '';
+let selectedName = null;
+let iconColor = '#1B1712';
+
+const grid    = document.getElementById('icon-grid');
+const detail  = document.getElementById('icon-detail');
+const stats   = document.getElementById('icon-stats');
+const empty   = document.getElementById('icon-empty');
+
+function getSvg(icon, forceActive) {
+  const useActive = (forceActive !== undefined ? forceActive : showActive);
+  return (useActive && icon.svgActive) ? icon.svgActive : icon.svg;
+}
+
+function getExportSvg(icon) {
+  return getSvg(icon).replace(/currentColor/g, iconColor);
+}
+
+function buildSwatchesHtml(idPrefix) {
+  return PALETTE.map(p => {
+    if (!p) return '<span class="color-swatch-sep"></span>';
+    const isActive = p.hex.toLowerCase() === iconColor.toLowerCase();
+    const extraStyle = p.hex === '#FFFFFF' ? 'border:2px solid var(--gray-200)' : '';
+    return '<button class="color-swatch' + (isActive ? ' active' : '') +
+      '" data-hex="' + p.hex + '" title="' + p.name + ' · ' + p.hex + '"' +
+      ' style="background:' + p.hex + ';' + extraStyle + '"></button>';
+  }).join('');
+}
+
+function syncColorUI() {
+  document.querySelectorAll('.color-swatch').forEach(s =>
+    s.classList.toggle('active', s.dataset.hex.toLowerCase() === iconColor.toLowerCase())
+  );
+  const tc = document.getElementById('toolbar-color-custom');
+  const th = document.getElementById('toolbar-color-hex');
+  if (tc) tc.value = iconColor;
+  if (th) th.textContent = iconColor;
+  const dp = document.getElementById('detail-preview');
+  if (dp) dp.style.color = iconColor;
+  const dh = document.getElementById('detail-color-hex');
+  if (dh) dh.textContent = iconColor;
+  const dc = document.getElementById('detail-color-custom');
+  if (dc) dc.value = iconColor;
+}
+
+function setColor(hex) {
+  iconColor = hex;
+  syncColorUI();
+  render();
+}
+
+function matches(icon) {
+  if (filterSys !== 'all' && icon.system !== filterSys) return false;
+  if (filterCat !== 'all' && icon.category !== filterCat) return false;
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    if (!icon.name.includes(q) &&
+        !icon.aliases.some(a => a.toLowerCase().includes(q)) &&
+        !icon.functional.some(f => f.toLowerCase().includes(q)) &&
+        !icon.anatomy.toLowerCase().includes(q)) return false;
+  }
+  return true;
+}
+
+function render() {
+  const filtered = ICONS.filter(matches);
+  stats.textContent = filtered.length + ' of ' + ICONS.length + ' icons';
+  empty.hidden = filtered.length > 0;
+  grid.innerHTML = '';
+
+  filtered.forEach(icon => {
+    const card = document.createElement('div');
+    card.className = 'icon-card' + (selectedName === icon.name ? ' selected' : '');
+    card.dataset.name = icon.name;
+    card.innerHTML =
+      '<div class="icon-card-preview ctx-' + ctx + '" style="color:' + iconColor + '">' +
+        getSvg(icon) +
+        '<button class="icon-card-dl" title="Download SVG" data-dl="' + icon.name + '">↓</button>' +
+      '</div>' +
+      '<div class="icon-card-meta">' +
+        '<span class="icon-card-name">' + icon.name + '</span>' +
+      '</div>';
+    card.querySelector('.icon-card-dl').addEventListener('click', e => {
+      e.stopPropagation();
+      downloadSVG(icon);
+    });
+    card.addEventListener('click', () => {
+      selectedName = (selectedName === icon.name) ? null : icon.name;
+      render();
+    });
+    grid.appendChild(card);
+  });
+
+  renderDetail();
+}
+
+function renderDetail() {
+  const icon = selectedName ? ICONS.find(i => i.name === selectedName) : null;
+  if (!icon) { detail.className = 'icon-detail'; detail.innerHTML = ''; return; }
+
+  const aliasesHtml = icon.aliases.length
+    ? icon.aliases.map(a => '<span class="icon-alias-tag">' + a + '</span>').join(' ')
+    : '<span style="color:var(--gray-400)">—</span>';
+  const funcHtml = icon.functional.length
+    ? icon.functional.join(', ')
+    : '<span style="color:var(--gray-400)">—</span>';
+
+  const hasActive = !!icon.svgActive;
+  const activeToggleHtml =
+    '<div class="icon-detail-row">' +
+      '<span class="icon-detail-label">Active state</span>' +
+      '<span class="icon-detail-value" style="display:flex;align-items:center;gap:var(--s3)">' +
+        '<label style="display:flex;align-items:center;gap:6px;cursor:' + (hasActive ? 'pointer' : 'default') + '">' +
+          '<input type="checkbox" id="detail-active-toggle"' + (showActive ? ' checked' : '') + (hasActive ? '' : ' disabled') + ' style="accent-color:var(--steel)">' +
+          '<span style="color:' + (hasActive ? 'var(--ink)' : 'var(--gray-400)') + '">' + icon.activeState + '</span>' +
+        '</label>' +
+      '</span>' +
+    '</div>';
+
+  detail.className = 'icon-detail visible';
+  detail.innerHTML =
+    '<div class="icon-detail-preview ctx-' + ctx + '" id="detail-preview" style="color:' + iconColor + '">' + getSvg(icon) + '</div>' +
+    '<div class="icon-detail-info">' +
+      '<h3>' + icon.name + '</h3>' +
+      '<div class="icon-detail-row"><span class="icon-detail-label">System · Category</span><span class="icon-detail-value"><span class="badge-' + icon.system + '">' + icon.system + '</span> · ' + icon.category + '</span></div>' +
+      '<div class="icon-detail-row"><span class="icon-detail-label">Anatomy</span><span class="icon-detail-value">' + icon.anatomy + '</span></div>' +
+      '<div class="icon-detail-row" style="align-items:flex-start"><span class="icon-detail-label">Aliases</span><span class="icon-detail-value" style="display:flex;flex-wrap:wrap;gap:3px">' + aliasesHtml + '</span></div>' +
+      '<div class="icon-detail-row"><span class="icon-detail-label">Functional mapping</span><span class="icon-detail-value">' + funcHtml + '</span></div>' +
+      activeToggleHtml +
+      '<div class="detail-color-row">' +
+        '<span class="color-picker-label">Export color</span>' +
+        '<div class="color-swatches" id="detail-swatches">' + buildSwatchesHtml('detail') + '</div>' +
+        '<input class="color-custom" type="color" id="detail-color-custom" value="' + iconColor + '" title="Custom color">' +
+        '<span class="color-hex-label" id="detail-color-hex">' + iconColor + '</span>' +
+      '</div>' +
+      '<div class="icon-detail-actions">' +
+        '<button class="icon-dl-btn" id="dl-btn">Download SVG</button>' +
+        '<button class="icon-copy-btn" id="copy-btn">Copy SVG</button>' +
+      '</div>' +
+    '</div>';
+
+  document.getElementById('dl-btn').addEventListener('click', () => downloadSVG(icon));
+  document.getElementById('copy-btn').addEventListener('click', () => copySVG(icon));
+
+  document.getElementById('detail-swatches').addEventListener('click', e => {
+    const swatch = e.target.closest('[data-hex]');
+    if (!swatch) return;
+    setColor(swatch.dataset.hex);
+  });
+
+  document.getElementById('detail-color-custom').addEventListener('input', e => {
+    setColor(e.target.value);
+  });
+
+  if (hasActive) {
+    document.getElementById('detail-active-toggle').addEventListener('change', e => {
+      showActive = e.target.checked;
+      document.getElementById('active-toggle').checked = showActive;
+      const prev = document.getElementById('detail-preview');
+      if (prev) prev.innerHTML = getSvg(icon);
+    });
+  }
+}
+
+function downloadSVG(icon) {
+  const blob = new Blob([getExportSvg(icon)], { type: 'image/svg+xml' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = icon.name + '.svg';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+function copySVG(icon) {
+  navigator.clipboard.writeText(getExportSvg(icon)).then(() => {
+    const btn = document.getElementById('copy-btn');
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(() => { if (btn) btn.textContent = 'Copy SVG'; }, 1500); }
+  });
+}
+
+// Toolbar: search
+document.getElementById('icon-search').addEventListener('input', e => {
+  searchQuery = e.target.value.trim().toLowerCase();
+  render();
+});
+
+// Toolbar: system filter
+document.getElementById('sys-filters').addEventListener('click', e => {
+  const btn = e.target.closest('[data-sys]');
+  if (!btn) return;
+  filterSys = btn.dataset.sys;
+  document.querySelectorAll('[data-sys]').forEach(b => b.classList.toggle('active', b === btn));
+  render();
+});
+
+// Toolbar: category filter
+document.getElementById('cat-filters').addEventListener('click', e => {
+  const btn = e.target.closest('[data-cat]');
+  if (!btn) return;
+  filterCat = btn.dataset.cat;
+  document.querySelectorAll('[data-cat]').forEach(b => b.classList.toggle('active', b === btn));
+  render();
+});
+
+// Toolbar: context (background)
+document.querySelectorAll('[data-ctx]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    ctx = btn.dataset.ctx;
+    document.querySelectorAll('[data-ctx]').forEach(b => b.classList.toggle('active', b === btn));
+    render();
+  });
+});
+
+// Toolbar: active state
+document.getElementById('active-toggle').addEventListener('change', e => {
+  showActive = e.target.checked;
+  const det = document.getElementById('detail-active-toggle');
+  if (det) det.checked = showActive;
+  render();
+});
+
+// Toolbar: color swatches — populated on init, event delegation
+function initToolbarSwatches() {
+  const container = document.getElementById('toolbar-swatches');
+  container.innerHTML = buildSwatchesHtml('toolbar');
+  container.addEventListener('click', e => {
+    const swatch = e.target.closest('[data-hex]');
+    if (!swatch) return;
+    setColor(swatch.dataset.hex);
+    renderDetail();
+  });
+}
+
+document.getElementById('toolbar-color-custom').addEventListener('input', e => {
+  setColor(e.target.value);
+  renderDetail();
+});
+
+initToolbarSwatches();
+render();
+</script>
+  <script src="nav.js"></script>
+</body>
+</html>

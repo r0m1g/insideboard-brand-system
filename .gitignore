@@ -1,0 +1,9 @@
+# Personal Claude Code permissions — machine-specific, never share
+.claude/settings.local.json
+
+# Claude Code worktrees — session-scoped, never commit
+.claude/worktrees/
+
+# macOS
+.DS_Store
+.DS_Store

@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Logbook — InsideBoard Design System</title>
+  <link rel="stylesheet" href="../brandOS-tokens.css">
+  <link rel="stylesheet" href="../brandOS-components.css">
+</head>
+<body class="sys">
+
+  <div class="sys-layout">
+    <aside class="sys-sidebar" id="sys-sidebar"></aside>
+    <main class="sys-main">
+
+    <header class="sys-header" id="sys-header"></header>
+
+    <!-- ENTRY: 2026-04-28 daily-review -->
+    <section class="sys-section">
+
+      <div class="log-entry">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--review">daily review</span>
+          <span class="log-entry__date">2026-04-28</span>
+          <span class="log-entry__title">No commits — /day-end command design &amp; implementation</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip">1 command</span>
+            <span class="log-chip log-chip--warn">branch uncommitted</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Résumé</p>
+              <p>No commits today on <code>feat/ui-exploration</code> — the branch has no git history yet; all project files remain staged but uncommitted. Work was entirely conversational: design, iteration, and implementation of the <code>/day-end</code> command protocol.</p>
+              <p>The command went through two full rewrites. First version was a patch (filling <code>—</code> fields in an existing daily-review entry). Second version was corrected after discovering the <code>daily-code-review</code> scheduled task does not run on this machine — <code>/day-end</code> must generate the full entry autonomously.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Analyse</p>
+              <ul>
+                <li><strong>Risk — branch uncommitted:</strong> <code>feat/ui-exploration</code> has no commits. All project files are staged (70+ entries in <code>git status</code>). No git history exists on this branch — any file loss would be unrecoverable.</li>
+                <li><strong>Untracked commands:</strong> <code>.claude/commands/day-end.md</code> and <code>.claude/commands/session-end.md</code> are untracked (not staged). They will not be included in a commit without explicit <code>git add</code>.</li>
+                <li><strong>Structural alignment check method corrected:</strong> original grep compared section IDs (<code>sNN</code>) against <code>### N·N</code> headings — produced false positives because IDs are non-standard (<code>s02b</code>, <code>s40-*</code>, <code>s50-*</code>). Fixed to compare <code>.cn</code> div values against section numbers.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Décisions</p>
+              <ul>
+                <li><strong><code>/day-end</code> as command, not scheduled task</strong> — end-of-day closure is intentional; a scheduled task would run regardless of whether a real day of work happened.</li>
+                <li><strong>Full entry generation</strong> — <code>/day-end</code> generates Résumé + Analyse + Décisions + Actions autonomously, without depending on a pre-existing daily-review entry.</li>
+                <li><strong>No confirmation prompts</strong> — the command handles all cases (no commits, dirty tree, duplicate) autonomously and reports in the output summary.</li>
+                <li><strong>Syncmain runs by default</strong> — end of day implies publishing; the user triggers <code>/day-end</code>, not <code>/day-end</code> then <code>/syncmain</code> separately.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Actions</p>
+              <ul>
+                <li><code>.claude/commands/day-end.md</code> — created. End-of-day command: full daily-review entry generation, structural alignment check, auto-commit logbook, auto-run <code>scripts/syncmain.sh</code>.</li>
+                <li>Step 3 alignment check rewritten — uses <code>grep .cn div</code> values vs <code>### N·N</code> numbers instead of section ID comparison.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ENTRY: 2026-04-28 workbench-redesign session -->
+    <section class="sys-section">
+
+      <div class="log-entry">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-28</span>
+          <span class="log-entry__title">Workbench nav — complete sidebar + hub redesign</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">12 files</span>
+            <span class="log-chip">No commits</span>
+            <span class="log-chip log-chip--warn">open items</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Sidebar replacement — 8 system pages</strong> — Replaced hardcoded <code>&lt;aside class="sys-sidebar"&gt;</code> blocks with <code>&lt;aside class="sys-sidebar" id="sys-sidebar"&gt;&lt;/aside&gt;</code> in <code>foundations.html</code>, <code>components.html</code>, <code>patterns.html</code>, <code>assets.html</code>, <code>icons.html</code>, <code>docs.html</code>, <code>audit.html</code>, <code>logbook.html</code>. Added <code>&lt;script src="nav.js"&gt;&lt;/script&gt;</code> to all pages.</li>
+                <li><strong>Lab deletion</strong> — Deleted <code>system/lab/ui-test.html</code>, <code>system/lab/animation-test.html</code>, and the <code>lab/</code> directory. Removed all lab references from nav and hub.</li>
+                <li><strong>journal.html isolation</strong> — Removed <code>.sys-layout</code>/<code>.sys-sidebar</code> block entirely. Added <code>&lt;nav class="j-topnav"&gt;← System&lt;/nav&gt;</code> (fixed 48px, ink background). Journal now accessible only from hub (Stories section).</li>
+                <li><strong>system/nav.js</strong> — Centralized nav with auto page detection (<code>location.pathname</code>). Outputs Brand OS HTML structure exactly: <code>.nav-system-link</code> (← Brand OS), <code>.brand</code> with <code>.nav-brand-name</code>/<code>.nav-brand-sub</code> "Workbench", <code>.ng</code> groups with clickable <code>.ngl-link</code> anchors, <code>.active</code> detection, <code>.nav-footer</code> with white mark. Also injects page headers from <code>PAGES</code> dict: back link, eyebrow, display title, deck.</li>
+                <li><strong>brandOS-components.css — sidebar dark overrides</strong> — <code>.sys-layout { margin-left: 272px }</code>. <code>.sys-sidebar { position: fixed; top:0; left:0; width:272px; background:var(--ink) }</code>. All Brand OS nav classes scoped dark under <code>.sys-sidebar</code>: <code>.nav-system-link</code> (ivory 55%), <code>.nav-brand-name</code> (ivory 70%), <code>.ng-num</code> (55%), <code>.ng-sep</code> (35%), <code>.ng-name</code> (82%), <code>ol a</code> (70%), <code>ol a.active</code> ember inset shadow. <code>.ngl-link.active</code> border-bottom ember. No border-left group indicator (double indicator removed).</li>
+                <li><strong>brandOS-components.css — sys-header patterns</strong> — <code>.sys-header-eyebrow</code>: exact <code>.li-label</code> values (500 10px/1 mono .22em uppercase ember). <code>.sys-header-display</code>: exact <code>.li-name</code> values (500 60px/1.02 sans ink -.02em). <code>.sys-header-deck</code>: exact <code>.li-desc</code> values (17px/1.55 gray-600 52ch). <code>.sys-back-page</code>: mono 11px gray-500 → ink on hover.</li>
+                <li><strong>system/index.html — editorial hub rewrite</strong> — Replaced card grid with editorial table of contents. <code>.hub-hero</code> with 96px display "Workbench." + ember deck + lede. Three <code>.hub-part</code> sections with <code>.hub-row</code> editorial lines (grid 220px/1fr/auto, ember <code>::before</code> bar on hover). Dark <code>.hub-journal</code> block with illustration, stagger reveal animation.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <p>No commits this session.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Reuse Brand OS classes, scope dark overrides</strong> — Use exact Brand OS class names (<code>.nav-system-link</code>, <code>.brand</code>, <code>.nav-brand-name</code>) and scope dark variations under <code>.sys-sidebar</code> — no parallel class proliferation.</li>
+                <li><strong>Single active indicator</strong> — Dropped <code>.ng { border-left: ember }</code> (not in Brand OS). Active: <code>.ngl-link.active</code> border-bottom ember + <code>ol a.active</code> ember inset shadow only.</li>
+                <li><strong>Editorial hub</strong> — Hub redesigned as editorial table of contents with horizontal rows, not tiles. Matches Brand OS editorial DNA.</li>
+                <li><strong>Journal isolation</strong> — Removed from system sidebar, accessible only from hub Stories section via own <code>j-topnav</code>.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Open items</p>
+              <ul>
+                <li><strong>Visual verification pending</strong> — No preview server available in shell. Cannot confirm final render matches Brand OS sidebar faithfully. User ended session citing instructions not followed to the letter.</li>
+                <li><strong>Sidebar fidelity</strong> — Multiple correction rounds on nav typography (16px/34px brand sizes, border-bottom line, ngl-link hover/active states). Code in place but not verified visually against Brand OS reference.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ENTRY: 2026-04-28 session -->
+    <section class="sys-section">
+
+      <div class="log-entry">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-28</span>
+          <span class="log-entry__title">Path migration + /session-end command setup</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">4 files</span>
+            <span class="log-chip">No commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Scheduled tasks audit</strong> — checked for existing routines on the new machine (CronList + scheduled-tasks MCP). None found. Confirmed the old machine's session-end routine did not migrate: no hooks in <code>~/.claude/settings.json</code>, no entries in backups for that project.</li>
+                <li><strong>Path migration — <code>/Users/romain</code> → <code>/Users/vo2group</code></strong> — found 121 files in <code>~/.claude/</code> with references to the old username. Bulk replacement via <code>sed -i</code>. Verified 0 occurrences remaining. Scope: backups, conversation logs, plugin config, shell snapshots. Only <code>known_marketplaces.json</code> had an operationally relevant path; the rest were historical records.</li>
+                <li><strong><code>/session-end</code> command</strong> — created <code>.claude/commands/session-end.md</code>. Manual slash command that reconstructs session work from git log + conversation context, formats a <code>.log-entry</code> HTML block with <code>log-type--session</code> badge, and injects it at the top of <code>system/logbook.html</code> (newest first).</li>
+                <li><strong><code>.log-type--session</code> CSS badge</strong> — added to <code>brandOS-components.css</code> using <code>--fn-amber</code> (#C8882A). Distinct from <code>--review</code> (steel) and <code>--audit</code> (moss).</li>
+                <li><strong>Logbook backfill</strong> — added the 2026-04-26 session entry to <code>system/logbook.html</code> from the summary provided (system/docs.html roadmap frise, System → nav link, system/ made public).</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <p>No commits this session.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li>Manual command over automatic hook — <code>/session-end</code> is user-triggered, not a <code>Stop</code> hook. Gives control over when a session is formally closed, avoids noise from short exploratory sessions.</li>
+                <li>Target page is <code>system/logbook.html</code> (existing) rather than a new <code>system/sessions.html</code> — the logbook already serves the exact same purpose and pattern.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Open items</p>
+              <ul>
+                <li>Routine to recreate — the user had a session-end routine on the old machine that has not been identified yet. To define and set up in a future session.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ENTRY: 2026-04-27 daily-review -->
+    <section class="sys-section">
+
+      <div class="log-entry">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--review">daily review</span>
+          <span class="log-entry__date">2026-04-27</span>
+          <span class="log-entry__title">20 commits — audit history system, iconography Phase 3, workflow improvements</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">20 commits</span>
+            <span class="log-chip">5 feat</span>
+            <span class="log-chip log-chip--warn">1 risk</span>
+            <span class="log-chip log-chip--ok">4 actions</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Résumé</p>
+              <p>Three sessions across the day. Midnight: spec-block anatomy (ADR-006), grouped rules list, discreet nav link. Midday: callout status system (info / ok / warn). Evening: Phase 3 iconography — <code>icons.html</code> gallery, <code>/svg</code> command, <code>icons.md</code> registry, logo migration from <code>assets/svg/</code> to <code>assets/logos/</code>. Followed immediately by the first <code>/audit</code> run: 12 layers, 28 checks, 3 blocking and 5 minor findings, all 8 fixed the same session. Audit history page created. Skill improved (3 methodology fixes, 2 new checks).</p>
+              <p>10 commits merged to <code>main</code> via sync. Most-touched files: <code>system/icons.html</code> (10×), <code>brandOS-components.css</code> (9×), <code>index.html</code> (9×).</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Analyse</p>
+              <ul>
+                <li><strong>Risk — large deletion on main:</strong> <code>CLAUDE.md</code>, <code>PROCESS.md</code>, <code>brandOS-content.md</code>, <code>assets/svg/</code> (1478 lines) removed from <code>main</code>. Intentional and documented per Update type 7, but <code>main</code> is now a display-only branch with no governance files. Any tool or contributor reading <code>main</code> sees no source context.</li>
+                <li><strong>Double-commit pattern:</strong> 6 of 20 commits were <code>sync:</code> housekeeping — 30% of the history is structural overhead, not product work.</li>
+                <li><strong>No test suite:</strong> project is static HTML/CSS — not newly introduced, but continues. The audit skill's automated checks (<code>check-icons.js</code>, token diff) are the only regression layer.</li>
+                <li><strong>Stale branch:</strong> <code>feat/animations</code> pre-Phase 3 (last commit 2026-04-24), structurally incompatible with current main.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Décisions</p>
+              <ul>
+                <li>Close <code>feat/animations</code> immediately — pre-Phase 3, no content worth rebasing.</li>
+                <li>Create <strong>Phase 5 · GitLab process</strong> in roadmap — migration steps G.1→G.8, branch consolidation plan, <code>experiment/*</code> model documented.</li>
+                <li>Introduce <code>/syncmain</code> — single command replaces manual <code>sync:</code> commits until GitLab migration (Phase 5 · G.5).</li>
+                <li>Introduce <strong>.log-entry</strong> collapsible pattern — used in this page and retrofitted to <code>audit.html</code>. Prevents scroll overload as runs accumulate.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Actions</p>
+              <ul>
+                <li><code>scripts/check-icons.js</code> — SVG ↔ registry drift detection, exit 0/1. Added as Layer 1.3b in <code>/audit</code> skill.</li>
+                <li><code>PROCESS.md</code> — Definition of done checklist (7 criteria) + Update type 9 (<code>/syncmain</code> protocol).</li>
+                <li><code>.claude/commands/audit.md</code> — check 1.3b (<code>node scripts/check-icons.js</code>), Step N+1 (mandatory devlog entry after each run).</li>
+                <li><code>scripts/syncmain.sh</code> + <code>.claude/commands/syncmain.md</code> — single-command sync with guards, dry-run, deprecation note.</li>
+                <li><code>docs/ROADMAP.md</code> + <code>system/docs.html</code> — Phase 4 and Phase 5 cards added to frise and <code>phasesData</code>.</li>
+                <li><code>system/logbook.html</code> (this page) + <strong>SYSTEM·log-entry</strong> CSS block — collapsible entry pattern deployed.</li>
+                <li><code>daily-code-review</code> skill updated — writes structured logbook entry after each run.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ENTRY: 2026-04-26 session -->
+    <section class="sys-section">
+
+      <div class="log-entry">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-26</span>
+          <span class="log-entry__title">system/docs.html roadmap frise + System → nav link + system/ public</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">5 topics</span>
+            <span class="log-chip">3 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>System → link in index.html</strong> — navigation link from Brand OS to <code>system/</code> playground. Class <code>.nav-system-link</code>, negative margins for full-width alignment at 53px (2 iterations of adjustment).</li>
+                <li><strong>system/docs.html — new page</strong> — project documentation viewer. Roadmap as horizontal frise: clickable phase cards (1A → 1B → 1C → 2 → Future), visual connectors, detail panel on click, 3 status filters (Complete / Active / Future), gap indicator <code>···</code> when hidden phases break continuity. Decisions table (5 ADRs). Devlog (3 entries). Backlog (3 columns). New CSS classes: <code>.roadmap-wrap</code>, <code>.phase-card</code>, <code>.roadmap-connector</code>, <code>.rf-btn</code>, <code>.roadmap-detail</code>, <code>.phase-card-num</code>, <code>.phase-card-name</code>, etc.</li>
+                <li><strong>Docs tab in system/ nav</strong> — link added to <code>.sys-links</code> in <code>foundations.html</code>, <code>components.html</code>, <code>patterns.html</code>, <code>assets.html</code>.</li>
+                <li><strong>system/ made public</strong> — <code>system/</code> added to the list of files synced to <code>main</code>. <code>PROCESS.md</code> and <code>CLAUDE.md</code> updated accordingly.</li>
+                <li><strong>Documentation updated</strong> — <code>docs/ROADMAP.md</code> (Recent changes entry). <code>docs/devlog/2026-04-26-system-docs-and-nav.md</code> created.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li><code>feat/ui-exploration</code> — <code>feat: add system/docs.html roadmap frise + System → nav link</code></li>
+                <li><code>main</code> — <code>chore: sync display files to main</code></li>
+                <li><code>main</code> — <code>chore: sync system/ pages to main</code></li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Architectural discussion</p>
+              <p>W3C Design Tokens choice evaluated — good fit for Figma sync target (Phase 2). Serious alternative identified: Style Dictionary v4 (native DTCG support, avoids the custom generator). To reconsider if Phase 2 does not materialize.</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+  </div>
+
+  <script>
+    document.querySelectorAll('.log-entry__head').forEach(function(head) {
+      head.addEventListener('click', function() {
+        var entry = head.closest('.log-entry');
+        var open  = entry.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', open);
+      });
+      head.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); head.click(); }
+      });
+    });
+  </script>
+
+  <script src="nav.js"></script>
+</body>
+</html>

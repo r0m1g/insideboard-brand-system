@@ -1,0 +1,143 @@
+/* ==========================================================================
+   INSIDEBOARD AI — BRAND TOKENS
+   GENERATED FILE — do not edit by hand.
+   Source:    tokens.json  (W3C Design Tokens Community Group format)
+   Generator: scripts/build-tokens.js
+   To change a value, edit tokens.json and re-run `node scripts/build-tokens.js`.
+   See ADR-002 for the rationale.
+   ========================================================================== */
+
+/* --- SELF-HOSTED FONTS --- */
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url('assets/fonts/outfit-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 300 600;
+  font-display: swap;
+  src: url('assets/fonts/outfit-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('assets/fonts/jetbrains-mono-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url('assets/fonts/jetbrains-mono-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* --- PRIMARY PALETTE --- */
+  --white: #FFFFFF;
+  --ivory: #FAFAF9;
+  --gray-50: #F4EFE6;
+  --stone: #EAE6DF;
+  --ink: #1B1712;
+  --ember: #EE2E20;
+
+  /* --- WARM GRAY SCALE — 11 steps --- */
+  --gray-100: #EAE3D6;
+  --gray-200: #DDD4C4;
+  --gray-300: #C9BEAB;
+  --gray-400: #AFA38E;
+  --gray-500: #8F8472;
+  --gray-600: #6F6656;
+  --gray-700: #4F483C;
+  --gray-800: #332E26;
+  --gray-900: #1B1712;
+  --gray-950: #0D0B08;
+
+  /* --- IRON AGENTS — reserved, do not use outside agent contexts --- */
+  --fn-coral: #F08B73;
+  --fn-blue: #7DA8E8;
+  --fn-sage: #B8D29C;
+  --fn-lavender: #B79BE8;
+
+  /* --- GENERAL FUNCTIONAL PALETTE --- */
+  --fn-red: #C94040;
+  --fn-brick: #D4725A;
+  --fn-amber: #C8882A;
+  --fn-ochre: #B8963E;
+  --fn-moss: #6B8F5A;
+  --fn-pine: #3D7A62;
+  --fn-teal: #2E7A82;
+  --fn-steel: #4A7FBF;
+  --fn-slate: #4A5F8A;
+  --fn-plum: #7A5A8F;
+  --fn-mauve: #9E6B82;
+  --fn-brown: #7A4F35;
+
+  /* --- SEMANTIC TOKENS --- */
+  --bg-canvas: var(--ivory);
+  --bg-paper: var(--white);
+  --bg-surface: var(--stone);
+  --text-primary: var(--ink);
+  --text-primary-inverse: var(--ivory);
+  --text-muted: rgba(250, 250, 249, 0.55);
+  --text-on-color: var(--ivory);
+
+  /* --- SPACING SCALE --- */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 16px;
+  --s4: 24px;
+  --s5: 32px;
+  --s6: 48px;
+  --s7: 64px;
+  --s8: 96px;
+  --s9: 128px;
+
+  /* --- TYPOGRAPHY --- */
+  --sans: "Outfit", "Helvetica Neue", "Arial", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* --- DENSITY --- */
+  --density: 1;
+
+  /* --- COMPONENT TOKENS --- */
+  --nav-bg: var(--white);
+  --nav-border: var(--gray-200);
+  --nav-accent: var(--ember);
+  --hero-accent: var(--ember);
+  --hero-lede: var(--gray-600);
+  --hero-border: var(--gray-200);
+  --chapter-accent: var(--ember);
+  --chapter-principle: var(--gray-600);
+  --callout-border: var(--gray-300);
+  --callout-border-warn: var(--ember);
+  --formula-bg: var(--ink);
+  --formula-text: var(--text-primary-inverse);
+}
+
+[data-density="comfortable"] { --density: 1.15; }
+[data-density="compact"]     { --density: 0.85; }
+
+/* --- BASE RESET --- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; }
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--ink);
+  background: rgba(250,250,249,.5);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }

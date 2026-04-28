@@ -1,0 +1,631 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Components — InsideBoard Design System</title>
+  <link rel="stylesheet" href="../brandOS-tokens.css">
+  <link rel="stylesheet" href="../brandOS-components.css">
+</head>
+<body class="sys">
+
+  <div class="sys-layout">
+    <aside class="sys-sidebar" id="sys-sidebar"></aside>
+    <main class="sys-main">
+
+    <header class="sys-header" id="sys-header"></header>
+
+
+
+    <!-- LAYER INTRO -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Layer intro</p>
+          <code class="spec-class">.layer-intro</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">The large animated header that marks the beginning of a new layer in the Brand OS. Appears once per layer, directly above the layer's first chapter.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Anatomy</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.li-label</span>
+            <span class="anatomy-desc">Layer number tag — e.g. "Layer 01". Steel small caps. Comes from the <code class="ref">## Layer XX</code> number in <code class="ref">brandOS-content.md</code>.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.li-name</span>
+            <span class="anatomy-desc">Layer name — large display type, can break across two lines. Comes from the name after <code class="ref">·</code> in the <code class="ref">## Layer XX · Name</code> heading.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.li-desc</span>
+            <span class="anatomy-desc">Layer description — one sentence. The italic line directly below the <code class="ref">## Layer</code> heading in <code class="ref">brandOS-content.md</code>.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.li-ghost</span>
+            <span class="anatomy-desc">Decorative echo of <code class="ref">.li-name</code> — large faint text behind the content. Purely visual. Always <code class="ref">aria-hidden="true"</code>.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Default</p>
+            <div style="background:var(--ivory);border-radius:4px;overflow:hidden;padding:0 var(--s5)">
+              <div class="layer-intro" style="position:relative;opacity:1;transform:none;margin-top:0">
+                <span class="li-label">Layer 01</span>
+                <h2 class="li-name">Layer name</h2>
+                <p class="li-desc">One sentence describing what this layer covers.</p>
+                <div class="li-ghost" aria-hidden="true">01</div>
+              </div>
+            </div>
+            <div class="callout" style="margin-top:var(--s4)">In the Brand OS, the layer intro animates in on scroll. In this playground the animation is bypassed with inline styles (<code class="ref">position:relative;opacity:1;transform:none</code>). Never add these overrides to <code class="ref">index.html</code>.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>One layer intro per layer. It always sits immediately before the layer's first chapter — never mid-layer.</li>
+              <li>Derive all content from <code class="ref">brandOS-content.md</code>: layer number from the heading, name from after the <code class="ref">·</code>, description from the italic line below it.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Place a chapter before the layer intro of its own layer.</li>
+              <li>Add a layer intro without any chapters following it.</li>
+            </ul>
+          </div>
+          <div class="rules-group note">
+            <span class="rules-label">Note</span>
+            <ul>
+              <li>The <code class="ref">.li-ghost</code> must always carry <code class="ref">aria-hidden="true"</code> — it is decorative only and must not be read by screen readers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="patterns.html">Pattern: Layer → section structure</a>
+          <a class="related-link" href="components.html">Component: Chapter</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CHAPTER -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Chapter</p>
+          <code class="spec-class">.chapter</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">The building block of the Brand OS document. Every section you see in the Brand OS — Positioning, Colour, Typography — is a chapter. It groups a number, a title, an opening statement, and all the content that belongs to that section.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Anatomy</p>
+        <p style="font-size:14px;color:var(--gray-600);margin:0 0 var(--s4)">A chapter is made of five named parts. The header (<code class="ref">.ch</code>) sits at the top and holds the number and title. Everything else — paragraphs, tables, rules — goes in the body (<code class="ref">.cb</code>).</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.ch</span>
+            <span class="anatomy-desc">The header row. It spans the full width and displays the section number on the left with the title and principle on the right.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.cn</span>
+            <span class="anatomy-desc">The section number, e.g. "1·1". Always in monospace. Comes from <code class="ref">brandOS-content.md</code> — never typed by hand in the HTML.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">h2</span>
+            <span class="anatomy-desc">The section title. Short, direct, no punctuation. Also comes from content.md.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.pr</span>
+            <span class="anatomy-desc">The opening principle — one or two sentences that set the intent of the section. Taken verbatim from the first paragraph of the section in content.md.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.cb</span>
+            <span class="anatomy-desc">The body. Everything that explains and develops the section: paragraphs, rule lists, callouts, tables. Sits below the header.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+
+          <div>
+            <p class="variant-label">Default — what a chapter looks like</p>
+            <div style="background:var(--ivory);border-radius:4px;padding:var(--s5)">
+              <section class="chapter ch-reveal revealed" style="max-width:720px">
+                <div class="ch">
+                  <div class="cn">1·1</div>
+                  <div>
+                    <h2>Section title</h2>
+                    <p class="pr">Opening principle — the first statement of the section, taken verbatim from <em>brandOS-content.md</em>. One or two sentences maximum.</p>
+                  </div>
+                </div>
+                <div class="cb">
+                  <p>Body content — paragraphs, rule lists, callouts, and tables live here. Everything that develops and explains the section belongs in <code class="ref">.cb</code>.</p>
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div>
+            <p class="variant-label">Scroll reveal — .ch-reveal</p>
+            <p style="font-size:14px;color:var(--gray-600);margin:0 0 var(--s4)">In the Brand OS, every chapter starts invisible and fades in when the reader scrolls to it. The two states below show what the reader sees before and after that transition.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s4)">
+              <div>
+                <p style="font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin:0 0 var(--s3)">Before scroll — hidden</p>
+                <div style="background:var(--ivory);border-radius:4px;padding:var(--s5);border:1px dashed var(--gray-200);min-height:160px;display:flex;align-items:center;justify-content:center">
+                  <p style="font-size:13px;color:var(--gray-300);font-family:var(--mono);text-align:center;line-height:1.6;margin:0">opacity: 0<br>translateY(−12px)<br>not yet visible</p>
+                </div>
+              </div>
+              <div>
+                <p style="font:500 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gray-400);margin:0 0 var(--s3)">After scroll — revealed</p>
+                <div style="background:var(--ivory);border-radius:4px;padding:var(--s5)">
+                  <section class="chapter ch-reveal revealed">
+                    <div class="ch">
+                      <div class="cn">1·2</div>
+                      <div>
+                        <h2>Section title</h2>
+                        <p class="pr">Opening principle — visible once <em>.revealed</em> is added by the IntersectionObserver.</p>
+                      </div>
+                    </div>
+                    <div class="cb">
+                      <p>Body content — same structure as the default, now fully visible to the reader.</p>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+            <div class="callout" style="margin-top:var(--s4)">
+              The transition is handled by a JavaScript <code class="ref">IntersectionObserver</code> in the Brand OS. It watches each <code class="ref">.ch-reveal</code> section and adds the class <code class="ref">.revealed</code> the moment it enters the viewport. In this playground, use <code class="ref">.ch-reveal.revealed</code> directly to see the final state.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <p style="font-size:14px;color:var(--gray-600);margin:0 0 var(--s4)">Chapters are the only way to add a new section to the Brand OS. Every section in the document — without exception — is a chapter. Here is what to remember when working with them.</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>A chapter always needs both a header and a body. The header holds the number, title, and opening principle. The body holds everything else.</li>
+              <li>The number and title are always copied from <code class="ref">brandOS-content.md</code>. They are never written directly into the HTML — the content file is the single source of truth.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Put a chapter inside another chapter. Each chapter is one standalone section. They sit next to each other, never nested.</li>
+              <li>Skip the opening principle. It is the first thing a reader sees and it defines what the section is about. If it is missing, the section has no anchor.</li>
+            </ul>
+          </div>
+          <div class="rules-group note">
+            <span class="rules-label">Note</span>
+            <ul>
+              <li>When adding a new section to the Brand OS, write the content in <code class="ref">brandOS-content.md</code> first — number, title, principle, body. Then build the chapter in HTML from that source.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="patterns.html">Pattern: Layer → section structure</a>
+          <a class="related-link" href="components.html">Component: Callout</a>
+          <a class="related-link" href="components.html">Component: Rules list</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CALLOUT -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Callout</p>
+          <code class="spec-class">.callout</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">A boxed aside for information that matters but doesn't fit naturally in the prose flow. One or two sentences — never a substitute for a paragraph.</p>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Default</p>
+            <div style="padding:var(--s5);background:var(--ivory);border-radius:4px">
+              <div class="callout">Important context that belongs near this section but would interrupt the reading flow if placed inline. Keep it to one sentence where possible.</div>
+            </div>
+          </div>
+          <div>
+            <p class="variant-label">Warning · .callout.warn</p>
+            <div style="padding:var(--s5);background:var(--ivory);border-radius:4px">
+              <div class="callout warn">A common mistake readers are likely to make here. Use <code class="ref">.warn</code> only when the risk is real and specific — not as general emphasis.</div>
+            </div>
+          </div>
+          <div>
+            <p class="variant-label">Good practice · .callout.ok</p>
+            <div style="padding:var(--s5);background:var(--ivory);border-radius:4px">
+              <div class="callout ok"><b>Good practice</b>A recommended approach or validated pattern. Use <code class="ref">.ok</code> to affirm a correct behaviour, not just to balance a warning.</div>
+            </div>
+          </div>
+          <div>
+            <p class="variant-label">Info · .callout.info</p>
+            <div style="padding:var(--s5);background:var(--ivory);border-radius:4px">
+              <div class="callout info"><b>Note</b>Contextual information that helps the reader understand without implying a risk or a recommendation. Use <code class="ref">.info</code> for clarifications and reminders.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>Keep callouts to one or two sentences. If it needs more, it belongs in the body as a paragraph.</li>
+              <li>Place callouts inside <code class="ref">.cb</code>. They are always part of a chapter's body, never in the header.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Use more than one callout per section. If everything is highlighted, nothing is.</li>
+              <li>Use <code class="ref">.warn</code> as a style preference — reserve it for genuine mistakes readers are likely to make.</li>
+            </ul>
+          </div>
+          <div class="rules-group note">
+            <span class="rules-label">Note</span>
+            <ul>
+              <li>Convention places the callout at the end of the section body, after the rules list. It closes the section, it doesn't open it.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="components.html">Component: Rules list</a>
+          <a class="related-link" href="patterns.html">Pattern: Section body pattern</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RULES -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Rules list</p>
+          <code class="spec-class">ul.rules</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">A structured list of behavioral guidelines split into three types: Do (what to follow), Don't (what to avoid), and Note (context worth remembering). Used inside <code class="ref">.cb</code> to enumerate rules clearly.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Anatomy</p>
+        <p style="font-size:14px;color:var(--gray-600);margin:0 0 var(--s4)">Each <code class="ref">li</code> is a two-column grid: an 80px label column on the left, the text on the right. Both columns are required — the layout breaks if either is missing.</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">li.do</span>
+            <span class="anatomy-desc">A rule to follow. Green label. Affirms correct behavior.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">li.dont</span>
+            <span class="anatomy-desc">Something to avoid. Ember label. States what is wrong or harmful.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">li.note</span>
+            <span class="anatomy-desc">Contextual information — neither imperative nor forbidden. Gray label.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">b</span>
+            <span class="anatomy-desc">The label — goes in the 80px column. One or two words: "Do", "Don't", "Use", "Never", "Note".</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">span</span>
+            <span class="anatomy-desc">The text — goes in the remaining column. Required whenever the text contains any inline element (<code class="ref">code</code>, <code class="ref">strong</code>, <code class="ref">em</code>).</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">All three types</p>
+            <div style="padding:var(--s5);background:var(--ivory);border-radius:4px">
+              <div class="rules-grouped">
+                <div class="rules-group do">
+                  <span class="rules-label">Do</span>
+                  <ul>
+                    <li>Write from the manager's perspective, not the platform's.</li>
+                    <li>Use specific, observable language — avoid vague claims.</li>
+                  </ul>
+                </div>
+                <div class="rules-group dont">
+                  <span class="rules-label">Don't</span>
+                  <ul>
+                    <li>Use jargon that non-technical managers won't recognize.</li>
+                    <li>Treat AI as the subject — managers are the subject.</li>
+                  </ul>
+                </div>
+                <div class="rules-group note">
+                  <span class="rules-label">Note</span>
+                  <ul>
+                    <li>When in doubt, cut. The brand speaks with compression, not volume.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>Always structure each item as <code class="ref">&lt;b&gt;Label&lt;/b&gt;&lt;span&gt;text&lt;/span&gt;</code> — the two-column grid requires both elements.</li>
+              <li>Wrap the text in <code class="ref">&lt;span&gt;</code> whenever it contains any inline element. Without it, <code class="ref">code</code> or <code class="ref">strong</code> become extra grid items and break the layout.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Put inline elements directly inside <code class="ref">li</code> without a wrapping <code class="ref">span</code>.</li>
+            </ul>
+          </div>
+          <div class="rules-group note">
+            <span class="rules-label">Note</span>
+            <ul>
+              <li>No required order, but convention is Do → Don't → Note. Keeps the positive framing first.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="components.html">Component: Callout</a>
+          <a class="related-link" href="patterns.html">Pattern: Section body pattern</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CAP TAG -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Cap tag</p>
+          <code class="spec-class">.cap-tag</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">A small uppercase pill label for categorization. Used to tag content by layer, topic, or type — purely informational, never interactive.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Anatomy</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">span.cap-tag</span>
+            <span class="anatomy-desc">The label text — one to three words, uppercase rendered by CSS. No child elements.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Light context</p>
+            <div style="position:relative;background:var(--ivory);border-radius:4px;min-height:80px">
+              <span class="cap-tag">Layer 01</span>
+            </div>
+          </div>
+          <div>
+            <p class="variant-label">Dark context</p>
+            <div style="position:relative;background:var(--ink);border-radius:4px;min-height:80px">
+              <span class="cap-tag" style="background:var(--white)">Layer 02</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>Keep labels to one to three words. Cap tags are labels, not sentences.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Use cap tags as buttons or navigation — they are purely decorative and informational.</li>
+            </ul>
+          </div>
+          <div class="rules-group note">
+            <span class="rules-label">Note</span>
+            <ul>
+              <li>No variants. All cap tags carry the same visual weight regardless of content.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- FORMULA DARK -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Formula dark</p>
+          <code class="spec-class">.fd</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">Displays a conceptual equation on an Ink background. Used once in the document for one high-impact strategic formulation. Not a pattern — a punctuation device.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Anatomy</p>
+        <p style="font-size:14px;color:var(--gray-600);margin:0 0 var(--s4)">Five <code class="ref">span</code> elements in sequence: term, operator, term, operator, term. Operators (<code class="ref">+</code>, <code class="ref">=</code>) use the same element as terms — only position and spacing distinguish them visually.</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item"><span class="anatomy-tag">span (term)</span><span class="anatomy-desc">A concept — two to four words maximum.</span></div>
+          <div class="anatomy-item"><span class="anatomy-tag">span (op)</span><span class="anatomy-desc">An operator — always <code class="ref">+</code> or <code class="ref">=</code>.</span></div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Default — term + operator + term + operator + term</p>
+            <div class="fd">
+              <span>Human judgment</span>
+              <span>+</span>
+              <span>AI velocity</span>
+              <span>=</span>
+              <span>Augmented performance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>Use exactly five spans: term → <code class="ref">+</code> → term → <code class="ref">=</code> → term. The structure is fixed.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Use more than once in the document. The formula works because it is isolated — repetition kills it.</li>
+              <li>Use for a literal mathematical equation. The formula expresses a strategic idea, not a calculation.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="components.html">Component: Posture card</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- POSTURE CARD -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Posture card</p>
+          <code class="spec-class">.pc</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">A large dark block for a flagship positioning statement shown in two densities — a short headline form and a longer explanatory form. Used once in the document.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Anatomy</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.pct</span>
+            <span class="anatomy-desc">Short form — the compressed headline statement. Six to ten words. What a poster would say.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.pcb</span>
+            <span class="anatomy-desc">Long form — two to three sentences that expand the short form. What you'd say if asked "what does that mean?"</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Default</p>
+            <div class="pc">
+              <div class="pct">Short form — the headline.</div>
+              <div class="pcb">Long form — the expansion. Two or three sentences that give the short form its meaning. Written for the reader who wants to understand, not just read.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>Write <code class="ref">.pct</code> first — it is the anchor. <code class="ref">.pcb</code> must follow from it, not the other way around.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Use more than once in the document. One posture card, one moment of compression.</li>
+              <li>Skip <code class="ref">.pct</code>. Without the short form, the long form has no tension and no point.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="components.html">Component: Formula dark</a>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+  </div>
+
+  <script src="nav.js"></script>
+</body>
+</html>

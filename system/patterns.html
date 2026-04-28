@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Patterns — InsideBoard Design System</title>
+  <link rel="stylesheet" href="../brandOS-tokens.css">
+  <link rel="stylesheet" href="../brandOS-components.css">
+</head>
+<body class="sys">
+
+  <div class="sys-layout">
+    <aside class="sys-sidebar" id="sys-sidebar"></aside>
+    <main class="sys-main">
+
+    <header class="sys-header" id="sys-header"></header>
+
+    <!-- LAYER → SECTION PATTERN -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Layer → Section</p>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">The fundamental document rhythm of the Brand OS. Every layer opens with a layer intro, followed immediately by its chapters. This structure is not optional — every layer in the document follows it without exception.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Composition</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.layer-intro</span>
+            <span class="anatomy-desc">Required. One per layer. Always the first element — never after a chapter.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.chapter ×N</span>
+            <span class="anatomy-desc">Required. One or more chapters following the layer intro. All chapters between two layer intros belong to the layer of the first.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Layer intro → Chapter</p>
+            <div style="background:var(--ivory);border-radius:4px 4px 0 0;overflow:hidden;padding:0 var(--s5)">
+              <div class="layer-intro" style="position:relative;opacity:1;transform:none;margin-top:0">
+                <span class="li-label">Layer 02</span>
+                <h2 class="li-name">Layer name</h2>
+                <p class="li-desc">One sentence describing what this layer covers.</p>
+                <div class="li-ghost" aria-hidden="true">Layer name</div>
+              </div>
+            </div>
+            <div style="background:var(--ivory);border-radius:0 0 4px 4px;padding:var(--s5)">
+              <section class="chapter ch-reveal revealed" style="max-width:720px">
+                <div class="ch">
+                  <div class="cn">2·1</div>
+                  <div>
+                    <h2>Section title</h2>
+                    <p class="pr">Opening principle — the first statement of the section.</p>
+                  </div>
+                </div>
+                <div class="cb">
+                  <p>Body content. More chapters follow in the same ivory container, separated by the chapter's own internal spacing.</p>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>The layer intro always comes first. Chapters follow it — they never precede it.</li>
+              <li>All chapters between two layer intros belong to the layer of the first. Layer membership is defined by position, not by any class or attribute.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Add a layer intro with no chapters after it. A layer with no content should not exist in the document.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="components.html">Component: Layer intro</a>
+          <a class="related-link" href="components.html">Component: Chapter</a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- REGISTER CONTRAST PATTERN -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Register contrast</p>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">A side-by-side layout that makes the two primary visual registers tangible — brand (dark, editorial, emotional weight) against product (light, functional, direct). Used in the Brand OS to demonstrate the difference, not to mix the two.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Composition</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">Brand register</span>
+            <span class="anatomy-desc">Ink background. Light text. Light weight (300). Used for marketing, editorial, and high-stakes brand moments.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">Product register</span>
+            <span class="anatomy-desc">White background. Ink text. Normal weight (400). Used for product UI, documentation, and operational contexts.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Brand register vs product register</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)">
+              <div style="background:var(--ink);padding:var(--s5);border-radius:4px">
+                <p style="font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin:0 0 var(--s3)">Brand register</p>
+                <p style="color:var(--ivory);font-size:20px;font-weight:300;line-height:1.3;margin:0">Augmented<br>performance starts<br>with human judgment.</p>
+              </div>
+              <div style="background:var(--white);padding:var(--s5);border-radius:4px;border:1px solid var(--gray-100)">
+                <p style="font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray-500);margin:0 0 var(--s3)">Product register</p>
+                <p style="color:var(--ink);font-size:20px;font-weight:400;line-height:1.3;margin:0">Set a goal.<br>The agent handles<br>the execution.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>Brand register on the left, product register on the right — the contrast reads left-to-right: emotional → functional.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Mix registers within a single surface. The contrast pattern exists to show the difference, not to combine them.</li>
+            </ul>
+          </div>
+          <div class="rules-group note">
+            <span class="rules-label">Note</span>
+            <ul>
+              <li>This is a documentation pattern, not a UI component. It does not appear in the Brand OS sections — only here to demonstrate how the registers differ.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RULES + CALLOUT PATTERN -->
+    <section class="sys-section">
+
+      <div class="spec-header">
+        <div class="spec-identity">
+          <p class="spec-name">Section body pattern</p>
+          <code class="spec-class">.cb</code>
+          <span class="spec-badge spec-badge--stable">Stable</span>
+        </div>
+        <p class="spec-purpose">The standard content structure for a chapter body. A prose introduction, a rules list, and an optional callout — in that order. The most common composition in the Brand OS.</p>
+      </div>
+
+      <div class="spec-anatomy">
+        <p class="spec-sub">Composition</p>
+        <div class="anatomy-list">
+          <div class="anatomy-item">
+            <span class="anatomy-tag">p (intro)</span>
+            <span class="anatomy-desc">Required. One or two sentences that frame the section before the rules. Context first, rules second.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">ul.rules</span>
+            <span class="anatomy-desc">Required. The behavioral guidelines for this section.</span>
+          </div>
+          <div class="anatomy-item">
+            <span class="anatomy-tag">.callout</span>
+            <span class="anatomy-desc">Optional. Placed last — it closes the section, never opens it.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-variants">
+        <p class="spec-sub">Live demo</p>
+        <div class="variant-list">
+          <div>
+            <p class="variant-label">Intro → rules → callout</p>
+            <div style="background:var(--ivory);border-radius:4px;padding:var(--s5);max-width:720px">
+              <div class="cb">
+                <p>The voice system has three registers. Each is calibrated for a different context — never mix them within a single surface.</p>
+                <div class="rules-grouped">
+                  <div class="rules-group do">
+                    <span class="rules-label">Do</span>
+                    <ul>
+                      <li>Match the register to the surface: brand for marketing, product for UI, technical for docs.</li>
+                      <li>Keep register consistent within a screen or document.</li>
+                    </ul>
+                  </div>
+                  <div class="rules-group dont">
+                    <span class="rules-label">Don't</span>
+                    <ul>
+                      <li>Use the brand register in product UI — it sounds theatrical in a dashboard.</li>
+                    </ul>
+                  </div>
+                  <div class="rules-group note">
+                    <span class="rules-label">Note</span>
+                    <ul>
+                      <li>When uncertain, default to product register. It's the most neutral.</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="callout">Register is not tone. Tone shifts within a register (warmer or cooler). Register is the channel — it doesn't flex.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-usage">
+        <p class="spec-sub">Usage</p>
+        <div class="rules-grouped">
+          <div class="rules-group do">
+            <span class="rules-label">Do</span>
+            <ul>
+              <li>Open with a sentence that contextualizes the rules. A list without an intro lacks grounding.</li>
+              <li>Place the callout last. It closes and punctuates — it doesn't introduce.</li>
+            </ul>
+          </div>
+          <div class="rules-group dont">
+            <span class="rules-label">Don't</span>
+            <ul>
+              <li>Start the body directly with a rules list. Context always comes first.</li>
+            </ul>
+          </div>
+          <div class="rules-group note">
+            <span class="rules-label">Note</span>
+            <ul>
+              <li>The callout is optional. Omit it when there's nothing genuinely worth highlighting — not every section needs one.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spec-related">
+        <p class="spec-sub">Related</p>
+        <div class="related-list">
+          <a class="related-link" href="components.html">Component: Rules list</a>
+          <a class="related-link" href="components.html">Component: Callout</a>
+          <a class="related-link" href="components.html">Component: Chapter</a>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+  </div>
+
+  <script src="nav.js"></script>
+</body>
+</html>
