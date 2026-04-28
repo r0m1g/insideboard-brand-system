@@ -15,6 +15,56 @@
 
     <header class="sys-header" id="sys-header"></header>
 
+    <!-- ENTRY: 2026-04-29 session -->
+    <section class="sys-section">
+
+      <div class="log-entry">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">Brand knowledge file for Claude Team project</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">1 file</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Created <code>docs/brand-knowledge.md</code></strong> — operational condensation of the Brand OS for use as Project Knowledge in a Claude Team project ("InsideBoard AI Brand OS"). Target audience: internal teams (Sales, CSM, Marketing, Delivery) generating brand-aligned content via Claude without going through the Art Director.</li>
+                <li><strong>Eight-section structure</strong> — Positioning essentials (Posture / Promise / Mechanism + what InsideBoard is NOT), Audiences &amp; activation modes (4 audiences with mode + verbatim + formats), Registers (the 4 prompt blocks from Section 4·3 reproduced verbatim + selection tree), Non-negotiable rules (Section 2·5 in full), Anti-patterns (6 generic from 2·6 + 8 named from 5·2), Calibration checklist (5 questions from 5·3), Before/After (4 examples from 5·1: Enterprise email, company description, Event keynote, IRON greeting), and a "What this document is NOT" closing pointing to the rendered Brand OS for visual specs and to <code>CLAUDE.md</code> for repo-editing protocols.</li>
+                <li><strong>Sourcing constraint enforced</strong> — every line traced to <code>brandOS-content.md</code>. No invented content. <code>tokens.json</code>, CSS, and HTML deliberately not consulted (per brief).</li>
+                <li><strong>Format constraints</strong> — flat markdown, bullet lists only (no markdown tables, which Claude parses poorly in context), English, 1840 words / ~2400 tokens — within the 2000–3000 token target.</li>
+                <li><strong>File placement</strong> — <code>docs/brand-knowledge.md</code> per CLAUDE.md "no working files in root" rule.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session. <code>docs/brand-knowledge.md</code> remains untracked pending review.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Two distinct AI-context files, two distinct roles.</strong> <code>CLAUDE.md</code> stays the operational manual for the AI editing the repo (file architecture, str_replace rules, PROCESS pointers). <code>docs/brand-knowledge.md</code> is the brand-content condensation for AI generating brand outputs in a Claude Team project. The two files do not overlap and explicitly cross-reference at their boundary.</li>
+                <li><strong>Visual identity (Layer 03) deliberately excluded</strong> from the knowledge file. Rationale: Layer 03 is in progress, contains many tabular HEX/spec values that Claude parses poorly, and is best consulted at the rendered URL. The "What this document is NOT" section makes the redirect explicit.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
     <!-- ENTRY: 2026-04-28 daily-review -->
     <section class="sys-section">
 

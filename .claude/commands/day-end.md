@@ -7,6 +7,9 @@ No confirmation prompts. Handle all cases autonomously.
 ## Step 1 — Gather facts
 
 ```bash
+# Clean .DS_Store before anything else (macOS artefact — always safe to discard)
+find . -name ".DS_Store" -not -path "./.git/*" -delete
+
 date +%Y-%m-%d
 git log --since="$(date +%Y-%m-%d) 00:00" --oneline
 git diff --name-only origin/main -- index.html brandOS-tokens.css brandOS-components.css assets/ system/
