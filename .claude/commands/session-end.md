@@ -1,10 +1,13 @@
 Generate a structured session summary and append it to `system/logbook.html`.
 
+**Day boundary:** a "day" runs from 05:00 to 04:59 the next morning. A session started before 05:00 is dated to the previous calendar day — working until 2am on Wednesday night produces a Wednesday entry, not Thursday.
+
 ## What this command does
 
 1. Reconstructs what happened this session from git log, modified files, and conversation context
 2. Formats it as a `.log-entry` HTML block with `log-type--session` badge
 3. Injects it at the top of the entry list in `system/logbook.html` (newest first)
+4. Commits `system/logbook.html` and syncs to `main` so the entry is live immediately
 
 ---
 
@@ -17,11 +20,16 @@ Run these commands to collect facts. Do not skip any.
 git log --oneline -10 feat/ui-exploration
 git log --oneline -5 main
 
-# Files touched today on the working branch
+# Files touched this session on the working branch
 git diff --name-only HEAD~5..HEAD 2>/dev/null | sort -u
 
-# Current date
-date +%Y-%m-%d
+# Working date (before 05:00 = previous calendar day)
+python3 -c "
+from datetime import datetime, timedelta
+now = datetime.now()
+d = now.date() if now.hour >= 5 else now.date() - timedelta(days=1)
+print(d.strftime('%Y-%m-%d'))
+"
 ```
 
 Also review the conversation to identify:
@@ -46,10 +54,8 @@ Choose chips that summarize the session truthfully:
 Use this exact template. Replace all `{{ }}` placeholders with real content.
 
 ```html
-    <!-- ENTRY: {{ YYYY-MM-DD }} session -->
-    <section class="sys-section">
-
-      <div class="log-entry">
+      <!-- ENTRY: {{ YYYY-MM-DD }} session -->
+      <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">{{ YYYY-MM-DD }}</span>
@@ -99,45 +105,62 @@ Use this exact template. Replace all `{{ }}` placeholders with real content.
           </div>
         </div>
       </div>
-
-    </section>
 ```
 
 Remove any optional section (`Decisions`, `Open items`) if there is nothing to say.
 
 ---
 
-## Step 4 — Inject into logbook.html
+## Step 4 — Inject or update logbook.html
 
-Read `system/logbook.html`. Find the first `<!-- ENTRY:` comment. Insert the new block **immediately before** it (newest entry at the top).
+**First, check for an existing entry for today:**
 
-Use `str_replace` — do not rewrite the full file.
-
-**Insertion point** to find:
-
-```
-    <!-- ENTRY: 20
+```bash
+grep -c "<!-- ENTRY: $(date +%Y-%m-%d) session -->" system/logbook.html
 ```
 
-Replace with:
+**If count ≥ 1 (entry exists):**
+Read the file, locate the full entry block — from `<!-- ENTRY: YYYY-MM-DD session -->` down to and including the closing `</div>` of the `.log-entry` div. Replace the entire block with the new version using `str_replace`. This updates the entry in place.
+
+**If count = 0 (no entry yet):**
+Find the first `<!-- ENTRY:` comment in `system/logbook.html`. Insert the new block **immediately before** it using `str_replace`:
 
 ```
-    {{ new entry block }}
+      <!-- ENTRY: 20
+```
 
-    <!-- ENTRY: 20
+→
+
+```
+      {{ new entry block }}
+
+      <!-- ENTRY: 20
 ```
 
 ---
 
-## Step 5 — Confirm
+## Step 5 — Commit and sync
 
-After writing, output a one-line confirmation:
+```bash
+git add system/logbook.html
+git commit -m "log: {{ YYYY-MM-DD }} session — {{ short title }}"
+bash scripts/syncmain.sh
+git push origin main
+```
+
+If `git push` fails: note the error in output. Do not retry. Do not ask for input.
+
+---
+
+## Step 6 — Confirm
+
+After the push, output a one-line confirmation:
 
 ```
-Session logged — system/logbook.html updated ({{ date }}).
+Session logged and synced — system/logbook.html live ({{ date }}).
 ```
 
-Do not commit. Do not open the file in a browser. Do not add anything else.
+Do not open the file in a browser. Do not add anything else.
 
 ---
 

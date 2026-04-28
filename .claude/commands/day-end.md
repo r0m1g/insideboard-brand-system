@@ -1,5 +1,7 @@
 Close the day: generate the full daily-review entry, run a structural alignment check, commit, and sync to main.
 
+**Day boundary:** a "day" runs from 05:00 to 04:59 the next morning. Running this command before 05:00 always targets the previous calendar date — so working until 2am on a Wednesday night still closes Wednesday, not Thursday.
+
 No confirmation prompts. Handle all cases autonomously.
 
 ---
@@ -10,8 +12,14 @@ No confirmation prompts. Handle all cases autonomously.
 # Clean .DS_Store before anything else (macOS artefact — always safe to discard)
 find . -name ".DS_Store" -not -path "./.git/*" -delete
 
-date +%Y-%m-%d
-git log --since="$(date +%Y-%m-%d) 00:00" --oneline
+# Resolve the working date: before 05:00 = still yesterday
+python3 -c "
+from datetime import datetime, timedelta
+now = datetime.now()
+d = now.date() if now.hour >= 5 else now.date() - timedelta(days=1)
+print(d.strftime('%Y-%m-%d'))
+"
+git log --since="$(python3 -c "from datetime import datetime,timedelta; n=datetime.now(); d=n.date() if n.hour>=5 else n.date()-timedelta(days=1); print(str(d)+' 00:00')")" --oneline
 git diff --name-only origin/main -- index.html brandOS-tokens.css brandOS-components.css assets/ system/
 git status --short
 ```
@@ -22,13 +30,16 @@ Also extract from the conversation:
 
 ---
 
-## Step 2 — Check for duplicate
+## Step 2 — Check for existing entry
 
-Search `system/logbook.html` for `<!-- ENTRY: YYYY-MM-DD daily-review -->` (today's date).
+```bash
+grep -c "<!-- ENTRY: WORKING_DATE daily-review -->" system/logbook.html
+```
+(substitute the working date resolved in Step 1)
 
-**If found:** the entry already exists — skip to Step 4 (structural check). Note it in the final output.
+**If count ≥ 1 (entry exists):** proceed to Step 3 anyway — regenerate the full entry with today's complete picture, then **replace** the existing block in place using `str_replace`. Locate the block from `<!-- ENTRY: WORKING_DATE daily-review -->` to the closing `</div>` of the `.log-entry` div.
 
-**If not found:** proceed to Step 3.
+**If count = 0 (no entry):** proceed to Step 3, then **insert** before the first `<!-- ENTRY:` comment.
 
 ---
 
@@ -49,10 +60,8 @@ Build the full entry from the facts gathered in Step 1. All four sections must b
 Use this exact template:
 
 ```html
-    <!-- ENTRY: YYYY-MM-DD daily-review -->
-    <section class="sys-section">
-
-      <div class="log-entry">
+      <!-- ENTRY: YYYY-MM-DD daily-review -->
+      <div class="log-entry" data-type="review">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--review">daily review</span>
           <span class="log-entry__date">YYYY-MM-DD</span>
@@ -89,8 +98,6 @@ Use this exact template:
           </div>
         </div>
       </div>
-
-    </section>
 ```
 
 **Injection point:** find the first `<!-- ENTRY:` comment in `system/logbook.html`. Insert the new block immediately before it. Use `str_replace` — do not rewrite the file.
@@ -149,5 +156,6 @@ Day closed — YYYY-MM-DD
 - **No confirmation prompts.** Handle every case — missing entry, no commits, dirty tree — autonomously.
 - **Concrete only.** No vague items. Name files, class names, commands.
 - **English only.** All content written to the file must be in English, even if the conversation was in French.
-- **One entry per day.** If run a second time and entry already exists, skip Step 3 entirely.
+- **One entry per day, always updated.** If run a second time, regenerate and replace the existing entry — never create a duplicate.
+- **Day boundary = 05:00.** Running before 05:00 counts as the previous calendar day.
 - **No invented content.** If a section has nothing to say, use `<p>—</p>` with `class="log-section--empty"`.
