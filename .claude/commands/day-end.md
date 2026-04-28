@@ -124,7 +124,12 @@ git commit -m "log: day-end $(date +%Y-%m-%d)"
 bash scripts/syncmain.sh
 ```
 
-If syncmain fails (working tree not clean, script error): note the failure in output. Do not retry. Do not ask for input.
+**Push to remote:**
+```bash
+git push origin main
+```
+
+If syncmain or push fails: note the failure in output. Do not retry. Do not ask for input.
 
 ---
 

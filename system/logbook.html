@@ -15,10 +15,64 @@
 
     <header class="sys-header" id="sys-header"></header>
 
-    <!-- ENTRY: 2026-04-29 session -->
     <section class="sys-section">
 
-      <div class="log-entry">
+      <div class="log-filters">
+        <button class="lf-btn is-active" data-filter="all">All</button>
+        <button class="lf-btn" data-filter="session">Session</button>
+        <button class="lf-btn" data-filter="review">Daily review</button>
+        <button class="lf-btn" data-filter="audit">Audit</button>
+      </div>
+
+      <div class="log-list">
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">Git push automation — HTTPS credentials + command updates</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">2 files</span>
+            <span class="log-chip">2 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Commit + syncmain</strong> — committed session files (<code>docs/brand-knowledge.md</code>, <code>docs/inventory.md</code>, <code>system/logbook.html</code>, <code>.claude/commands/day-end.md</code>) then ran <code>scripts/syncmain.sh</code> to sync <code>system/logbook.html</code> to <code>main</code>.</li>
+                <li><strong>Git push diagnosis</strong> — SSH push failed: <code>~/.ssh/</code> did not exist, no keys loaded in agent. HTTPS push failed with password auth (GitHub dropped password auth in 2021). Solution: generate a GitHub Personal Access Token (scope: <code>repo</code>), push via HTTPS — macOS stored credentials in keychain via <code>osxkeychain</code> helper. Remote divergence (force push required) resolved cleanly — remote had <code>0f49f84</code> (journal illustrations) whose content was already present locally.</li>
+                <li><strong>Commands updated</strong> — Added <code>git push origin main</code> step to <code>.claude/commands/syncmain.md</code> (new Step 4, verify demoted to Step 5) and <code>.claude/commands/day-end.md</code> (after <code>syncmain</code> in Step 5). Both commands now fully autonomous end-to-end including remote push.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li><code>feat/ui-exploration</code> — <code>log: 2026-04-29 session — brand-knowledge.md + inventory + logbook entry</code></li>
+                <li><code>main</code> — <code>sync: 2026-04-29 — log: 2026-04-29 session — brand-knowledge.md + inventory + logbook entry</code></li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>HTTPS + GitHub token over SSH.</strong> No SSH keys existed on the machine. Rather than generating a key pair, used a GitHub PAT stored in macOS keychain — simpler, works immediately in Claude Code sandbox, persistent across sessions.</li>
+                <li><strong>Force push on main is safe.</strong> <code>main</code> is a display-only branch always derived from <code>feat/ui-exploration</code>. When histories diverge, force push from local is the correct resolution — remote-only commits are either redundant or their content is already present locally.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
@@ -63,12 +117,8 @@
         </div>
       </div>
 
-    </section>
-
-    <!-- ENTRY: 2026-04-28 daily-review -->
-    <section class="sys-section">
-
-      <div class="log-entry">
+      <!-- ENTRY: 2026-04-28 daily-review -->
+      <div class="log-entry" data-type="review">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--review">daily review</span>
           <span class="log-entry__date">2026-04-28</span>
@@ -120,12 +170,8 @@
         </div>
       </div>
 
-    </section>
-
-    <!-- ENTRY: 2026-04-28 workbench-redesign session -->
-    <section class="sys-section">
-
-      <div class="log-entry">
+      <!-- ENTRY: 2026-04-28 workbench-redesign session -->
+      <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-28</span>
@@ -180,12 +226,8 @@
         </div>
       </div>
 
-    </section>
-
-    <!-- ENTRY: 2026-04-28 session -->
-    <section class="sys-section">
-
-      <div class="log-entry">
+      <!-- ENTRY: 2026-04-28 session -->
+      <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-28</span>
@@ -235,12 +277,8 @@
         </div>
       </div>
 
-    </section>
-
-    <!-- ENTRY: 2026-04-27 daily-review -->
-    <section class="sys-section">
-
-      <div class="log-entry">
+      <!-- ENTRY: 2026-04-27 daily-review -->
+      <div class="log-entry" data-type="review">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--review">daily review</span>
           <span class="log-entry__date">2026-04-27</span>
@@ -299,12 +337,125 @@
         </div>
       </div>
 
-    </section>
+      <!-- ENTRY: 2026-04-27 audit -->
+      <div class="log-entry" data-type="audit">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--audit">audit</span>
+          <span class="log-entry__date">2026-04-27</span>
+          <span class="log-entry__title">First run — 12 layers, 28 checks, 3 blocking · 5 minor · all resolved</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">12 layers</span>
+            <span class="log-chip log-chip--warn">3 blocking</span>
+            <span class="log-chip">5 minor</span>
+            <span class="log-chip log-chip--ok">8 / 8 fixed</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+            <div style="padding:var(--s5)">
 
-    <!-- ENTRY: 2026-04-26 session -->
-    <section class="sys-section">
+        <p class="audit-desc">First time the /audit skill was ever run on this project — the system had never been formally checked against itself. The run surfaced three blocking issues that had been quietly accumulating: 39 icon-gallery classes living in an inline &lt;style&gt; block instead of the shared CSS, two image paths in assets.html pointing to a directory that doesn't exist, and governance files that had leaked onto the public main branch and were visible to everyone. Five minor drifts followed — stale class names in CLAUDE.md, a cherry-pick reference that was always wrong, derivation rules that described a pattern the HTML wasn't actually following, two IRON instances wrapped in &lt;b&gt; instead of &lt;strong&gt;, and a French changelog entry in a file that must be English. All eight were fixed the same session. The audit skill itself was also improved in the process: three methodology flaws identified and corrected, two new checks added, and this history page created so future runs leave a trace.</p>
 
-      <div class="log-entry">
+        <div class="audit-summary">
+          <div class="audit-col">
+            <p class="audit-col-label">Layers</p>
+            <p class="audit-col-value">12</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Checks</p>
+            <p class="audit-col-value">28</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Blocking</p>
+            <p class="audit-col-value audit-col-value--blocking">3</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Minor</p>
+            <p class="audit-col-value audit-col-value--minor">5</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Fixed</p>
+            <p class="audit-col-value audit-col-value--fixed">8 / 8</p>
+          </div>
+        </div>
+
+        <table class="audit-findings">
+          <thead>
+            <tr><th>Priority</th><th>Finding</th><th>Fix applied</th></tr>
+          </thead>
+          <tbody>
+            <tr class="audit-blocking">
+              <td>Blocking</td>
+              <td><code>system/icons.html</code> — 75-line <code>&lt;style&gt;</code> block in <code>&lt;head&gt;</code> defining 39 icon-gallery classes outside <code>brandOS-components.css</code> (L8, L3)</td>
+              <td>Migrated to <code>/* SYSTEM · icons */</code> section in <code>brandOS-components.css</code>; <code>&lt;style&gt;</code> block removed from <code>icons.html</code></td>
+            </tr>
+            <tr class="audit-blocking">
+              <td>Blocking</td>
+              <td><code>system/assets.html</code>:38,46 — 2 broken <code>&lt;img src&gt;</code> pointing to <code>assets/images/logos/</code> (path does not exist) (L5.4)</td>
+              <td>Updated to <code>assets/logos/logo-insideboard-white.svg</code> and <code>assets/logos/logo-insideboard-ink.svg</code></td>
+            </tr>
+            <tr class="audit-blocking">
+              <td>Blocking</td>
+              <td><code>main</code> branch — <code>CLAUDE.md</code>, <code>PROCESS.md</code>, <code>brandOS-content.md</code>, and <code>assets/svg/</code> (7 stale logo files) present on public branch contrary to Update type 7 (L9)</td>
+              <td>Removed with <code>git rm</code> from <code>main</code>; committed</td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>CLAUDE.md</code> "Layer name vs section title" table — stale class reference <code>.ngl-name</code> (real class: <code>.ng-name</code>) (L0.2)</td>
+              <td>Updated to <code>.ng-name</code> in <code>CLAUDE.md</code></td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>CLAUDE.md</code>:71 — Update type 7 labelled "cherry-pick method"; actual command is <code>git checkout</code>, not cherry-pick (L0.1)</td>
+              <td>Updated to "checkout method"</td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>CLAUDE.md</code> "Content derivation rules" — <code>li-label</code>/<code>li-name</code>/<code>li-desc</code> rules described a pattern not matching the HTML implementation (all 6 layers consistent but differing from documented rule) (L1.2d)</td>
+              <td>Rules updated to match actual implementation: <code>li-label</code> = combined number + name; <code>li-name</code> = first sentence of italic; <code>li-desc</code> = remainder</td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>index.html</code>:443, 1323 — IRON in callout titles wrapped in <code>&lt;b&gt;</code> instead of <code>&lt;strong&gt;</code> as required by writing rules (L7.3)</td>
+              <td>Replaced with <code>&lt;b&gt;&lt;strong&gt;IRON&lt;/strong&gt;…&lt;/b&gt;</code></td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>docs/ROADMAP.md</code>:138 — 2026-04-26 changelog entry written in French, violating the "all committed files in English" rule (L7.5)</td>
+              <td>Translated to English in <code>docs/ROADMAP.md</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details class="audit-layer-status">
+          <summary>Layer-by-layer status</summary>
+          <table class="audit-layers">
+            <tbody>
+              <tr><td>L0 · Governance</td><td class="audit-warn">⚠ partial</td><td>2 drifts fixed (stale .ngl-name, cherry-pick label). 2 audit gaps added to L6.</td></tr>
+              <tr><td>L1 · Sources of truth</td><td class="audit-warn">⚠ partial</td><td>Token pipeline: identical. li-name/li-label rule: fixed. s02b ID mismatch: informational.</td></tr>
+              <tr><td>L2 · Semantic coherence</td><td class="audit-ok">✓ aligned</td><td>—</td></tr>
+              <tr><td>L3 · CSS ↔ HTML</td><td class="audit-fail">✗ drift</td><td>Fixed: 39 icon classes migrated to components.css; broken asset refs corrected.</td></tr>
+              <tr><td>L4 · JS ↔ data</td><td class="audit-ok">✓ aligned</td><td>—</td></tr>
+              <tr><td>L5 · Structural integrity</td><td class="audit-ok">✓ aligned</td><td>—</td></tr>
+              <tr><td>L6 · Accessibility</td><td class="audit-ok">✓ aligned</td><td>All .li-ghost have aria-hidden="true". 2 new checks added (L6.3, L6.4).</td></tr>
+              <tr><td>L7 · Writing conformance</td><td class="audit-warn">⚠ partial</td><td>Fixed: IRON bold (×2), French in ROADMAP.md. No BrandOS or InsideBoard AI violations.</td></tr>
+              <tr><td>L8 · system/ playground</td><td class="audit-fail">✗ drift</td><td>Fixed: icons.html &lt;style&gt; block removed and migrated.</td></tr>
+              <tr><td>L9 · Branches</td><td class="audit-fail">✗ drift</td><td>Fixed: 3 governance files + assets/svg/ (7 files) removed from main.</td></tr>
+              <tr><td>L10 · Documentation</td><td class="audit-warn">⚠ partial</td><td>Devlog gap Apr 22–24 noted (pre-docs-structure, retrospective not required). Roadmap ↔ docs.html: aligned.</td></tr>
+              <tr><td>L11 · Past violations</td><td class="audit-ok">✓ aligned</td><td>—</td></tr>
+              <tr><td>L12 · Self-verification</td><td class="audit-warn">⚠ partial</td><td>2 rule coverage gaps → added L6.3/L6.4. File coverage: .claude/commands/svg.md flagged as uncovered → informational.</td></tr>
+            </tbody>
+          </table>
+        </details>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-26 session -->
+      <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-26</span>
@@ -348,12 +499,15 @@
         </div>
       </div>
 
+      </div><!-- /.log-list -->
+
     </section>
 
   </main>
   </div>
 
   <script>
+    // Collapsible entries
     document.querySelectorAll('.log-entry__head').forEach(function(head) {
       head.addEventListener('click', function() {
         var entry = head.closest('.log-entry');
@@ -362,6 +516,18 @@
       });
       head.addEventListener('keydown', function(e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); head.click(); }
+      });
+    });
+
+    // Type filter
+    document.querySelectorAll('.lf-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var filter = btn.dataset.filter;
+        document.querySelectorAll('.lf-btn').forEach(function(b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        document.querySelectorAll('.log-entry').forEach(function(entry) {
+          entry.hidden = filter !== 'all' && entry.dataset.type !== filter;
+        });
       });
     });
   </script>

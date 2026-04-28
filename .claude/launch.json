@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "ui-test",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": ["serve", "-p", "5173", "."],
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "5173"],
       "port": 5173
     }
   ]

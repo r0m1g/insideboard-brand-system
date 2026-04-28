@@ -28,7 +28,13 @@ bash scripts/syncmain.sh
 ```
 Script switches to `main`, checks out display targets, commits, switches back to `feat/ui-exploration`.
 
-**Step 4 — Verify**
+**Step 4 — Push to remote**
+```bash
+git push origin main
+```
+If push fails: note the error in output. Do not retry. Do not ask for input.
+
+**Step 5 — Verify**
 ```bash
 git log main -2 --oneline
 ```
