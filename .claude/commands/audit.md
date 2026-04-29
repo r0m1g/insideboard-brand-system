@@ -213,8 +213,34 @@ Run a complete alignment audit of the Brand OS project.
 - Method: spot-check on the 5 most recent items
 
 ### 10.3 — Devlog ↔ git
-- Invariant: every day with commits on `feat/ui-exploration` has a `docs/devlog/YYYY-MM-DD-*.md` file
-- Method: `git log --since="14 days ago" --pretty=format:"%ad" --date=short` → unique dates, compare with devlog listing
+- Invariant: every day with commits on `main` has a `docs/devlog/YYYY-MM-DD-*.md` file
+- Method: `git log main --since="30 days ago" --pretty=format:"%ad" --date=short` → unique dates, compare with `ls docs/devlog/`
+
+### 10.5 — Logbook session coverage ↔ activity sources
+- Invariant: every calendar day with ≥1 commit on `main` OR ≥1 devlog file has ≥1 `data-type="session"` entry in `system/logbook.html`
+- Source: `git log main --pretty=format:"%ad" --date=short` + `ls docs/devlog/` + `ls docs/decisions/ADR-*.md`
+- Derived: `system/logbook.html` — `.log-entry[data-type="session"] .log-entry__date` text content
+- Method:
+  ```bash
+  # Commit dates (unique)
+  git log main --pretty=format:"%ad" --date=short | sort -u
+
+  # Devlog dates (from filenames)
+  ls docs/devlog/ | grep -oE "^[0-9]{4}-[0-9]{2}-[0-9]{2}" | sort -u
+
+  # ADR dates
+  grep -h "^\*\*Date:\*\*" docs/decisions/ADR-*.md 2>/dev/null | sed 's/\*\*Date:\*\* //' | sort -u
+
+  # Logbook session dates (extract from HTML spans)
+  grep -A2 'data-type="session"' system/logbook.html | grep 'log-entry__date' | grep -oE "[0-9]{4}-[0-9]{2}-[0-9]{2}" | sort -u
+  ```
+  Union the first three sets → "activity dates". Diff against logbook session dates.
+- Required Observed: count of activity dates vs covered dates, list of uncovered dates
+- Verdict `✗` drift if any activity date has zero session entries in the logbook
+- **Action when drift found:** for each uncovered date, include in the action plan:
+  - The commits from that date: `git log main --since="DATE 00:00" --until="DATE 23:59" --oneline`
+  - The matching devlog file (if any): its path
+  - Instruction: create a `data-type="session"` entry in `system/logbook.html` for that date using the standard template, with "Work done" reconstructed from the commit messages and devlog content
 
 ### 10.4 — `docs/ROADMAP.md` ↔ `system/docs.html` (phase sync)
 - Invariant: every `### Phase X` in `docs/ROADMAP.md` has a matching `.phase-card[data-phase]` button in `system/docs.html` AND a matching key in the `phasesData` JS object. Phase status must match.

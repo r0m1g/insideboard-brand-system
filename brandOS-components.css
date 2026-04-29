@@ -913,7 +913,9 @@ body.sys {
   color: var(--gray-500);
   text-decoration: none;
   white-space: nowrap;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin: calc(-1 * var(--s7)) calc(-1 * var(--s5)) var(--s5);
   padding: 21px var(--s5);
   border-bottom: 1px solid var(--gray-200);
@@ -1008,7 +1010,7 @@ body.sys {
 .sys-back-page:hover { color: var(--ink); }
 /* Eyebrow — same values as .li-label */
 .sys-header-eyebrow {
-  display: inline-flex; gap: var(--s2);
+  display: flex; gap: var(--s2);
   font: 500 10px/1 var(--mono);
   letter-spacing: .22em;
   text-transform: uppercase;
@@ -1046,6 +1048,12 @@ body.sys {
   letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--fn-steel);
+  margin: 0 0 var(--s5);
+}
+.sys-section-title:has(+ .sys-section-desc) { margin-bottom: var(--s2); }
+.sys-section-desc {
+  font: 400 13px/1.55 var(--sans);
+  color: var(--gray-500);
   margin: 0 0 var(--s5);
 }
 
@@ -1793,3 +1801,12 @@ input.color-custom { width:20px; height:20px; border-radius:3px; border:1px soli
 .lf-btn.is-active[data-filter="session"] { background:color-mix(in srgb,var(--fn-amber) 12%,transparent); color:var(--fn-amber); border-color:color-mix(in srgb,var(--fn-amber) 35%,transparent); }
 .lf-btn.is-active[data-filter="review"]  { background:color-mix(in srgb,var(--fn-steel) 10%,transparent); color:var(--fn-steel); border-color:color-mix(in srgb,var(--fn-steel) 35%,transparent); }
 .lf-btn.is-active[data-filter="audit"]   { background:color-mix(in srgb,var(--fn-teal) 12%,transparent); color:var(--fn-teal); border-color:color-mix(in srgb,var(--fn-teal) 35%,transparent); }
+
+/* log-day — day grouping container (All view only, built by JS) */
+.log-day { margin-bottom:var(--s5); }
+.log-day__label { font:600 10px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--gray-400); padding:var(--s2) 0 var(--s3); border-bottom:1px solid var(--gray-100); margin-bottom:var(--s2); }
+.log-day__sessions { margin-top:var(--s2); }
+.log-day__sessions-toggle { display:flex; align-items:center; width:100%; font:500 11px/1 var(--mono); letter-spacing:.06em; color:var(--gray-400); background:transparent; border:none; padding:var(--s3) var(--s4); cursor:pointer; text-align:left; transition:color .1s; }
+.log-day__sessions-toggle:hover { color:var(--gray-600); }
+.log-day__sessions-body { margin-top:var(--s2); }
+.log-day__sessions-body:not(.is-open) { display:none; }

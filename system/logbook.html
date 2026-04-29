@@ -31,6 +31,52 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">Logbook day grouping + audit layer 10.5</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">3 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Logbook day grouping — CSS</strong> — added 8-rule block to <code>brandOS-components.css</code>: <code>.log-day</code>, <code>.log-day__label</code>, <code>.log-day__sessions</code>, <code>.log-day__sessions-toggle</code>, <code>.log-day__sessions-body</code>. Removed <code>border-top</code> from the sessions toggle after user feedback.</li>
+                <li><strong>Logbook day grouping — JS</strong> — replaced inline <code>&lt;script&gt;</code> block in <code>system/logbook.html</code> with <code>buildGroupedView()</code> / <code>destroyGroupedView()</code>. "All" view: JS wraps entries by date into <code>.log-day--closed</code> (has review) or <code>.log-day--open</code> (no review). Session/Review/Audit filters: groups destroyed, entries displayed flat — identical to pre-existing behaviour. Dates auto-populated from <code>.log-entry__date</code> span text, no HTML changes required. All days grouped including today (removed the "today stays flat" exception after user feedback).</li>
+                <li><strong>Audit — Layer 10.3 fix</strong> — <code>.claude/commands/audit.md</code>: updated reference from deleted branch <code>feat/ui-exploration</code> to <code>main</code>; window extended from 14 to 30 days.</li>
+                <li><strong>Audit — Layer 10.5 added</strong> — new check: every calendar day with ≥1 commit on <code>main</code>, ≥1 devlog file, or ≥1 ADR has ≥1 <code>data-type="session"</code> entry in <code>system/logbook.html</code>. Drift action: audit outputs the commits + devlog path for each uncovered date so missing entries can be reconstructed.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — changes pending in <code>brandOS-components.css</code>, <code>system/logbook.html</code>, <code>.claude/commands/audit.md</code>.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Day grouping is JS-only, HTML stays flat.</strong> All <code>.log-day</code> wrappers are built at runtime from <code>data-date</code> (auto-read from <code>.log-entry__date</code> spans). Commands write flat entries — no template changes needed, no duplication.</li>
+                <li><strong>Filtered views are unchanged.</strong> Session / Daily review / Audit filters destroy the grouped view and show entries flat — exact same behaviour as before. Grouping is a concern of "All" only.</li>
+                <li><strong>Audit Layer 10.5 reports, never fixes.</strong> Follows the audit invariant: the check surfaces gaps with enough raw material (commits, devlog path) to create the missing entry manually. No auto-injection.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">Roadmap status rename + completed phases drawer</span>
           <div class="log-entry__chips">
             <span class="log-chip">4 files</span>
@@ -1106,17 +1152,98 @@
       });
     });
 
+    // Auto-populate data-date from the visible date span
+    document.querySelectorAll('.log-entry').forEach(function(entry) {
+      if (!entry.dataset.date) {
+        var span = entry.querySelector('.log-entry__date');
+        if (span) entry.dataset.date = span.textContent.trim();
+      }
+    });
+
+    var logList = document.querySelector('.log-list');
+
+    function buildGroupedView() {
+      destroyGroupedView();
+      var entries = Array.from(logList.querySelectorAll(':scope > .log-entry'));
+      entries.forEach(function(e) { e.hidden = false; });
+      var seen = [], groups = {};
+      entries.forEach(function(entry) {
+        var d = entry.dataset.date || 'unknown';
+        if (!groups[d]) { groups[d] = []; seen.push(d); }
+        groups[d].push(entry);
+      });
+      seen.forEach(function(date) {
+        var group    = groups[date];
+        var review   = group.find(function(e) { return e.dataset.type === 'review'; });
+        var sessions = group.filter(function(e) { return e.dataset.type === 'session'; });
+        var audits   = group.filter(function(e) { return e.dataset.type === 'audit'; });
+        var wrapper = document.createElement('div');
+        wrapper.className = 'log-day ' + (review ? 'log-day--closed' : 'log-day--open');
+        wrapper.dataset.date = date;
+        logList.insertBefore(wrapper, group[0]);
+        if (!review) {
+          var lbl = document.createElement('div');
+          lbl.className = 'log-day__label';
+          lbl.textContent = date + (sessions.length ? ' · ' + sessions.length + ' session' + (sessions.length !== 1 ? 's' : '') : '');
+          wrapper.appendChild(lbl);
+          sessions.forEach(function(s) { wrapper.appendChild(s); });
+          audits.forEach(function(a) { wrapper.appendChild(a); });
+        } else {
+          wrapper.appendChild(review);
+          if (sessions.length) {
+            var sc = document.createElement('div');
+            sc.className = 'log-day__sessions';
+            var count = sessions.length;
+            var countLabel = count + ' session' + (count !== 1 ? 's' : '');
+            var tog = document.createElement('button');
+            tog.className = 'log-day__sessions-toggle';
+            tog.setAttribute('aria-expanded', 'false');
+            tog.textContent = countLabel + ' ›';
+            var body = document.createElement('div');
+            body.className = 'log-day__sessions-body';
+            sessions.forEach(function(s) { body.appendChild(s); });
+            tog.addEventListener('click', function() {
+              var open = body.classList.toggle('is-open');
+              tog.setAttribute('aria-expanded', String(open));
+              tog.textContent = countLabel + (open ? ' ‹' : ' ›');
+            });
+            sc.appendChild(tog);
+            sc.appendChild(body);
+            wrapper.appendChild(sc);
+          }
+          audits.forEach(function(a) { logList.insertBefore(a, wrapper.nextSibling); });
+        }
+      });
+    }
+
+    function destroyGroupedView() {
+      document.querySelectorAll('.log-day').forEach(function(wrapper) {
+        Array.from(wrapper.querySelectorAll('.log-entry')).forEach(function(entry) {
+          logList.insertBefore(entry, wrapper);
+          entry.hidden = false;
+        });
+        wrapper.remove();
+      });
+    }
+
     // Type filter
     document.querySelectorAll('.lf-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var filter = btn.dataset.filter;
         document.querySelectorAll('.lf-btn').forEach(function(b) { b.classList.remove('is-active'); });
         btn.classList.add('is-active');
-        document.querySelectorAll('.log-entry').forEach(function(entry) {
-          entry.hidden = filter !== 'all' && entry.dataset.type !== filter;
-        });
+        if (filter === 'all') {
+          buildGroupedView();
+        } else {
+          destroyGroupedView();
+          document.querySelectorAll('.log-entry').forEach(function(entry) {
+            entry.hidden = entry.dataset.type !== filter;
+          });
+        }
       });
     });
+
+    buildGroupedView();
   </script>
 
   <script src="nav.js"></script>
