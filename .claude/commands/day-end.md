@@ -120,18 +120,19 @@ Compare both lists. Report `✓ structural alignment clean` or list orphans. Do 
 
 ## Step 5 — Commit and sync
 
-**Commit the logbook entry:**
+**Commit the logbook entry** (use the working date resolved in Step 1, not raw `date`):
 ```bash
+WORKING_DATE=$(python3 -c "from datetime import datetime,timedelta; n=datetime.now(); d=n.date() if n.hour>=5 else n.date()-timedelta(days=1); print(d.strftime('%Y-%m-%d'))")
 git add system/logbook.html
-git commit -m "log: day-end $(date +%Y-%m-%d)"
+git commit -m "log: day-end ${WORKING_DATE}"
 ```
 
-**Run syncmain:**
+**Run syncmain** (syncs display files to main and pushes `feat/ui-exploration`):
 ```bash
 bash scripts/syncmain.sh
 ```
 
-**Push to remote:**
+**Push main to remote:**
 ```bash
 git push origin main
 ```
@@ -146,7 +147,7 @@ If syncmain or push fails: note the failure in output. Do not retry. Do not ask 
 Day closed — YYYY-MM-DD
   Logbook  : entry written (N commits · N decisions · N actions) | duplicate skipped
   Structure: ✓ aligned | ✗ drift (N orphans)
-  Sync     : ✓ synced to main | ✗ failed — [reason]
+  Sync     : ✓ synced to main · feat/ui-exploration pushed | ✗ failed — [reason]
 ```
 
 ---

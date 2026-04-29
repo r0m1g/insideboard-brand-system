@@ -29,6 +29,8 @@ bash scripts/syncmain.sh
 Script switches to `main`, checks out display targets, commits, switches back to `feat/ui-exploration`.
 
 **Step 4 — Push to remote**
+
+The sync script already pushes `feat/ui-exploration` automatically. Only `main` needs an explicit push here:
 ```bash
 git push origin main
 ```
@@ -37,8 +39,9 @@ If push fails: note the error in output. Do not retry. Do not ask for input.
 **Step 5 — Verify**
 ```bash
 git log main -2 --oneline
+git log origin/feat/ui-exploration -1 --oneline
 ```
-Confirm the sync commit is present with a clean message.
+Confirm the sync commit is on `main` and `origin/feat/ui-exploration` matches local HEAD.
 
 ---
 

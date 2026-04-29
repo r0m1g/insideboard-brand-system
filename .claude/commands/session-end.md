@@ -144,7 +144,15 @@ Find the first `<!-- ENTRY:` comment in `system/logbook.html`. Insert the new bl
 ```bash
 git add system/logbook.html
 git commit -m "log: {{ YYYY-MM-DD }} session — {{ short title }}"
+```
+
+Run syncmain (syncs display files to main **and** pushes `feat/ui-exploration` automatically):
+```bash
 bash scripts/syncmain.sh
+```
+
+Push main to remote:
+```bash
 git push origin main
 ```
 
@@ -157,7 +165,7 @@ If `git push` fails: note the error in output. Do not retry. Do not ask for inpu
 After the push, output a one-line confirmation:
 
 ```
-Session logged and synced — system/logbook.html live ({{ date }}).
+Session logged and synced — system/logbook.html live ({{ date }}). feat/ui-exploration and main pushed.
 ```
 
 Do not open the file in a browser. Do not add anything else.

@@ -75,8 +75,10 @@ done
 
 # Nothing changed → already in sync
 if git diff --cached --quiet && git diff --quiet; then
-  echo "✓ Already in sync — nothing to commit"
+  echo "✓ Already in sync — nothing to commit on $MAIN_BRANCH"
   git checkout "$WORKING_BRANCH"
+  git push origin "$WORKING_BRANCH"
+  echo "✓ Pushed $WORKING_BRANCH to remote"
   exit 0
 fi
 
@@ -86,4 +88,5 @@ git add -A
 git commit -m "sync: $(date +%Y-%m-%d) — $LAST"
 
 git checkout "$WORKING_BRANCH"
-echo "✓ Synced to $MAIN_BRANCH"
+git push origin "$WORKING_BRANCH"
+echo "✓ Synced to $MAIN_BRANCH — $WORKING_BRANCH pushed to remote"
