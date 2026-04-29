@@ -16,11 +16,10 @@ Generate a structured session summary and append it to `system/logbook.html`.
 Run these commands to collect facts. Do not skip any.
 
 ```bash
-# Commits made this session (last 10, both branches)
-git log --oneline -10 feat/ui-exploration
-git log --oneline -5 main
+# Commits made this session (last 10)
+git log --oneline -10
 
-# Files touched this session on the working branch
+# Files touched this session
 git diff --name-only HEAD~5..HEAD 2>/dev/null | sort -u
 
 # Working date (before 05:00 = previous calendar day)
@@ -143,20 +142,10 @@ Find the first `<!-- ENTRY:` comment in `system/logbook.html`. Insert the new bl
 
 ```bash
 git add system/logbook.html
-git commit -m "log: {{ YYYY-MM-DD }} session — {{ short title }}"
+git commit -m "log(session): {{ YYYY-MM-DD }} — {{ short title }}"
 ```
 
-Run syncmain (syncs display files to main **and** pushes `feat/ui-exploration` automatically):
-```bash
-bash scripts/syncmain.sh
-```
-
-Push main to remote:
-```bash
-git push origin main
-```
-
-If `git push` fails: note the error in output. Do not retry. Do not ask for input.
+Push is handled by `/day-end` — do not push at session-end.
 
 ---
 
@@ -165,7 +154,7 @@ If `git push` fails: note the error in output. Do not retry. Do not ask for inpu
 After the push, output a one-line confirmation:
 
 ```
-Session logged and synced — system/logbook.html live ({{ date }}). feat/ui-exploration and main pushed.
+Session logged — system/logbook.html committed ({{ date }}). Push with /day-end.
 ```
 
 Do not open the file in a browser. Do not add anything else.
