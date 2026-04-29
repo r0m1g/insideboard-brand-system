@@ -31,6 +31,55 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">Conventional commits + branch consolidation to main</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">6 files</span>
+            <span class="log-chip">2 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Conventional Commits adopted</strong> — Format <code>type(scope): description</code> defined in CLAUDE.md with 7 types (<code>feat</code>, <code>fix</code>, <code>style</code>, <code>refactor</code>, <code>docs</code>, <code>chore</code>, <code>log</code>) and scope table. session-end updated to <code>log(session):</code>, day-end to <code>log(daily):</code>.</li>
+                <li><strong>Branch consolidation</strong> — <code>feat/ui-exploration</code> deleted (local + remote). All governance files (<code>CLAUDE.md</code>, <code>PROCESS.md</code>, <code>brandOS-content.md</code>, <code>docs/</code>) now live on <code>main</code>. Single working branch from now on.</li>
+                <li><strong>syncmain.sh rewritten</strong> — 93 lines of two-branch checkout gymnastics replaced by 30 lines: guard + <code>git push origin main</code>. Command file <code>.claude/commands/syncmain.md</code> updated to match.</li>
+                <li><strong>PROCESS.md cleaned</strong> — Update type 7 simplified to "push to remote". Duplicate Update type 9 (syncmain) section removed.</li>
+                <li><strong>session-end push removed</strong> — session-end no longer pushes. Push is day-end only, confirming intended workflow.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li><code>feat/ui-exploration</code> — <code>chore(workflow): adopt conventional commits + single-branch workflow</code></li>
+                <li><code>main</code> — <code>chore(branches): consolidate feat/ui-exploration into main</code></li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Single branch</strong> — <code>main</code> is the only branch going forward. <code>feat/ui-exploration</code> served no real purpose once the project was stable. Safety net = don't push + <code>git reset --hard origin/main</code>.</li>
+                <li><strong>syncmain retained as push trigger</strong> — Not deleted. Becomes the manual push step called by day-end, and available ad-hoc for mid-day publish.</li>
+                <li><strong>session-end does not push</strong> — Confirmed workflow: session = commit, day-end = push. Push requires intentional validation.</li>
+                <li><strong>Conventional commits</strong> — <code>log</code> is a project-specific type for logbook entries; all standard types adopted for content/CSS/script work.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">Git sync audit — commands fixed, branch pushed</span>
           <div class="log-entry__chips">
             <span class="log-chip">4 files</span>
