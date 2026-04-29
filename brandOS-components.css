@@ -929,6 +929,9 @@ body.sys {
 }
 .sys-sidebar .nav-system-link:hover { color: var(--ivory); }
 
+/* Arrow / chevron sprite — size defined once, color inherited via currentColor */
+.arr { width: 14px; height: 14px; flex-shrink: 0; vertical-align: middle; overflow: visible; }
+
 .sys-sidebar .brand { display: block; margin-bottom: var(--s5); text-decoration: none; }
 .sys-sidebar .nav-brand-name { color: color-mix(in srgb, var(--ivory) 70%, transparent); }
 /* .nav-brand-sub stays ember — readable on dark */
@@ -1802,11 +1805,22 @@ input.color-custom { width:20px; height:20px; border-radius:3px; border:1px soli
 .lf-btn.is-active[data-filter="review"]  { background:color-mix(in srgb,var(--fn-steel) 10%,transparent); color:var(--fn-steel); border-color:color-mix(in srgb,var(--fn-steel) 35%,transparent); }
 .lf-btn.is-active[data-filter="audit"]   { background:color-mix(in srgb,var(--fn-teal) 12%,transparent); color:var(--fn-teal); border-color:color-mix(in srgb,var(--fn-teal) 35%,transparent); }
 
-/* log-day — day grouping container (All view only, built by JS) */
-.log-day { margin-bottom:var(--s5); }
-.log-day__label { font:600 10px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--gray-400); padding:var(--s2) 0 var(--s3); border-bottom:1px solid var(--gray-100); margin-bottom:var(--s2); }
-.log-day__sessions { margin-top:var(--s2); }
-.log-day__sessions-toggle { display:flex; align-items:center; width:100%; font:500 11px/1 var(--mono); letter-spacing:.06em; color:var(--gray-400); background:transparent; border:none; padding:var(--s3) var(--s4); cursor:pointer; text-align:left; transition:color .1s; }
-.log-day__sessions-toggle:hover { color:var(--gray-600); }
-.log-day__sessions-body { margin-top:var(--s2); }
-.log-day__sessions-body:not(.is-open) { display:none; }
+/* log-day — day grouping card (All view only, built by JS) */
+.log-day { border:1.5px solid var(--gray-200); border-radius:6px; background:var(--white); margin-bottom:var(--s4); overflow:hidden; }
+.log-day__head { display:flex; align-items:center; gap:var(--s3); padding:var(--s3) var(--s5); background:var(--ivory); border-bottom:1px solid var(--gray-200); }
+.log-day--complete .log-day__head { cursor:pointer; user-select:none; transition:background .1s; }
+.log-day--complete .log-day__head:hover { background:color-mix(in srgb,var(--fn-steel) 6%,var(--ivory)); }
+.log-day__date { font:600 12px/1 var(--mono); color:var(--ink); flex-shrink:0; }
+.log-day__meta { font:400 12px/1 var(--mono); color:var(--gray-400); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.log-day__chips { display:flex; gap:var(--s2); flex-shrink:0; }
+.log-day__toggle { flex-shrink:0; width:16px; height:16px; color:var(--gray-300); transition:transform .2s ease,color .1s; margin-left:var(--s2); }
+.log-day--complete .log-day__head:hover .log-day__toggle { color:var(--gray-500); }
+.log-day.is-open .log-day__toggle { transform:rotate(180deg); }
+.log-day__body { display:grid; grid-template-rows:0fr; transition:grid-template-rows .22s ease; overflow:hidden; }
+.log-day--active .log-day__body,.log-day.is-open .log-day__body { grid-template-rows:1fr; }
+.log-day__body-inner { overflow:hidden; min-height:0; padding:var(--s4); }
+.log-day__body-inner > .log-entry { margin-bottom:var(--s3); }
+.log-day__body-inner > .log-entry:last-child,.log-day__sessions .log-entry:last-child { margin-bottom:0; }
+.log-day__body-inner > .log-entry[data-type="review"] { border-left-color:var(--fn-steel); }
+.log-day__sessions { margin-top:var(--s3); padding-left:var(--s4); border-left:2px solid color-mix(in srgb,var(--fn-amber) 30%,transparent); }
+.log-day__sessions .log-entry { border-left-color:color-mix(in srgb,var(--fn-amber) 50%,var(--gray-200)); margin-bottom:var(--s2); }

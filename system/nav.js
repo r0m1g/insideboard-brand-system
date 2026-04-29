@@ -1,6 +1,10 @@
 (function () {
 
-  // ─── SIDEBAR GROUPS ──────────────────────────────────────
+  // ─── ARROW SPRITE — change paths here to restyle all arrows ──
+  var ARR_R = '<svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg>';
+  var ARR_L = '<svg class="arr" aria-hidden="true"><use href="#arr-l"/></svg>';
+
+  // ─── SIDEBAR GROUPS ──────────────────────────────────────────
   var GROUPS = [
     {
       num: '01', name: 'Design System',
@@ -26,7 +30,7 @@
     },
   ];
 
-  // ─── PAGE METADATA (header injection) ────────────────────
+  // ─── PAGE METADATA (header injection) ────────────────────────
   var PAGES = {
     foundations: { num: '01', section: 'Design System', title: 'Foundations.', deck: 'Design tokens — palette, typography, spacing. The raw values everything else is built from. Source: <code>tokens.json</code> (W3C Design Tokens), generated to CSS by <code>scripts/build-tokens.js</code>.' },
     components:  { num: '01', section: 'Design System', title: 'Components.',  deck: 'Live component prototypes using real CSS from <code>brandOS-components.css</code>. All content is fake.' },
@@ -41,14 +45,25 @@
     return location.pathname.split('/').pop().replace('.html', '') || 'index';
   }
 
+  function renderSprite() {
+    if (document.getElementById('icon-sprite')) return;
+    var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    s.setAttribute('id', 'icon-sprite');
+    s.setAttribute('style', 'display:none');
+    s.setAttribute('aria-hidden', 'true');
+    s.innerHTML =
+      '<symbol id="arr-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M15 6l6 6-6 6"/></symbol>' +
+      '<symbol id="arr-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M9 6l-6 6 6 6"/></symbol>';
+    document.body.insertBefore(s, document.body.firstChild);
+  }
+
   function renderSidebar() {
     var el = document.getElementById('sys-sidebar');
     if (!el) return;
     var current = currentPage();
 
-    // Same HTML structure as Brand OS nav, just with workbench labels
     var html =
-      '<a href="../index.html" class="nav-system-link">← Brand OS</a>' +
+      '<a href="../index.html" class="nav-system-link">' + ARR_L + 'Brand OS</a>' +
       '<a href="index.html" class="brand">' +
         '<span class="nav-brand-name">InsideBoard AI</span>' +
         '<span class="nav-brand-sub">Workbench</span>' +
@@ -86,7 +101,7 @@
     if (!data) return;
 
     el.innerHTML =
-      '<a href="index.html" class="sys-back-page">← Workbench</a>' +
+      '<a href="index.html" class="sys-back-page">' + ARR_L + 'Workbench</a>' +
       '<div class="sys-header-eyebrow">' +
         '<span>' + data.num + '</span>' +
         '<span class="sep">·</span>' +
@@ -97,6 +112,7 @@
   }
 
   function init() {
+    renderSprite();
     renderSidebar();
     renderHeader();
   }

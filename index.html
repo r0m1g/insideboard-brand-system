@@ -8,6 +8,10 @@
 <link rel="stylesheet" href="brandOS-components.css">
 </head>
 <body data-register="enterprise" data-density="default">
+<svg id="icon-sprite" style="display:none" aria-hidden="true">
+  <symbol id="arr-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M15 6l6 6-6 6"/></symbol>
+  <symbol id="arr-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M9 6l-6 6 6 6"/></symbol>
+</svg>
 <div class="shell">
 
 <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -17,7 +21,7 @@
 
 <!-- SECTION: nav -->
 <nav class="side" id="navSide">
-  <a href="system/index.html" class="nav-system-link">System →</a>
+  <a href="system/index.html" class="nav-system-link">System<svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg></a>
   <a href="#" class="brand" style="text-decoration:none;" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
     <span class="nav-brand-name">InsideBoard AI</span>
     <span class="nav-brand-sub">Brand OS</span>
@@ -251,7 +255,7 @@
     </div>
     <div class="callout warn"><b>What InsideBoard is not</b>An LMS, an IT tool, a digitized consulting firm, an additional reporting layer, or a CRM add-on.</div>
     <h3 class="sub">Client trajectory</h3>
-    <div class="fd"><div class="flab">Maturity path</div><div class="ftxt">Onboarding → Adoption → Business Performance → Operational Excellence</div></div>
+    <div class="fd"><div class="flab">Maturity path</div><div class="ftxt">Onboarding <svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg> Adoption <svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg> Business Performance <svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg> Operational Excellence</div></div>
     <p style="font-size:14px;color:var(--gray-700)">The client enters with a simple need and progressively discovers the platform's depth. We never promise transformation. We promise what makes transformation last.</p>
     <h3 class="sub">Visual references</h3>
     <div class="rules-grouped">
@@ -277,11 +281,11 @@
   </div></div>
   <div class="cb">
     <div class="loop">
-      <div class="lst">KPI</div><div class="lar">→</div>
-      <div class="lst">Insight</div><div class="lar">→</div>
-      <div class="lst">Action</div><div class="lar">→</div>
-      <div class="lst">Behavior</div><div class="lar">→</div>
-      <div class="lst">Performance</div><div class="lar">→</div>
+      <div class="lst">KPI</div><div class="lar"><svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg></div>
+      <div class="lst">Insight</div><div class="lar"><svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg></div>
+      <div class="lst">Action</div><div class="lar"><svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg></div>
+      <div class="lst">Behavior</div><div class="lar"><svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg></div>
+      <div class="lst">Performance</div><div class="lar"><svg class="arr" aria-hidden="true"><use href="#arr-r"/></svg></div>
       <div class="lst">KPI</div>
     </div>
     <p>InsideBoard doesn't just orchestrate — it measures the impact of what it orchestrates, and feeds that measurement back into the next cycle. This is the fundamental difference with every tool that stops at content delivery or reporting.</p>

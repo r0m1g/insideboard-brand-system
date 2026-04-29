@@ -31,6 +31,53 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">SVG sprite system + doc UI polish</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">5 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--warn">uncommitted</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Section descriptions — <code>system/docs.html</code></strong> — added <code>.sys-section-desc</code> paragraph under each of the 4 section titles (Roadmap, Decisions, Devlog, Backlog). New CSS rules: <code>.sys-section-title:has(+ .sys-section-desc)</code> reduces bottom margin; <code>.sys-section-desc</code> sets 13px gray-500 text.</li>
+                <li><strong>Eyebrow layout fix — <code>brandOS-components.css</code></strong> — <code>.sys-header-eyebrow</code> changed from <code>display:inline-flex</code> to <code>display:flex</code>, making it block-level and correctly positioned below <code>.sys-back-page</code> and above the <code>h1</code>.</li>
+                <li><strong>Nav-system-link flex — <code>brandOS-components.css</code></strong> — changed from <code>display:block</code> to <code>display:flex; align-items:center; gap:6px</code> to properly align SVG icons with label text.</li>
+                <li><strong>SVG sprite system</strong> — introduced <code>#icon-sprite</code> with <code>#arr-r</code> and <code>#arr-l</code> symbols. Single definition per document; all arrows reference via <code>&lt;svg class="arr"&gt;&lt;use href="#arr-r"/&gt;&lt;/svg&gt;</code>. CSS: <code>.arr { width:14px; height:14px; flex-shrink:0; vertical-align:middle; }</code>. Change symbol path once → all arrows update everywhere.</li>
+                <li><strong>Arrow replacements — <code>index.html</code></strong> — sprite block injected at top of <code>&lt;body&gt;</code>; <code>.nav-system-link</code> right arrow, <code>.lar</code> ×5 (closed loop diagram), maturity path <code>→</code> ×3 all converted to sprite refs.</li>
+                <li><strong>Arrow replacements — <code>system/index.html</code></strong> — <code>.hub-row-arrow</code> ×7 and <code>.hub-journal-arrow</code> ×1 converted to sprite refs.</li>
+                <li><strong>Arrow replacements — <code>system/nav.js</code></strong> — full refactor: <code>ARR_R</code> and <code>ARR_L</code> constants defined once at top of IIFE; <code>renderSprite()</code> function injects the sprite into every system page via <code>init()</code>; per-function inline SVG variables removed.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — changes staged, pending commit.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>SVG sprite = design token for icons</strong> — any repeating visual element (icon, arrow, chevron) must be defined in one place and referenced everywhere. Changing the definition changes all instances. Principle generalised: before creating a new visual object, verify one doesn't already exist that could be reused. Saved to session memory.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">Logbook day grouping + audit layer 10.5</span>
           <div class="log-entry__chips">
             <span class="log-chip">3 files</span>
