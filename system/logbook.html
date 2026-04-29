@@ -31,6 +31,53 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">/adr first run — 3 ADRs authored</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">3 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>/syncmain</strong> — pushed <code>main</code> to remote before starting. Remote now at <code>48bb977 log(session): 2026-04-29 — /adr command criteria + protocol</code>.</li>
+                <li><strong>/adr detection mode</strong> — scanned git history since 2026-04-26 (14 commits, 2 devlog entries, logbook session logs). Identified 5 candidates; 3 validated as ADR-worthy, 2 discarded (Conventional Commits and /adr criteria command — both failed the two-question gate on alternatives).</li>
+                <li><strong>AskUserQuestion tested</strong> — user requested clickable validation options instead of plain-text checkboxes. All three candidate questions answered via the UI component.</li>
+                <li><strong>ADR-007 authored</strong> — Anatomical naming for SVG icon files. Status: Implemented. Criterion 3 (hard-to-reverse naming convention). Rejected alternative: functional naming (resize.svg). File: <code>docs/decisions/ADR-007-anatomical-icon-naming.md</code>.</li>
+                <li><strong>ADR-008 authored</strong> — Logbook as the single activity log. Status: Implemented. Criteria 1+6 (source-of-truth + permanent structural change). Rejected alternative: keep <code>audit.html</code> as separate page. File: <code>docs/decisions/ADR-008-logbook-single-activity-log.md</code>.</li>
+                <li><strong>ADR-009 authored</strong> — Single-branch workflow (main only). Status: Implemented. Criteria 2+3 (universal constraint + hard-to-reverse). Rejected alternative: two-branch model (feat/ui-exploration + main). File: <code>docs/decisions/ADR-009-single-branch-workflow.md</code>.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — ADR-007, ADR-008, ADR-009 written to disk, pending commit.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Candidates 4+5 discarded</strong> — /adr criteria command (alternatives not explicitly named in conversation or history) and Conventional Commits adoption (no documented alternatives) both fell below the two-question gate. Logged as devlog-only decisions.</li>
+                <li><strong>AskUserQuestion as /adr validation UI</strong> — confirmed that the clickable question component is the right format for candidate validation steps in /adr. Will apply to all future /adr runs.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">/adr command — criteria + full protocol</span>
           <div class="log-entry__chips">
             <span class="log-chip">3 files</span>
