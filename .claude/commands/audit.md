@@ -282,15 +282,15 @@ Output structure:
 
 **After all corrections are applied**, the action plan includes this mandatory final step — listed as an explicit numbered item at the same level as any blocking or minor fix:
 
-**Step N — Update `system/audit.html`**
-Add a new run entry following the structure of existing entries:
+**Step N — Add an audit entry to `system/logbook.html`**
+Append a new `<div class="log-entry" data-type="audit">` entry following the structure of the existing audit entries in `system/logbook.html`:
 - Date of the run
 - Layer-by-layer status (✓ / ⚠ / ✗)
 - Finding counts by priority (blocking / minor / informational)
 - A findings table: one row per item — finding description, fix applied, resolution status
 - A logbook-style `audit-desc` paragraph: written as a human would read it months later — honest, specific, with a sense of what the system looked like at this moment and what the run actually changed. Not a changelog. Not a list. A record.
 
-Use the existing entries in `system/audit.html` as the template. This step is not optional — the audit history is the institutional memory of the system's health.
+Use the existing `data-type="audit"` entries in `system/logbook.html` as the template. This step is not optional — the audit history is the institutional memory of the system's health.
 
 **Step N+1 — Write a devlog entry**
 Create `docs/devlog/YYYY-MM-DD-audit-run.md` (same date as the run). Content:
@@ -302,11 +302,11 @@ Create `docs/devlog/YYYY-MM-DD-audit-run.md` (same date as the run). Content:
 **Findings:** X blocking, Y minor, Z informational
 **All fixed:** yes / no (list what remains open if any)
 
-Ref: [system/audit.html](../../system/audit.html) — run entry for this date.
+Ref: [system/logbook.html](../../system/logbook.html) — audit entry for this date (filter: Audit).
 
 ## Notable findings
 [One bullet per finding that has architectural significance — things a future reader
 would want to know when they see a related commit or face a similar decision.]
 ```
 
-This step links the two tracking systems: `audit.html` holds the health record, `devlog/` holds the decision context. Both must exist after a run.
+This step links the two tracking systems: the logbook (audit filter) holds the health record, `devlog/` holds the decision context. Both must exist after a run.

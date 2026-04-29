@@ -21,7 +21,6 @@
       num: '03', name: 'Project',
       items: [
         { id: 'docs',    href: 'docs.html',    label: 'Docs'    },
-        { id: 'audit',   href: 'audit.html',   label: 'Audit'   },
         { id: 'logbook', href: 'logbook.html', label: 'Logbook' },
       ],
     },
@@ -35,7 +34,6 @@
     assets:      { num: '02', section: 'Resources',     title: 'Assets.',      deck: 'Logos, fonts, and production-ready files. Source of truth for export and usage.' },
     icons:       { num: '02', section: 'Resources',     title: 'Icons.',       deck: 'Browse, search, and download icons. All icons are 24×24, stroke-based, and use <code>currentColor</code>. Source of truth: <code>assets/icons/icons.md</code>.' },
     docs:        { num: '03', section: 'Project',       title: 'Docs.',        deck: 'Roadmap, decisions, devlog, and backlog — the living record of how the Brand OS is built.' },
-    audit:       { num: '03', section: 'Project',       title: 'Audit.',       deck: 'Full alignment audit history. One entry per run — layers checked, findings logged, corrections applied.' },
     logbook:     { num: '03', section: 'Project',       title: 'Logbook.',     deck: 'Daily activity log — one entry per session. Résumé of changes, analysis of patterns and risks, decisions made, actions taken.' },
   };
 
