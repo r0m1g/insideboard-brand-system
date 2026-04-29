@@ -293,6 +293,57 @@ Icons are managed via the `/svg` command — the single execution path for icon 
 
 ---
 
+## Dependency map — cascade rules
+
+When one file is modified, every derived artifact in the same row **must** be updated in the same operation. No exception.
+
+### Data cascades (source → generated)
+
+| Source modified | Must also update | How |
+|---|---|---|
+| `tokens.json` | `brandOS-tokens.css` | `node scripts/build-tokens.js` |
+| `brandOS-content.md` (any text) | `index.html` — matching section | str_replace on the section block |
+| `brandOS-content.md` (new `### N·N` section) | `index.html` — new `<!-- SECTION: sNN -->` block + nav `<li>` under correct layer group | Update type 4 in `PROCESS.md` |
+| `brandOS-content.md` (new `## Layer`) | `index.html` — `.layer-intro` block + `.ng-name` nav group + `.lb` badge in `.lbadges` | Update type 4 in `PROCESS.md` |
+| `docs/ROADMAP.md` | `system/docs.html` — `phasesData` JS object + `.roadmap-track` HTML | Update type 9 in `PROCESS.md` |
+
+### Structural cascades (adding an artifact → registering it elsewhere)
+
+| Added | Must also register | Where |
+|---|---|---|
+| New `system/*.html` page | Nav `<li>` entry | In ALL existing `system/*.html` pages (currently 11) |
+| New icon via `/svg` | Registry entry | `assets/icons/icons.md` — Step 6 of `svg.md` |
+| New `docs/decisions/ADR-*.md` | ADR entry in phasesData | `system/docs.html` — ADR list in JS |
+| New audit layer in `audit.md` | Rule-to-layer mapping | Layer 12.1 in `audit.md` |
+
+### Command/governance cascades (modifying governance → updating references)
+
+| Modified | Must also update |
+|---|---|
+| `.claude/commands/svg.md` | `PROCESS.md` §Update type 8 + `CLAUDE.md` §Iconography |
+| `.claude/commands/roadmap.md` | `PROCESS.md` §Update type 9 + `CLAUDE.md` §Documentation |
+| `.claude/commands/audit.md` (new layer) | `PROCESS.md` §Definition of done (audit layer check) + Layer 12 in `audit.md` |
+| `.claude/commands/adr.md` | `CLAUDE.md` §Documentation (the "use /adr" rule) |
+| `.claude/commands/session-end.md` | `PROCESS.md` if Step names change |
+| Any new `.claude/commands/*.md` | `PROCESS.md` (new Update type) + `CLAUDE.md` (relevant section) |
+| Writing rules in `CLAUDE.md` | `PROCESS.md` §Rules for Claude Code (Rule 8) + `audit.md` Layer 7 |
+| `CLAUDE.md` §Key classes table | `audit.md` Layer 0.2 (reference integrity check) |
+
+### Validation scripts
+
+| Script | What it checks | When to run |
+|---|---|---|
+| `node scripts/build-tokens.js` | Regenerates `brandOS-tokens.css` from `tokens.json` | After any `tokens.json` edit |
+| `node scripts/check-icons.js` | Bidirectional sync: SVG files ↔ `icons.md` registry | After any `/svg` operation |
+| `sh scripts/pre-commit.sh` | All cascade rules below | Runs automatically at every `git commit` |
+
+**Hook installation** (required once after a fresh clone):
+```bash
+cp scripts/pre-commit.sh .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+```
+
+---
+
 ## system/ — playground rules
 
 - All `system/` pages link to `../brandOS-tokens.css` and `../brandOS-components.css` — never duplicate CSS
