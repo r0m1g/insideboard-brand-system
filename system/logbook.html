@@ -31,6 +31,48 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">session-end 05:00 rule + logbook date fix</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">2 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Fix Step 4 deduplication check — <code>.claude/commands/session-end.md</code></strong> — The <code>grep -c</code> check was using <code>$(date +%Y-%m-%d)</code> (raw system date). After midnight it returned <code>2026-04-30</code>, never matched existing <code>2026-04-29</code> entries, and kept inserting duplicates. Replaced with <code>WORKING_DATE</code> via the same Python 05:00 resolver used in Step 1.</li>
+                <li><strong>Fix Rules section — <code>.claude/commands/session-end.md</code></strong> — Last rule said "Use the result of <code>date +%Y-%m-%d</code>". Updated to "Use the Python-resolved date from Step 1 (05:00 boundary)" to enforce the day boundary consistently.</li>
+                <li><strong>Logbook date correction — <code>system/logbook.html</code></strong> — The "Dependency map + pre-commit cascade hooks" entry was incorrectly dated <code>2026-04-30</code> (written at 00:17 using raw <code>date</code>). Fixed to <code>2026-04-29</code>. Verified via JS: 4 day blocks shown (2026-04-29, 2026-04-28, 2026-04-27, 2026-04-26) — duplicate block gone.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <p class="log-section--empty">No commits this session.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li>Step 4 deduplication check must use the same Python-resolved working date as Step 1 — <code>date +%Y-%m-%d</code> is never the right tool after midnight in this command.</li>
+                <li>When count ≥ 1 due to pre-existing duplicates (all distinct sessions), insert a new entry rather than overwriting a different session's content.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">warn chip resolution + open-items backlog system</span>
           <div class="log-entry__chips">
             <span class="log-chip">4 files</span>
@@ -69,11 +111,11 @@
         </div>
       </div>
 
-      <!-- ENTRY: 2026-04-30 session -->
+      <!-- ENTRY: 2026-04-29 session -->
       <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
-          <span class="log-entry__date">2026-04-30</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">Dependency map + pre-commit cascade hooks</span>
           <div class="log-entry__chips">
             <span class="log-chip">2 files</span>
