@@ -31,6 +31,52 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">Logbook day card system — type colors + collapse</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">2 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Day card grouping — Option 3</strong> — <code>system/logbook.html</code>: <code>buildGroupedView</code> and <code>destroyGroupedView</code> fully rewritten. Each day is now a <code>.log-day</code> card with a head/body structure. <code>log-day--complete</code> (has daily review, starts collapsed) vs <code>log-day--active</code> (in progress, always open). Sessions nested inside <code>.log-day__sessions</code> with amber left-border accent when under a review.</li>
+                <li><strong>Aggregated day head chips</strong> — JS scans all entries per day and surfaces: session count (<code>log-chip--session</code> amber), daily indicator (<code>log-chip--review</code> steel), audit count (<code>log-chip--audit</code> teal), warn chips from entries (deduplicated). Commits chip removed; commit-count prefix stripped from meta description via regex.</li>
+                <li><strong>Entry type border colors</strong> — <code>brandOS-components.css</code>: <code>.log-entry[data-type="session/review/audit"]</code> full border tinted to type color. <code>.log-entry__body-inner</code> border-top matches. <code>.log-entry__head:hover</code> tinted per type. New <code>.log-chip--session/review/audit</code> variants added alongside existing <code>--warn/--ok</code>.</li>
+                <li><strong>Collapse fix</strong> — <code>padding</code> removed from <code>.log-day__body-inner</code> (was leaking minimum height through CSS grid 0fr). Padding moved to new <code>.log-day__body-pad</code> inner wrapper created in JS.</li>
+                <li><strong>Day card hover</strong> — complete day head hover changed from steel tint to <code>var(--gray-50)</code> to match the neutral gray border of the day card.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — changes staged in working tree.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Option 3 chosen for day grouping</strong> — universal day card for all days (with or without daily review). Complete days collapsed by default, active days always open. Daily review is the primary anchor inside a complete day card; sessions are nested sub-items.</li>
+                <li><strong>Type color system extended to all log UI surfaces</strong> — amber/steel/teal applied consistently to entry borders, border-top separators, hover states, chips, and day card borders. Single source: the three <code>--fn-*</code> functional tokens.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">SVG sprite system + doc UI polish</span>
           <div class="log-entry__chips">
             <span class="log-chip">5 files</span>
@@ -1224,42 +1270,112 @@
         var review   = group.find(function(e) { return e.dataset.type === 'review'; });
         var sessions = group.filter(function(e) { return e.dataset.type === 'session'; });
         var audits   = group.filter(function(e) { return e.dataset.type === 'audit'; });
-        var wrapper = document.createElement('div');
-        wrapper.className = 'log-day ' + (review ? 'log-day--closed' : 'log-day--open');
-        wrapper.dataset.date = date;
-        logList.insertBefore(wrapper, group[0]);
-        if (!review) {
-          var lbl = document.createElement('div');
-          lbl.className = 'log-day__label';
-          lbl.textContent = date + (sessions.length ? ' · ' + sessions.length + ' session' + (sessions.length !== 1 ? 's' : '') : '');
-          wrapper.appendChild(lbl);
-          sessions.forEach(function(s) { wrapper.appendChild(s); });
-          audits.forEach(function(a) { wrapper.appendChild(a); });
+
+        var card = document.createElement('div');
+        card.dataset.date = date;
+        logList.insertBefore(card, group[0]);
+
+        // Head
+        var head = document.createElement('div');
+        head.className = 'log-day__head';
+        var dateSpan = document.createElement('span');
+        dateSpan.className = 'log-day__date';
+        dateSpan.textContent = date;
+        head.appendChild(dateSpan);
+        var metaSpan = document.createElement('span');
+        metaSpan.className = 'log-day__meta';
+
+        if (review) {
+          card.className = 'log-day log-day--complete';
+          var reviewTitle = review.querySelector('.log-entry__title');
+          var rawTitle = reviewTitle ? reviewTitle.textContent : 'Daily review';
+          metaSpan.textContent = rawTitle.replace(/^\d+\s+commits?\s*[—–-]\s*/i, '');
         } else {
-          wrapper.appendChild(review);
-          if (sessions.length) {
-            var sc = document.createElement('div');
-            sc.className = 'log-day__sessions';
-            var count = sessions.length;
-            var countLabel = count + ' session' + (count !== 1 ? 's' : '');
-            var tog = document.createElement('button');
-            tog.className = 'log-day__sessions-toggle';
-            tog.setAttribute('aria-expanded', 'false');
-            tog.textContent = countLabel + ' ›';
-            var body = document.createElement('div');
-            body.className = 'log-day__sessions-body';
-            sessions.forEach(function(s) { body.appendChild(s); });
-            tog.addEventListener('click', function() {
-              var open = body.classList.toggle('is-open');
-              tog.setAttribute('aria-expanded', String(open));
-              tog.textContent = countLabel + (open ? ' ‹' : ' ›');
-            });
-            sc.appendChild(tog);
-            sc.appendChild(body);
-            wrapper.appendChild(sc);
-          }
-          audits.forEach(function(a) { logList.insertBefore(a, wrapper.nextSibling); });
+          card.className = 'log-day log-day--active';
+          metaSpan.textContent = 'in progress';
         }
+        head.appendChild(metaSpan);
+
+        // Chips — aggregated from all entries in the day
+        var chipDefs = [];
+        if (sessions.length) chipDefs.push({ text: sessions.length + ' session' + (sessions.length !== 1 ? 's' : ''), cls: 'log-chip log-chip--session' });
+        if (review)          chipDefs.push({ text: 'daily', cls: 'log-chip log-chip--review' });
+        if (audits.length)   chipDefs.push({ text: audits.length + ' audit' + (audits.length !== 1 ? 's' : ''), cls: 'log-chip log-chip--audit' });
+        var warnSeen = {};
+        group.forEach(function(e) {
+          e.querySelectorAll('.log-chip--warn').forEach(function(c) {
+            var t = c.textContent.trim();
+            if (!warnSeen[t]) { warnSeen[t] = true; chipDefs.push({ text: t, cls: 'log-chip log-chip--warn' }); }
+          });
+        });
+        if (chipDefs.length) {
+          var chipsDiv = document.createElement('div');
+          chipsDiv.className = 'log-day__chips';
+          chipDefs.forEach(function(def) {
+            var c = document.createElement('span');
+            c.className = def.cls;
+            c.textContent = def.text;
+            chipsDiv.appendChild(c);
+          });
+          head.appendChild(chipsDiv);
+        }
+
+        if (review) {
+          var chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          chevron.setAttribute('class', 'log-day__toggle');
+          chevron.setAttribute('viewBox', '0 0 16 16');
+          chevron.setAttribute('fill', 'none');
+          chevron.setAttribute('stroke', 'currentColor');
+          chevron.setAttribute('stroke-width', '2');
+          chevron.setAttribute('stroke-linecap', 'round');
+          chevron.setAttribute('stroke-linejoin', 'round');
+          chevron.setAttribute('aria-hidden', 'true');
+          var poly = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+          poly.setAttribute('points', '4,6 8,10 12,6');
+          chevron.appendChild(poly);
+          head.appendChild(chevron);
+          head.setAttribute('role', 'button');
+          head.setAttribute('tabindex', '0');
+          head.setAttribute('aria-expanded', 'false');
+          head.addEventListener('click', function() {
+            var open = card.classList.toggle('is-open');
+            head.setAttribute('aria-expanded', String(open));
+          });
+          head.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); head.click(); }
+          });
+        }
+
+        card.appendChild(head);
+
+        // Body
+        var body = document.createElement('div');
+        body.className = 'log-day__body';
+        var inner = document.createElement('div');
+        inner.className = 'log-day__body-inner';
+        var pad = document.createElement('div');
+        pad.className = 'log-day__body-pad';
+        inner.appendChild(pad);
+        body.appendChild(inner);
+        card.appendChild(body);
+
+        // Daily review — primary
+        if (review) { pad.appendChild(review); }
+
+        // Sessions — indented with amber accent when under a review
+        if (sessions.length) {
+          if (review) {
+            var sessWrap = document.createElement('div');
+            sessWrap.className = 'log-day__sessions';
+            sessions.forEach(function(s) { sessWrap.appendChild(s); });
+            pad.appendChild(sessWrap);
+          } else {
+            sessions.forEach(function(s) { pad.appendChild(s); });
+          }
+        }
+
+        // Audits
+        audits.forEach(function(a) { pad.appendChild(a); });
       });
     }
 
