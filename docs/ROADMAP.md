@@ -3,7 +3,7 @@
 > Single-page status of where we are and where we're going.
 > Updated whenever a phase changes state. Authoritative source for "what's next."
 
-**Last updated:** 2026-04-27 (ADR-007 · asset library generalization → Phase 4 added, step 3.7 superseded)
+**Last updated:** 2026-04-29 (Phase 5 activated — G.5 ✓ + G.6 ✓, branch consolidation done, Phase 5 moved to Active)
 
 ---
 
@@ -74,6 +74,38 @@ Generalize the iconography pattern (anatomical naming + registry + functional ma
 
 ---
 
+### Phase 5 · GitLab process
+
+Migrate the project from the personal GitHub repo to InsideBoard's GitLab space. Consolidate the branch strategy. Establish the long-term exploration workflow.
+
+| Step | Status | Description |
+|---|---|---|
+| G.1 | `○` | Create repo on InsideBoard GitLab (Romain's space) |
+| G.2 | `○` | Configure Google Workspace SSO — employees access Brand OS via company Google mail |
+| G.3 | `○` | Push full history to GitLab (both branches) |
+| G.4 | `○` | Update Figma Tokens Studio connection — swap GitHub PAT for GitLab access token (Phase 2 prerequisite) |
+| G.5 | `✓` | Consolidate branches — merge `feat/ui-exploration` into `main`. `main` becomes the single source of truth (all files: source + display + governance). Delete `feat/ui-exploration`. |
+| G.6 | `✓` | Update `CLAUDE.md` + `PROCESS.md` — new branch strategy: work directly on `main`, create `experiment/*` branches for risky explorations |
+| G.7 | `○` | Deprecate sync tooling — delete `scripts/syncmain.sh` and `.claude/commands/syncmain.md` (no longer needed) |
+| G.8 | `○` | Verify GitLab Pages — confirm `index.html` is served correctly, update any hardcoded URL references |
+
+**Branch strategy after G.5:**
+
+| Branch | Role | Lifetime |
+|---|---|---|
+| `main` | Single source of truth — stable, all files | Permanent |
+| `experiment/<name>` | Risky exploration with its own full source — typography overhaul, layout refactor, animation system | Temporary — merge or close |
+
+An `experiment/*` branch is created from `main` when you want to break things without risk. It carries its own copy of all source files. When the exploration is conclusive: merge what works, close the branch. When it fails: close without trace on `main`.
+
+**Deprecates:** `scripts/syncmain.sh`, `.claude/commands/syncmain.md`, `feat/ui-exploration` branch pattern.
+
+**Prerequisite:** G.2 (SSO) must be confirmed before G.3 (push) — no content on GitLab before access control is in place.
+
+**Decisions:** ADR-009
+
+---
+
 ## Completed
 
 ### Phase 1A · Design system foundation
@@ -118,37 +150,6 @@ Generalize the iconography pattern (anatomical naming + registry + functional ma
 
 **Decisions:** ADR-006
 
-
----
-
-### Phase 5 · GitLab process
-
-Migrate the project from the personal GitHub repo to InsideBoard's GitLab space. Consolidate the branch strategy. Establish the long-term exploration workflow.
-
-| Step | Status | Description |
-|---|---|---|
-| G.1 | `○` | Create repo on InsideBoard GitLab (Romain's space) |
-| G.2 | `○` | Configure Google Workspace SSO — employees access Brand OS via company Google mail |
-| G.3 | `○` | Push full history to GitLab (both branches) |
-| G.4 | `○` | Update Figma Tokens Studio connection — swap GitHub PAT for GitLab access token (Phase 2 prerequisite) |
-| G.5 | `○` | Consolidate branches — merge `feat/ui-exploration` into `main`. `main` becomes the single source of truth (all files: source + display + governance). Delete `feat/ui-exploration`. |
-| G.6 | `○` | Update `CLAUDE.md` + `PROCESS.md` — new branch strategy: work directly on `main`, create `experiment/*` branches for risky explorations |
-| G.7 | `○` | Deprecate sync tooling — delete `scripts/syncmain.sh` and `.claude/commands/syncmain.md` (no longer needed) |
-| G.8 | `○` | Verify GitLab Pages — confirm `index.html` is served correctly, update any hardcoded URL references |
-
-**Branch strategy after G.5:**
-
-| Branch | Role | Lifetime |
-|---|---|---|
-| `main` | Single source of truth — stable, all files | Permanent |
-| `experiment/<name>` | Risky exploration with its own full source — typography overhaul, layout refactor, animation system | Temporary — merge or close |
-
-An `experiment/*` branch is created from `main` when you want to break things without risk. It carries its own copy of all source files. When the exploration is conclusive: merge what works, close the branch. When it fails: close without trace on `main`.
-
-**Deprecates:** `scripts/syncmain.sh`, `.claude/commands/syncmain.md`, `feat/ui-exploration` branch pattern.
-
-**Prerequisite:** G.2 (SSO) must be confirmed before G.3 (push) — no content on GitLab before access control is in place.
-
 ---
 
 ## Future (uncommitted)
@@ -162,6 +163,7 @@ An `experiment/*` branch is created from `main` when you want to break things wi
 
 ## Recent changes
 
+- **2026-04-29** — Phase 5 activated (G.5 ✓, G.6 ✓). Branch consolidation complete: `feat/ui-exploration` merged into `main`. `CLAUDE.md` + `PROCESS.md` updated with single-branch strategy (`experiment/*` for risky explorations). ADR-009. G.1–G.4, G.7, G.8 remain planned (GitLab migration pending).
 - **2026-04-27** — ADR-007 · asset library generalization. The pattern proven by Phase 3 (anatomical naming + registry + functional mapping + gallery + reverse index) is generalized to all non-token brand assets. Phase 3 closes on iconography (steps 3.4, 3.5 still to ship). Step 3.7 superseded by new Phase 4. Phase 4 (médiathèque, cross-asset reverse index, unified authoring protocol) added as uncommitted — starts after Phase 3 closes. Current `system/icons.html` reframed as interim; will be absorbed by `system/library.html`.
 - **2026-04-27** — Phase 3.6 ✓ — `system/icons.html` created: searchable icon gallery with system/category filters, search by name/alias/function, light/grey/dark context switcher, active state toggle, click-to-select detail panel, Download SVG + Copy SVG. Nav updated in all 5 system pages.
 - **2026-04-27** — Phase 3 · Iconography system initiated. `/svg` command built (`.claude/commands/svg.md`) — 7-step protocol: audit, anatomical naming, standardization, active states, duplicate detection, write validation. `assets/icons/icons.md` registry created with Brand/Platform × 7-category structure and Functional Mapping field. CLAUDE.md + PROCESS.md updated (Update type 8). Logo migration: `assets/svg/` → `assets/logos/` (7 files, all HTML references updated). First icon processed and registered: `camera-plus` (platform/objects). Steps 3.1 ✓, 3.2 ✓, 3.3 ✓.

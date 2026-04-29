@@ -134,6 +134,22 @@ If count < 5 or no ADRs exist, omit the line entirely. Do not generate or propos
 
 ---
 
+## Step 4c — Roadmap signal
+
+```bash
+LAST_ROADMAP_DATE=$(grep "^\*\*Last updated:\*\*" docs/ROADMAP.md | sed 's/\*\*Last updated:\*\* //' | grep -o "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]")
+git log --since="$LAST_ROADMAP_DATE" --oneline 2>/dev/null | wc -l | tr -d ' '
+```
+
+If the commit count since the last roadmap update is ≥ 3, add one line to the output:
+```
+  Roadmap signal : N commits since last roadmap update (LAST_ROADMAP_DATE) — run /roadmap to review
+```
+
+If count < 3 or the date cannot be parsed, omit the line entirely. Do not update the roadmap here — surface the signal only.
+
+---
+
 ## Step 5 — Commit and sync
 
 **Commit the logbook entry** (use the working date resolved in Step 1, not raw `date`):
@@ -156,10 +172,11 @@ If push fails: note the failure in output. Do not retry. Do not ask for input.
 
 ```
 Day closed — YYYY-MM-DD
-  Logbook  : entry written (N commits · N decisions · N actions) | duplicate skipped
-  Structure: ✓ aligned | ✗ drift (N orphans)
-  ADR signal: N commits since last ADR (YYYY-MM-DD) — run /adr to review   ← only if N ≥ 5
-  Push     : ✓ main pushed to remote | ✗ failed — [reason]
+  Logbook        : entry written (N commits · N decisions · N actions) | duplicate skipped
+  Structure      : ✓ aligned | ✗ drift (N orphans)
+  ADR signal     : N commits since last ADR (YYYY-MM-DD) — run /adr to review   ← only if N ≥ 5
+  Roadmap signal : N commits since last roadmap update (YYYY-MM-DD) — run /roadmap to review   ← only if N ≥ 3
+  Push           : ✓ main pushed to remote | ✗ failed — [reason]
 ```
 
 ---
