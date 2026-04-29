@@ -281,13 +281,13 @@ Icons are managed via the `/svg` command — the single execution path for icon 
 | File | Role |
 |---|---|
 | `docs/ROADMAP.md` | Authoritative status of all phases and steps — update when a step changes state |
-| `docs/decisions/ADR-*.md` | Architecture Decision Records — one file per architectural decision |
+| `docs/decisions/ADR-*.md` | Architecture Decision Records — one file per architectural decision. Single execution path: `/adr` |
 | `docs/devlog/` | Narrative session logs — one file per session, named `YYYY-MM-DD-slug.md` |
 | `docs/backlog/ideas.md` | Speculative ideas not yet committed |
 | `docs/backlog/bugs.md` | Known bugs and regressions |
 | `docs/backlog/feedback.md` | Stakeholder or self-review feedback |
 
-**Proactive rule:** At natural moments (phase complete, bug found and fixed, architectural decision made, session wrapping up), propose updating the relevant doc. Do not wait to be asked.
+**Proactive rule:** At natural moments (phase complete, bug found and fixed, architectural decision made, session wrapping up), propose updating the relevant doc. Do not wait to be asked. For ADRs specifically: use `/adr` — never author an ADR file directly without going through the command protocol.
 
 **Roadmap sync rule:** `docs/ROADMAP.md` and `system/docs.html` are a source/derived pair. Any change to `docs/ROADMAP.md` (phase status, new phase, step update) **must** be followed immediately by the corresponding update to `system/docs.html` (`phasesData` JS object + `.roadmap-track` HTML). See Update type 9 in `PROCESS.md` for the exact mapping. Never leave them out of sync.
 

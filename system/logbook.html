@@ -31,6 +31,52 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">/adr command — criteria + full protocol</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">3 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>ADR criteria analysis</strong> — Audited all 6 existing ADRs to extract implicit triggers. Defined 6 project-specific criteria: source-of-truth ownership, universal constraint, hard-to-reverse spec choice, visual register/identity class, phase sequencing constraint, permanent new file or directory. Added two-question gate: future maintainer needs why + alternatives were considered.</li>
+                <li><strong><code>/adr</code> command created</strong> — Authored <code>.claude/commands/adr.md</code> with two modes: detection (<code>/adr</code> alone — scans git log + devlogs since last ADR, proposes candidates) and authoring (<code>/adr [topic]</code> — direct ADR drafting with structured inputs). Includes anti-fabrication gate at Step 5.2: if only one option can be named, command redirects to devlog.</li>
+                <li><strong><code>CLAUDE.md</code> updated</strong> — Two <code>str_replace</code> edits: <code>docs/decisions/ADR-*.md</code> row now references <code>/adr</code> as single execution path; Proactive rule clarified that ADRs always go through the command, never authored directly.</li>
+                <li><strong><code>day-end.md</code> updated</strong> — Added Step 4b: lightweight ADR signal. If ≥5 commits since last ADR, one line appended to day-end output — <code>ADR signal: N commits since last ADR (date) — run /adr to review</code>. No generation, signal only. Output format block updated accordingly.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — changes are uncommitted: <code>.claude/commands/adr.md</code> (new), <code>.claude/commands/day-end.md</code> (modified), <code>CLAUDE.md</code> (modified).</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>/adr as single execution path</strong> — ADRs must always go through the command protocol, never authored directly. Same pattern as <code>/svg</code> for icon work. Rationale: the gate at Step 5.2 (anti-fabrication of rejected options) is the primary quality control.</li>
+                <li><strong>Day-end signal, not generation</strong> — <code>/day-end</code> surfaces the ADR signal but never creates an ADR. Keeps day-end focused on its own purpose; user decides when to run <code>/adr</code>.</li>
+                <li><strong>Threshold = 5 commits</strong> — Chosen as the trigger for the day-end ADR signal. Below 5, too noisy; above, likely enough structural work to warrant a review.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">audit.html removed — nav, hub, command, inventory cleaned</span>
           <div class="log-entry__chips">
             <span class="log-chip">6 files</span>

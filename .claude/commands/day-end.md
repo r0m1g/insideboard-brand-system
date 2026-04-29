@@ -118,6 +118,22 @@ Compare both lists. Report `✓ structural alignment clean` or list orphans. Do 
 
 ---
 
+## Step 4b — ADR signal
+
+```bash
+LAST_ADR_DATE=$(grep -h "^\*\*Date:\*\*" docs/decisions/*.md 2>/dev/null | sort | tail -1 | sed 's/\*\*Date:\*\* //')
+git log --since="$LAST_ADR_DATE" --oneline 2>/dev/null | wc -l | tr -d ' '
+```
+
+If the commit count is ≥ 5, add one line to the output:
+```
+  ADR signal : N commits since last ADR (LAST_ADR_DATE) — run /adr to review
+```
+
+If count < 5 or no ADRs exist, omit the line entirely. Do not generate or propose an ADR here — surface the signal only.
+
+---
+
 ## Step 5 — Commit and sync
 
 **Commit the logbook entry** (use the working date resolved in Step 1, not raw `date`):
@@ -142,6 +158,7 @@ If push fails: note the failure in output. Do not retry. Do not ask for input.
 Day closed — YYYY-MM-DD
   Logbook  : entry written (N commits · N decisions · N actions) | duplicate skipped
   Structure: ✓ aligned | ✗ drift (N orphans)
+  ADR signal: N commits since last ADR (YYYY-MM-DD) — run /adr to review   ← only if N ≥ 5
   Push     : ✓ main pushed to remote | ✗ failed — [reason]
 ```
 
