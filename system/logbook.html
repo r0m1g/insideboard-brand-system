@@ -1468,6 +1468,60 @@
         </div>
       </div>
 
+      <!-- ENTRY: 2026-04-26 daily-review -->
+      <div class="log-entry" data-type="review">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--review">daily review</span>
+          <span class="log-entry__date">2026-04-26</span>
+          <span class="log-entry__title">3 commits — docs.html frise + System → nav link + system/ public</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">3 commits</span>
+            <span class="log-chip">1 feat</span>
+            <span class="log-chip">1 session</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Résumé</p>
+              <p>A focused single-session day — 3 commits. Core output: <code>system/docs.html</code>, the project's documentation viewer, combining four panels in one page: a horizontal roadmap frise (clickable phase cards 1A → 1B → 1C → 2 → Future, status filters, detail panel, gap indicator <code>···</code>), a Decisions table (5 ADRs), a Devlog section, and a Backlog section. Alongside: the "System →" navigation link added to Brand OS (<code>.nav-system-link</code>, full-width at 53px after two adjustment rounds), a Docs tab added to all four existing system/ pages, and <code>system/</code> made public by including it in the files synced to <code>main</code>.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Analyse</p>
+              <ul>
+                <li><strong><code>system/docs.html</code> sets a multi-panel pattern</strong> — the first page to aggregate roadmap, decisions, devlog, and backlog in one view. This pattern will likely recur as the Workbench grows.</li>
+                <li><strong><code>.nav-system-link</code> introduces a new nav pattern</strong> — bridging Brand OS to the Workbench. Required two margin-adjustment iterations to reach correct full-width alignment at 53px. Now stable.</li>
+                <li><strong>W3C Design Tokens choice evaluated</strong> — confirmed as good fit for Phase 2 (Figma sync target). Style Dictionary v4 identified as a viable alternative if Phase 2 does not materialize (native DTCG support, avoids the custom generator). Noted for future review.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Décisions</p>
+              <ul>
+                <li><strong>W3C Design Tokens format retained</strong> — good fit for Figma sync (Phase 2 target). Style Dictionary v4 noted as reconsideration candidate if Phase 2 does not materialize.</li>
+                <li><strong><code>system/</code> made public</strong> — included in files synced to <code>main</code>; <code>PROCESS.md</code> and <code>CLAUDE.md</code> updated accordingly.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Actions</p>
+              <ul>
+                <li><strong><code>system/docs.html</code></strong> — new page created: roadmap frise, ADR table, devlog entries, backlog columns. New CSS classes: <code>.roadmap-wrap</code>, <code>.phase-card</code>, <code>.roadmap-connector</code>, <code>.rf-btn</code>, <code>.roadmap-detail</code>, <code>.phase-card-num</code>, <code>.phase-card-name</code>, and more.</li>
+                <li><strong><code>index.html</code></strong> — "System →" link added via <code>.nav-system-link</code>.</li>
+                <li><strong><code>foundations.html</code>, <code>components.html</code>, <code>patterns.html</code>, <code>assets.html</code></strong> — Docs tab added to <code>.sys-links</code> nav on all four pages.</li>
+                <li><strong><code>docs/ROADMAP.md</code></strong> — Recent changes entry added.</li>
+                <li><strong><code>docs/devlog/2026-04-26-system-docs-and-nav.md</code></strong> — devlog file created.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- ENTRY: 2026-04-26 session -->
       <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
