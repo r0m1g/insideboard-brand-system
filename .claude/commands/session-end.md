@@ -147,10 +147,11 @@ Remove any optional section (`Decisions`, `Open items`) if there is nothing to s
 
 ## Step 4 — Inject or update logbook.html
 
-**First, check for an existing entry for today:**
+**First, check for an existing entry for today (use the working date resolved in Step 1):**
 
 ```bash
-grep -c "<!-- ENTRY: $(date +%Y-%m-%d) session -->" system/logbook.html
+WORKING_DATE=$(python3 -c "from datetime import datetime,timedelta; n=datetime.now(); d=n.date() if n.hour>=5 else n.date()-timedelta(days=1); print(d.strftime('%Y-%m-%d'))")
+grep -c "<!-- ENTRY: ${WORKING_DATE} session -->" system/logbook.html
 ```
 
 **If count ≥ 1 (entry exists):**
@@ -173,6 +174,30 @@ Find the first `<!-- ENTRY:` comment in `system/logbook.html`. Insert the new bl
 
 ---
 
+## Step 4b — Warn resolution
+
+**Skip this step if the entry written in Step 3 contains no `log-chip--warn` chips.**
+
+If warn chips are present:
+
+**1. Surface each warn** — one line per chip: what it represents and what would be needed to resolve it.
+
+**2. Ask via `AskUserQuestion`** — `multiSelect: true`, one option per distinct warn chip (max 3; if more, group the least critical as "Other warns"). Add a final option "None — skip all".
+
+Each option label = the chip text. Each option description = why it appeared and what resolving it requires.
+
+**3. For each warn the user selects**, append one line to `docs/backlog/open-items.md`:
+
+```
+- [{{ YYYY-MM-DD }}] {{ chip label }} — {{ why it occurred }} — Resolution: {{ what would fix it }}
+```
+
+When an item is later resolved: strike through the entire line and append `✓ resolved YYYY-MM-DD`. Do not delete. The session log for the resolving session is the trace — no extra logbook entry needed.
+
+**4. If no warns, or user selects "None — skip all"**: proceed to Step 5 silently.
+
+---
+
 ## Step 5 — Commit and sync
 
 ```bash
@@ -180,10 +205,10 @@ git add system/logbook.html
 git commit -m "log(session): {{ YYYY-MM-DD }} — {{ short title }}"
 ```
 
-If Step 1b wrote roadmap files, include them in the same commit:
+If Step 1b wrote roadmap files, include them in the same commit. If Step 4b wrote backlog entries, include `docs/backlog/open-items.md`. Stage all relevant files before the single commit:
 
 ```bash
-git add system/logbook.html docs/ROADMAP.md system/docs.html
+git add system/logbook.html docs/ROADMAP.md system/docs.html docs/backlog/open-items.md
 git commit -m "log(session): {{ YYYY-MM-DD }} — {{ short title }}"
 ```
 
@@ -209,4 +234,4 @@ Do not open the file in a browser. Do not add anything else.
 - **English only.** All content written to the file must be in English, even if the conversation was in French.
 - **One entry per `/session-end` call.** Never merge two sessions into one entry.
 - **No invented content.** If no commits were made, write "No commits this session." If no decisions were made, omit the Decisions section.
-- **Date = today.** Use the result of `date +%Y-%m-%d`, not a date from memory.
+- **Date = working date.** Use the Python-resolved date from Step 1 (05:00 boundary) — not raw `date +%Y-%m-%d` and not a date from memory.

@@ -26,6 +26,49 @@
 
       <div class="log-list">
 
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">warn chip resolution + open-items backlog system</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">4 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Warn resolution step — <code>session-end.md</code> Step 4b + <code>day-end.md</code> Step 4d</strong> — After a log entry is written with <code>log-chip--warn</code> chips, Claude surfaces each warn with context and asks via <code>AskUserQuestion</code> (multiSelect) whether to defer to backlog or skip. Deferred items appended to <code>docs/backlog/open-items.md</code> and staged in the same commit.</li>
+                <li><strong><code>docs/backlog/open-items.md</code> — new file</strong> — Dedicated backlog file for deferred warn chips, distinct from <code>bugs.md</code> (code regressions). Format: date · label · why it occurred · resolution path. On resolution: strike-through the line + append <code>✓ resolved YYYY-MM-DD</code> — never delete. Session log is the trace; no extra devlog entry needed.</li>
+                <li><strong>Existing warn chip triage — logbook scan</strong> — 4 <code>log-chip--warn</code> found. Two dismissed as historical: "3 blocking" (8/8 fixed same session) and "uncommitted" (git now clean). Two deferred to backlog: "sidebar fidelity" (2026-04-28) and "governance files off main" (2026-04-27).</li>
+                <li><strong><code>system/docs.html</code> — 2 backlog items added</strong> — "Sidebar fidelity" under Todo (visual verification of <code>nav.js</code> sidebar), "Governance files off main" under Workflow (architectural decision pending ADR). Both confirmed in rendered backlog via DOM check.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <p>No commits this session — all changes committed in this session-end.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Strike-through over deletion for resolved open items</strong> — history stays visible; resolved items get <code>~~line~~ ✓ resolved YYYY-MM-DD</code>. The resolving session's log is the trace; no separate devlog entry.</li>
+                <li><strong><code>open-items.md</code> separate from <code>bugs.md</code></strong> — operational deferred warns (process, fidelity, governance) kept distinct from code regressions. Different format, different lifespan.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- ENTRY: 2026-04-30 session -->
       <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">

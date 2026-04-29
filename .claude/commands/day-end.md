@@ -150,12 +150,44 @@ If count < 3 or the date cannot be parsed, omit the line entirely. Do not update
 
 ---
 
+## Step 4d — Warn resolution
+
+**Skip this step if the daily-review entry written in Step 3 contains no `log-chip--warn` chips.**
+
+If warn chips are present:
+
+**1. Surface each warn** — one line per chip: what it represents and what would be needed to resolve it.
+
+**2. Ask via `AskUserQuestion`** — `multiSelect: true`, one option per distinct warn chip (max 3; if more, group the least critical as "Other warns"). Add a final option "None — skip all".
+
+Each option label = the chip text. Each option description = why it appeared and what resolving it requires.
+
+**3. For each warn the user selects**, append one line to `docs/backlog/open-items.md`:
+
+```
+- [{{ YYYY-MM-DD }}] {{ chip label }} — {{ why it occurred }} — Resolution: {{ what would fix it }}
+```
+
+When an item is later resolved: strike through the entire line and append `✓ resolved YYYY-MM-DD`. Do not delete. The session log for the resolving session is the trace — no extra logbook entry needed.
+
+**4. If no warns, or user selects "None — skip all"**: proceed to Step 5 silently.
+
+Note: this step requires user input and is the only exception to the "no confirmation prompts" rule in this command.
+
+---
+
 ## Step 5 — Commit and sync
 
 **Commit the logbook entry** (use the working date resolved in Step 1, not raw `date`):
 ```bash
 WORKING_DATE=$(python3 -c "from datetime import datetime,timedelta; n=datetime.now(); d=n.date() if n.hour>=5 else n.date()-timedelta(days=1); print(d.strftime('%Y-%m-%d'))")
 git add system/logbook.html
+git commit -m "log(daily): ${WORKING_DATE}"
+```
+
+If Step 4d wrote backlog entries, add `docs/backlog/open-items.md` to the same commit:
+```bash
+git add system/logbook.html docs/backlog/open-items.md
 git commit -m "log(daily): ${WORKING_DATE}"
 ```
 
