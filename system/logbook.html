@@ -26,6 +26,81 @@
 
       <div class="log-list">
 
+      <!-- ENTRY: 2026-04-29 daily-review -->
+      <div class="log-entry" data-type="review">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--review">daily review</span>
+          <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">24 commits — tooling + governance + logbook + workbench</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">24 commits</span>
+            <span class="log-chip">2 feat</span>
+            <span class="log-chip">2 fix</span>
+            <span class="log-chip">1 docs</span>
+            <span class="log-chip">1 chore</span>
+            <span class="log-chip">11 sessions</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Résumé</p>
+              <p>A landmark day — 24 commits across 11 sessions covering two major themes: governance formalization and workbench evolution. First half: logbook carry-over (type filters, audit migration, <code>audit.html</code> deleted), hero badge links corrected, 5 SVG icon files recovered from git history after accidental deletion, brand-knowledge.md written for Claude Team context. Mid-day: Conventional Commits adopted, <code>feat/ui-exploration</code> consolidated into <code>main</code> (ADR-009), then the <code>/adr</code> command designed and first-run in one session — producing ADR-007, ADR-008, ADR-009. Late sessions: <code>/roadmap</code> command built with <code>/reorder</code> subcommand and activity detection wired into <code>/session-end</code>; Phase 5 activated (G.5 ✓ + G.6 ✓).</p>
+              <p>Evening: logbook grouped view rebuilt (<code>buildGroupedView()</code> / <code>destroyGroupedView()</code> — day cards, complete vs active states, nested sessions), SVG sprite system refactored into <code>renderSprite()</code>, <code>system/process.html</code> created, hub auto-generated via <code>renderHub()</code>. Day closed with warn chip triage and <code>open-items.md</code> infrastructure. Most-touched: <code>system/logbook.html</code>, <code>system/nav.js</code>, <code>.claude/commands/</code> (4 files), <code>docs/decisions/</code> (3 ADRs), <code>docs/ROADMAP.md</code>.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Analyse</p>
+              <ul>
+                <li><strong>SVG file loss + recovery same session</strong> — 5 platform icon files accidentally deleted in <code>chore: stage working state</code> (commit <code>6d0f6a2</code>, 2026-04-28). Recovered via <code>git checkout 6d0f6a2^ -- assets/icons/platform/</code>. Risk: chore commits that stage working state without an explicit file list can silently swallow deletions. Mitigated in-session; resolved.</li>
+                <li><strong>High session density — 11 sessions, no drift</strong> — Across a full day of high-velocity work (governance, tooling, logbook, workbench), structural alignment remained clean and no file was left inconsistent with its source of truth.</li>
+                <li><strong>ADR + /adr command same session</strong> — The command was designed and immediately first-run in the same session, producing 3 ADRs. The two-question gate correctly discarded 2 candidates (Conventional Commits, /adr criteria). Validation method proven.</li>
+                <li><strong>Day grouping introduces visibility for missing /day-end</strong> — The <code>log-day--active</code> / <code>log-day--complete</code> distinction makes any day without a daily review immediately visible as "in progress." This entry is itself the evidence: 2026-04-29 remained open until 2026-04-30 when the gap was noticed.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Décisions</p>
+              <ul>
+                <li><strong>Conventional Commits adopted</strong> — <code>log</code> type for logbook entries; all standard types for content/CSS/script work. Scopes cover section IDs, system areas, doc areas, scripts.</li>
+                <li><strong>Single-branch workflow</strong> — <code>feat/ui-exploration</code> merged into <code>main</code>; <code>experiment/*</code> branches for risky explorations. <code>main</code> is the single source of truth (ADR-009).</li>
+                <li><strong>Logbook as single activity log</strong> — <code>audit.html</code> deleted; all audit runs live in the logbook as <code>data-type="audit"</code> entries (ADR-008).</li>
+                <li><strong>Asset library generalization</strong> — Phase 3 icon pattern generalized to all non-token brand assets; Phase 4 (médiathèque) defined as uncommitted (ADR-007).</li>
+                <li><strong>Activity detection in <code>/session-end</code></strong> — Step 1b scans commits since last roadmap update; user confirms "done or in progress?" — never presumes completion.</li>
+                <li><strong>Day card grouping</strong> — <code>log-day--complete</code> (has daily review, starts collapsed) vs <code>log-day--active</code> (no review, always open, shows "in progress").</li>
+                <li><strong><code>open-items.md</code> separate from <code>bugs.md</code></strong> — operational deferred warns kept distinct from code regressions. Strike-through over deletion for resolved items.</li>
+                <li><strong>Workbench hub driven by <code>nav.js</code></strong> — adding a page to <code>GROUPS</code> + <code>PAGES</code> auto-updates sidebar, header, and hub. <code>desc</code> field separate from <code>deck</code>.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Actions</p>
+              <ul>
+                <li><strong><code>system/logbook.html</code></strong> — <code>buildGroupedView()</code> / <code>destroyGroupedView()</code> JS; day card structure; type color tokens; collapse behavior for complete days; date correction for dependency-map entry (2026-04-30 → 2026-04-29).</li>
+                <li><strong><code>system/nav.js</code></strong> — <code>renderSprite()</code> injects SVG sprite into every page via <code>init()</code>; <code>ARR_R</code> / <code>ARR_L</code> constants defined once; <code>renderHub()</code> generates hub sections from <code>GROUPS</code> and <code>PAGES</code>.</li>
+                <li><strong><code>system/process.html</code></strong> — new page created (commands, rules, files sections); registered in <code>nav.js</code> GROUPS (03 · Project) and PAGES.</li>
+                <li><strong><code>system/index.html</code></strong> — static hub sections replaced with <code>&lt;div id="hub-groups"&gt;&lt;/div&gt;</code> mount point.</li>
+                <li><strong><code>system/docs.html</code></strong> — ADR list auto-registration (step 9); completed phases drawer (Phase 1A–1D); roadmap status renamed (Future → Planned / On radar); frise updated.</li>
+                <li><strong><code>docs/decisions/ADR-007.md</code></strong>, <strong>ADR-008.md</strong>, <strong>ADR-009.md</strong> — authored in one session via first <code>/adr</code> run.</li>
+                <li><strong><code>docs/ROADMAP.md</code></strong> — Phase 5 activated; G.5 ✓ + G.6 ✓; status legend updated.</li>
+                <li><strong><code>.claude/commands/adr.md</code></strong> — full command with two-question gate, 9-step protocol, step 9 auto-registration.</li>
+                <li><strong><code>.claude/commands/roadmap.md</code></strong> — full command + <code>/reorder</code> subcommand; activity detection split into two categories.</li>
+                <li><strong><code>.claude/commands/session-end.md</code></strong> — Step 1b: roadmap activity detection before log entry.</li>
+                <li><strong><code>assets/icons/platform/</code></strong> — 5 SVG files restored: <code>arrows-left-right.svg</code>, <code>layout-sidebar-left.svg</code>, <code>layout-sidebar-left-active.svg</code>, <code>camera-plus.svg</code>, <code>camera-plus-active.svg</code>.</li>
+                <li><strong><code>feat/ui-exploration</code></strong> consolidated into <code>main</code> (commit <code>d4c8f6d</code>); branch deleted.</li>
+                <li><strong><code>docs/backlog/open-items.md</code></strong> — new file; two items deferred: "sidebar fidelity" (2026-04-28) + "governance files off main" (2026-04-27).</li>
+                <li><strong><code>system/audit.html</code></strong> — deleted; nav.js entries removed.</li>
+                <li><strong><code>docs/brand-knowledge.md</code></strong> + <code>docs/inventory.md</code> — authored for Claude Team project context.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- ENTRY: 2026-04-29 session -->
       <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
