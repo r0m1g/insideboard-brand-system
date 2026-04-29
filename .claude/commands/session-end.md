@@ -38,6 +38,41 @@ Also review the conversation to identify:
 
 ---
 
+## Step 1b — Roadmap activity check
+
+Run before building the log entry. Check if any active steps (◔) have had relevant activity since the last roadmap update.
+
+```bash
+LAST_ROADMAP_DATE=$(grep "^\*\*Last updated:\*\*" docs/ROADMAP.md | sed 's/\*\*Last updated:\*\* //' | grep -o "^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]")
+git log --since="$LAST_ROADMAP_DATE" --oneline
+```
+
+**If no commits found since that date** → skip this step silently, proceed to Step 2.
+
+**If commits found:**
+
+1. Read `docs/ROADMAP.md` — identify all steps with status `◔`
+2. For each active step, check whether any commits since `LAST_ROADMAP_DATE` plausibly relate to it (by scope, keywords, or conversation context)
+3. For each match, ask one at a time:
+
+   > **Step X.Y — [description]**
+   > Activity detected: [commit reference]
+   > - [ ] Still in progress — no change
+   > - [ ] Done → mark ✓
+
+4. For each step marked done:
+   - Run cascade check (see Cascade rules in `/roadmap`)
+   - Show draft: which fields change in both files
+   - Write `docs/ROADMAP.md` + `system/docs.html` immediately, before moving to the next match
+   - Do not commit — these files will be staged by Step 5
+
+**Rules:**
+- Never presume a step is done from a commit alone — always ask.
+- If a commit could match multiple active steps, ask which one it relates to before asking about status.
+- Silent if nothing to surface — do not add noise when there are no active steps with activity.
+
+---
+
 ## Step 2 — Build the chips
 
 Choose chips that summarize the session truthfully:
@@ -142,6 +177,13 @@ Find the first `<!-- ENTRY:` comment in `system/logbook.html`. Insert the new bl
 
 ```bash
 git add system/logbook.html
+git commit -m "log(session): {{ YYYY-MM-DD }} — {{ short title }}"
+```
+
+If Step 1b wrote roadmap files, include them in the same commit:
+
+```bash
+git add system/logbook.html docs/ROADMAP.md system/docs.html
 git commit -m "log(session): {{ YYYY-MM-DD }} — {{ short title }}"
 ```
 

@@ -31,6 +31,53 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">/roadmap reorder + activity detection in /session-end</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">2 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Roadmap command design review</strong> — analyzed current state of <code>/roadmap</code>: how phases and steps are added, what subcommands exist, what was missing for reorder and activity tracking.</li>
+                <li><strong><code>/roadmap reorder</code> subcommand</strong> — implemented in <code>.claude/commands/roadmap.md</code>: interactive natural language mode (display current order → describe new order → before/after diff → confirm → write both files). Phases are never renumbered — only document order changes.</li>
+                <li><strong>Activity detection logic</strong> — amended detection Step 3 in <code>/roadmap</code> to split into two categories: active steps with activity (signal only, never presume done — always ask "still in progress or done?") vs. potential new steps (two-question gate). Step 4 updated with separate question formats per category.</li>
+                <li><strong>Step 1b in <code>/session-end</code></strong> — added roadmap activity check before the log entry is built: scans commits since <code>Last updated</code>, matches to active (◔) steps, asks per match, writes both roadmap files immediately if a step is marked done. Silent if nothing to surface. Step 5 amended to include roadmap files in the same commit when Step 1b writes.</li>
+                <li><strong>Behavioral rules updated</strong> — two new rules in <code>/roadmap</code>: "Never presume a step is done from activity alone" and "Reorder never renumbers."</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session. Changes to <code>.claude/commands/roadmap.md</code> and <code>.claude/commands/session-end.md</code> are untracked.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>Session-end is the right trigger for roadmap activity detection, not day-end.</strong> Rationale: work is fresh at session close — the user can accurately answer "done or in progress?" without relying on memory. Day-end is a summary pass, not a validation gate.</li>
+                <li><strong>Activity never implies completion.</strong> A commit touching an active step is a signal, not a status change. The user is the only one who knows if a step (e.g. an icon batch of 100) is finished or still in progress. Claude always asks.</li>
+                <li><strong>Reorder uses natural language, not positional syntax.</strong> No argument to memorize — the command displays the list, the user describes the change, Claude confirms before writing.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">/roadmap command + Phase 5 activated</span>
           <div class="log-entry__chips">
             <span class="log-chip">4 files</span>

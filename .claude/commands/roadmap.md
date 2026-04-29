@@ -3,6 +3,7 @@ Detect roadmap-worthy events and update `docs/ROADMAP.md` + `system/docs.html` a
 **Trigger:**
 - `/roadmap` alone → **Detection mode**: scan history since the last roadmap update and surface events that require a status change.
 - `/roadmap [action]` → **Update mode**: directly apply a known update (`step done`, `step started`, `step reopened`, `step cancelled`, `step mutated`, `new step`, `new phase`, `phase cancelled`).
+- `/roadmap reorder` → **Reorder mode**: interactively reorder phases in both files.
 
 One update operation per call. If detection surfaces multiple events, handle them one at a time.
 
@@ -100,31 +101,54 @@ Also extract from the current conversation: any deliverables completed, abandone
 
 ### Step 3 — Match events to steps
 
-For each commit or devlog entry found, attempt to match it to an existing step in `docs/ROADMAP.md`. Output a candidate list:
+For each commit or devlog entry found, attempt to match it to an existing step in `docs/ROADMAP.md`.
+
+**Two categories of match:**
+
+**A — Active step with activity (status `◔`):**
+Activity on a step already in progress does not automatically mean it is done. Output a simple activity signal:
 
 ```
-Candidate 1 — [step ID or proposed new step title]
-  Type      : [step done | step started | step reopened | step cancelled | new step | new phase | …]
-  Evidence  : [commit hash or devlog filename or conversation reference]
-  Gate      : trackable deliverable? [yes / unclear] — false roadmap picture if skipped? [yes / unclear]
-  Verdict   : Update roadmap | Devlog only | Uncertain
-
-Candidate 2 — …
+Activity on step X.Y — [description]
+  Evidence : [commit hash or devlog filename]
+  → Still in progress or done?
 ```
 
-Omit anything that clearly fails both gate questions.
+Never output a verdict. Never presume the step is done.
+
+**B — Potential new step or phase:**
+If the event does not match any existing step, apply the two-question gate before surfacing it:
+> 1. Would a team member reading the roadmap tomorrow have a false picture of progress if this isn't here?
+> 2. Is this a trackable deliverable (outcome or artefact), not just an implementation detail?
+
+If both yes, output as a candidate with verdict `New step` or `New phase`. Otherwise omit — it belongs in the devlog.
+
+Omit any event that clearly fails the gate.
 
 ### Step 4 — Validate candidates
 
-For each candidate with verdict `Update roadmap` or `Uncertain`, ask:
+**For active steps with activity (Category A):**
 
-> **[Step ID or proposed title]**
-> Type: [event name]. Evidence: [reference].
-> - [ ] Update roadmap
+Ask directly, one step at a time:
+
+> **Step X.Y — [description]**
+> Activity detected: [evidence]
+> - [ ] Still in progress — no change
+> - [ ] Done → mark ✓
+
+For any "Done" answer, proceed immediately to Update mode (Step 5) for that step before moving to the next.
+
+**For new step / new phase candidates (Category B):**
+
+Ask:
+
+> **[Proposed step or phase title]**
+> Type: [new step | new phase]. Evidence: [reference].
+> - [ ] Add to roadmap
 > - [ ] Devlog only — skip
 > - [ ] Not a real event — discard
 
-For any `Update roadmap` answer, proceed immediately to Update mode (Step 5) for that candidate before moving to the next.
+For any "Add to roadmap" answer, proceed immediately to Update mode (Step 5) before moving to the next.
 
 ---
 
@@ -234,6 +258,54 @@ Write only after confirmation.
 
 ---
 
+## Reorder mode — `/roadmap reorder`
+
+### Step R1 — Display current phase order
+
+Read `docs/ROADMAP.md` and list all phases in their current order:
+
+```
+Current phase order:
+  1. Phase 1A · Design system foundation  ✓
+  2. Phase 1B · Tokens W3C migration  ✓
+  …
+```
+
+### Step R2 — Ask for new order
+
+> Describe the new order — e.g. "swap Phase 2 and Phase 3", "move Phase 5 after Phase 2", or list all phase keys in the new sequence.
+
+Parse the instruction and compute the new sequence. If ambiguous, ask for clarification before proceeding.
+
+### Step R3 — Show before/after diff
+
+```
+Reorder:
+  Before : 1A · 1B · 1C · 1D · 2 · 3 · 4 · 5
+  After  : 1A · 1B · 1C · 1D · 3 · 2 · 4 · 5
+
+docs/ROADMAP.md   — reorder ### Phase blocks
+system/docs.html  — reorder .phase-card buttons + phasesData entries
+Last updated      — update to today + note "phase reorder"
+Recent changes    — prepend entry
+```
+
+Ask before writing:
+> - [ ] Write both files
+> - [ ] Cancel
+
+### Step R4 — Write to disk
+
+Apply reorder with `str_replace` in both files:
+
+**`docs/ROADMAP.md`** — move `### Phase X` blocks (including their full content) into the new sequence. Update `**Last updated:**` and prepend to `## Recent changes`.
+
+**`system/docs.html`** — reorder `.phase-card` buttons inside `.roadmap-track`, and reorder the matching entries inside `phasesData`. Preserve all attributes, classes, and step data unchanged — only the sequence changes.
+
+**Rule:** Never renumber phases during a reorder — Phase 2 stays "Phase 2" even if it moves after Phase 3. Only the document order changes.
+
+---
+
 ## Day-end integration signal — Step 4b in `/day-end`
 
 After the ADR signal check, add a roadmap staleness check:
@@ -256,6 +328,7 @@ Do not update the roadmap in day-end. Surface the signal only.
 ## Behavioral rules
 
 - **One update operation per call.** If detection surfaces multiple events, handle them sequentially — one confirmation per event.
+- **Never presume a step is done from activity alone.** Always ask. Activity = signal, not status.
 - **Cascade is mandatory.** Never update a step without evaluating its parent phase. Never apply a cascade silently.
 - **Consistency check before writing.** If a proposed phase status is incoherent with its step states, surface the conflict and ask for resolution.
 - **Two files always together.** `docs/ROADMAP.md` and `system/docs.html` are updated in the same operation. Never one without the other.
@@ -264,3 +337,4 @@ Do not update the roadmap in day-end. Surface the signal only.
 - **English only.** All content written to files is in English, even when the conversation is in French.
 - **No auto-commit.** Writing both files is the final action. Committing is a separate operation the user triggers.
 - **Gate before inventing new steps.** If a commit or devlog entry doesn't match any existing step, apply the two-question gate before proposing a new step — most implementation details belong in the devlog.
+- **Reorder never renumbers.** Phase IDs and step IDs are preserved as-is — only document order changes.
