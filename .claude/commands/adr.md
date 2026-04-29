@@ -180,6 +180,24 @@ Ask:
 
 Write only after confirmation.
 
+### Step 9 — Register in docs.html
+
+After writing the ADR file, immediately append the new entry to the ADR list in `system/docs.html`.
+
+Locate the last `.adr-row` block inside `.adr-list` and insert after it:
+
+```html
+<div class="adr-row">
+  <span class="adr-num">ADR-XXX</span>
+  <span class="adr-title">[Title]</span>
+  <span class="adr-status adr-status--[status]">[Status]</span>
+</div>
+```
+
+Status class mapping: `Accepted` → `adr-status--accepted` · `Implemented` → `adr-status--implemented` · `Deprecated` → `adr-status--deprecated`
+
+No confirmation needed — this is a mechanical sync, no different from token regeneration.
+
 ---
 
 ## Integration signal — day-end
