@@ -26,19 +26,21 @@
       items: [
         { id: 'docs',    href: 'docs.html',    label: 'Docs'    },
         { id: 'logbook', href: 'logbook.html', label: 'Logbook' },
+        { id: 'process', href: 'process.html', label: 'Process' },
       ],
     },
   ];
 
-  // ─── PAGE METADATA (header injection) ────────────────────────
+  // ─── PAGE METADATA (header + hub) ────────────────────────────
   var PAGES = {
-    foundations: { num: '01', section: 'Design System', title: 'Foundations.', deck: 'Design tokens — palette, typography, spacing. The raw values everything else is built from. Source: <code>tokens.json</code> (W3C Design Tokens), generated to CSS by <code>scripts/build-tokens.js</code>.' },
-    components:  { num: '01', section: 'Design System', title: 'Components.',  deck: 'Live component prototypes using real CSS from <code>brandOS-components.css</code>. All content is fake.' },
-    patterns:    { num: '01', section: 'Design System', title: 'Patterns.',    deck: 'Recurring compositions and layout conventions — how components combine into larger structures.' },
-    assets:      { num: '02', section: 'Resources',     title: 'Assets.',      deck: 'Logos, fonts, and production-ready files. Source of truth for export and usage.' },
-    icons:       { num: '02', section: 'Resources',     title: 'Icons.',       deck: 'Browse, search, and download icons. All icons are 24×24, stroke-based, and use <code>currentColor</code>. Source of truth: <code>assets/icons/icons.md</code>.' },
-    docs:        { num: '03', section: 'Project',       title: 'Docs.',        deck: 'Roadmap, decisions, devlog, and backlog — the living record of how the Brand OS is built.' },
-    logbook:     { num: '03', section: 'Project',       title: 'Logbook.',     deck: 'Daily activity log — one entry per session. Résumé of changes, analysis of patterns and risks, decisions made, actions taken.' },
+    foundations: { num: '01', section: 'Design System', title: 'Foundations.', desc: 'Tokens, color, type scale, spacing',       deck: 'Design tokens — palette, typography, spacing. The raw values everything else is built from. Source: <code>tokens.json</code> (W3C Design Tokens), generated to CSS by <code>scripts/build-tokens.js</code>.' },
+    components:  { num: '01', section: 'Design System', title: 'Components.',  desc: 'UI library & specifications',               deck: 'Live component prototypes using real CSS from <code>brandOS-components.css</code>. All content is fake.' },
+    patterns:    { num: '01', section: 'Design System', title: 'Patterns.',    desc: 'Composition & layout conventions',          deck: 'Recurring compositions and layout conventions — how components combine into larger structures.' },
+    assets:      { num: '02', section: 'Resources',     title: 'Assets.',      desc: 'Logos, fonts, production files',            deck: 'Logos, fonts, and production-ready files. Source of truth for export and usage.' },
+    icons:       { num: '02', section: 'Resources',     title: 'Icons.',       desc: 'Icon system & registry',                   deck: 'Browse, search, and download icons. All icons are 24×24, stroke-based, and use <code>currentColor</code>. Source of truth: <code>assets/icons/icons.md</code>.' },
+    docs:        { num: '03', section: 'Project',       title: 'Docs.',        desc: 'Roadmap & architecture decisions',          deck: 'Roadmap, decisions, devlog, and backlog — the living record of how the Brand OS is built.' },
+    logbook:     { num: '03', section: 'Project',       title: 'Logbook.',     desc: 'Session log & changes',                    deck: 'Daily activity log — one entry per session. Résumé of changes, analysis of patterns and risks, decisions made, actions taken.' },
+    process:     { num: '03', section: 'Project',       title: 'Process.',     desc: 'Commands, rules, file architecture',        deck: 'Commands, rules, and file architecture — how this project is built and maintained.' },
   };
 
   function currentPage() {
@@ -94,6 +96,37 @@
     el.innerHTML = html;
   }
 
+  function renderHub() {
+    var el = document.getElementById('hub-groups');
+    if (!el) return;
+    var html = '';
+    GROUPS.forEach(function (group) {
+      var count = group.items.length;
+      html +=
+        '<section class="hub-part">' +
+          '<div class="hub-part-head">' +
+            '<span class="hub-part-num">' + group.num + '</span>' +
+            '<span class="hub-part-name">' + group.name + '.</span>' +
+            '<span></span>' +
+            '<span class="hub-part-meta">' + count + ' chapter' + (count !== 1 ? 's' : '') + '</span>' +
+          '</div>' +
+          '<ul class="hub-list">';
+      group.items.forEach(function (item) {
+        var page = PAGES[item.id] || {};
+        html +=
+          '<li>' +
+            '<a href="' + item.href + '" class="hub-row">' +
+              '<span class="hub-row-title">' + item.label + '</span>' +
+              '<span class="hub-row-desc">' + (page.desc || '') + '</span>' +
+              '<span class="hub-row-arrow">' + ARR_R + '</span>' +
+            '</a>' +
+          '</li>';
+      });
+      html += '</ul></section>';
+    });
+    el.innerHTML = html;
+  }
+
   function renderHeader() {
     var el = document.getElementById('sys-header');
     if (!el) return;
@@ -115,6 +148,7 @@
     renderSprite();
     renderSidebar();
     renderHeader();
+    renderHub();
   }
 
   if (document.readyState === 'loading') {

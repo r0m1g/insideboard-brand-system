@@ -7,7 +7,7 @@ Generate a structured session summary and append it to `system/logbook.html`.
 1. Reconstructs what happened this session from git log, modified files, and conversation context
 2. Formats it as a `.log-entry` HTML block with `log-type--session` badge
 3. Injects it at the top of the entry list in `system/logbook.html` (newest first)
-4. Commits `system/logbook.html` and syncs to `main` so the entry is live immediately
+4. Commits `system/logbook.html` — push is handled by `/day-end`, not here
 
 ---
 

@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Process — InsideBoard Design System</title>
+  <link rel="stylesheet" href="../brandOS-tokens.css">
+  <link rel="stylesheet" href="../brandOS-components.css">
+</head>
+<body class="sys">
+
+  <div class="sys-layout">
+    <aside class="sys-sidebar" id="sys-sidebar"></aside>
+    <main class="sys-main">
+
+    <header class="sys-header" id="sys-header"></header>
+
+    <!-- COMMANDS -->
+    <section class="sys-section">
+      <h2 class="sys-section-title">Commands</h2>
+      <p class="sys-section-desc">Slash commands defined in <code>.claude/commands/</code>. Each has a single responsibility; sub-modes are listed when they exist.</p>
+
+      <div class="cmd-grid">
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/adr</p>
+          <p class="cmd-role">Detect or author Architecture Decision Records. Six criteria define what qualifies; a two-question gate confirms.</p>
+          <ul class="cmd-modes">
+            <li class="cmd-mode"><b>/adr</b> — Detection: scan since the last ADR and surface candidates.</li>
+            <li class="cmd-mode"><b>/adr [topic]</b> — Authoring: directly author an ADR for a known decision.</li>
+          </ul>
+        </div>
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/audit</p>
+          <p class="cmd-role">Full alignment audit across 12 invariant layers. Every check produces observed evidence — count, file:line, or diff. No "OK" without proof.</p>
+        </div>
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/day-end</p>
+          <p class="cmd-role">Close the day: daily review entry, structural alignment check, commit, and sync to main. Handles the 05:00 boundary autonomously. No confirmation prompts.</p>
+        </div>
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/journal-chapter</p>
+          <p class="cmd-role">Add or edit a chapter in the personal journal — the story behind how the Brand OS was built. Side project outside Brand OS scope; does not trigger devlog or roadmap updates.</p>
+        </div>
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/roadmap</p>
+          <p class="cmd-role">Detect roadmap events or apply status changes. Both <code class="ref">docs/ROADMAP.md</code> and <code class="ref">system/docs.html</code> are always updated together.</p>
+          <ul class="cmd-modes">
+            <li class="cmd-mode"><b>/roadmap</b> — Detection: surface events that need a status change.</li>
+            <li class="cmd-mode"><b>/roadmap [action]</b> — Update: apply a known transition directly.</li>
+            <li class="cmd-mode"><b>/roadmap reorder</b> — Reorder phases interactively in both files.</li>
+          </ul>
+        </div>
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/session-end</p>
+          <p class="cmd-role">Build a session summary, inject it into <code class="ref">system/logbook.html</code>, and commit. Also checks roadmap activity. Push happens via <code class="ref">/day-end</code>, not here.</p>
+        </div>
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/svg</p>
+          <p class="cmd-role">Optimize and register one SVG icon — the single execution path for iconography. Validates anatomical name, aliases, category, functional mapping, active state, and each file write before proceeding.</p>
+          <ul class="cmd-modes">
+            <li class="cmd-mode">Always one icon per call. Accepts inline SVG, a file path, or prompts for paste.</li>
+          </ul>
+        </div>
+
+        <div class="cmd-card">
+          <p class="cmd-slug">/syncmain</p>
+          <p class="cmd-role">Push all committed work on <code class="ref">main</code> to remote. GitHub Pages updates automatically on push. Verifies a clean working tree first.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RULES -->
+    <section class="sys-section">
+      <h2 class="sys-section-title">Rules</h2>
+      <p class="sys-section-desc">Non-negotiable constraints active in every session. Derived from <code>CLAUDE.md</code> and <code>PROCESS.md</code>.</p>
+
+      <div class="proc-rules">
+
+        <div class="proc-rule-group">
+          <h4 class="mi">Editing</h4>
+          <ul>
+            <li><b>str_replace only</b> — Never rewrite a complete file when a section changed. Use section markers as anchor points.</li>
+            <li><b>One file per operation</b> — A content update touches <code class="ref">index.html</code> only. A token update touches <code class="ref">tokens.json</code> only.</li>
+            <li><b>Never hand-edit brandOS-tokens.css</b> — It is generated. Edit <code class="ref">tokens.json</code>, then run <code class="ref">node scripts/build-tokens.js</code>.</li>
+            <li><b>No &lt;style&gt; in index.html</b> — All styles live in the CSS files. Existing inline styles on specific elements are intentional — don't add, don't remove.</li>
+            <li><b>Preserve section markers</b> — Every <code class="ref">&lt;!-- SECTION: id --&gt;</code> and <code class="ref">&lt;!-- /SECTION: id --&gt;</code> must remain intact after any edit.</li>
+          </ul>
+        </div>
+
+        <div class="proc-rule-group">
+          <h4 class="mi">Content</h4>
+          <ul>
+            <li><b>content.md is source of truth</b> — No text visible in <code class="ref">index.html</code> may exist without first being in <code class="ref">brandOS-content.md</code>. This includes labels, captions, and demo copy.</li>
+            <li><b>.pr is verbatim</b> — The <code class="ref">.pr</code> paragraph is the first paragraph of the section, verbatim. Never condense, rewrite, or invent it.</li>
+            <li><b>PROCESS.md is mandatory</b> — Before touching any file, identify the operation type and apply the corresponding protocol. No exceptions.</li>
+          </ul>
+        </div>
+
+        <div class="proc-rule-group">
+          <h4 class="mi">Naming &amp; typography</h4>
+          <ul>
+            <li><b>Brand OS</b> — Always with a space and capitalised initials. Never <code class="ref">BrandOS</code>, <code class="ref">brandOS</code>, or <code class="ref">BRAND OS</code>. Technical filenames (<code class="ref">brandOS-*.css</code>) are exempt.</li>
+            <li><b>IRON</b> — Always bold and uppercase in body copy (<code class="ref">&lt;strong&gt;IRON&lt;/strong&gt;</code> in HTML). In headings, heading weight provides the emphasis. Exempt in JS string contexts.</li>
+            <li><b>InsideBoard AI</b> — Capital I and B, space, uppercase AI. Never "Insideboard AI" or "Inside Board AI" in copy. Deliberate all-caps graphic treatments are exempt.</li>
+          </ul>
+        </div>
+
+        <div class="proc-rule-group">
+          <h4 class="mi">Language</h4>
+          <ul>
+            <li><b>All files in English</b> — Code, comments, commands, audits, ADRs, devlog, backlog, PROCESS.md, CLAUDE.md. Even when the chat is in French.</li>
+            <li><b>French is chat-only</b> — French belongs to the live conversation, never to committed artifacts. Brand content is English-only; a French version would be an explicit, separate operation.</li>
+          </ul>
+        </div>
+
+        <div class="proc-rule-group">
+          <h4 class="mi">Structure</h4>
+          <ul>
+            <li><b>Bidirectional sync after structural ops</b> — After adding, removing, or renaming a section or layer: every <code class="ref">###</code> heading in content.md must have a matching <code class="ref">SECTION</code> comment in index.html, and vice versa.</li>
+            <li><b>JS block is frozen</b> — The inline script at the bottom of <code class="ref">index.html</code> handles nav, register switcher, and density tweaks. Do not modify, move, or rewrite it.</li>
+          </ul>
+        </div>
+
+        <div class="proc-rule-group">
+          <h4 class="mi">Icons</h4>
+          <ul>
+            <li><b>One per /svg call</b> — Never batch. Validate each gate before proceeding to the next.</li>
+            <li><b>Anatomical filenames</b> — Names describe shape, never function (<code class="ref">arrows-left-right.svg</code>, not <code class="ref">resize.svg</code>). Functions live as semantic aliases in the registry.</li>
+            <li><b>Refuse outline-to-stroke</b> — If a SVG is detected as vectorized fills (Illustrator export), alert and stop. Conversion is not reliably automatable.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FILES -->
+    <section class="sys-section">
+      <h2 class="sys-section-title">Files</h2>
+      <p class="sys-section-desc">The project's file architecture — sources of truth, generated artifacts, and their relationships.</p>
+
+      <div class="anatomy-list">
+        <div class="anatomy-item">
+          <span class="anatomy-tag">tokens.json</span>
+          <span class="anatomy-desc">Source of truth for all design tokens (W3C Design Tokens format).</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">brandOS-tokens.css</span>
+          <span class="anatomy-desc">Generated from <code class="ref">tokens.json</code> — never hand-edit.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">scripts/build-tokens.js</span>
+          <span class="anatomy-desc">Generator: <code class="ref">tokens.json</code> → <code class="ref">brandOS-tokens.css</code>.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">brandOS-components.css</span>
+          <span class="anatomy-desc">All component styles, layout, navigation, and responsive breakpoints.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">index.html</span>
+          <span class="anatomy-desc">Pure HTML, named for GitHub Pages. Derived entirely from <code class="ref">brandOS-content.md</code>.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">brandOS-content.md</span>
+          <span class="anatomy-desc">Content source of truth — maps 1:1 to HTML sections. No text enters <code class="ref">index.html</code> without existing here first.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">PROCESS.md</span>
+          <span class="anatomy-desc">Full update protocols for every operation type. Mandatory reading before any edit.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">docs/</span>
+          <span class="anatomy-desc">Project documentation: ROADMAP, ADRs, devlog, backlog.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">system/</span>
+          <span class="anatomy-desc">Design system playground — consumes root CSS, never duplicates it.</span>
+        </div>
+        <div class="anatomy-item">
+          <span class="anatomy-tag">.claude/commands/</span>
+          <span class="anatomy-desc">Slash command definitions — one <code class="ref">.md</code> file per command.</span>
+        </div>
+      </div>
+    </section>
+
+    </main>
+  </div>
+
+  <script src="nav.js"></script>
+</body>
+</html>
