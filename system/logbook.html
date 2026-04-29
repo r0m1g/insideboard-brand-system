@@ -31,6 +31,54 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-04-29</span>
+          <span class="log-entry__title">Process page + workbench hub auto-generation</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">6 files</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>system/process.html — new page</strong> — 3 sections: Commands (8 <code>.cmd-card</code> in <code>.cmd-grid</code>), Rules (6 groups via <code>.proc-rule-group</code>), Files (<code>.anatomy-list</code> reused). Named <code>process.html</code> not <code>commands.html</code> — content covers more than commands.</li>
+                <li><strong>brandOS-components.css — 10 new classes</strong> — <code>.cmd-grid</code>, <code>.cmd-card</code>, <code>.cmd-slug</code>, <code>.cmd-role</code>, <code>.cmd-modes</code>, <code>.cmd-mode</code>, <code>.proc-rules</code>, <code>.proc-rule-group</code> + ul/li/before/b rules.</li>
+                <li><strong>system/nav.js — renderHub() + desc field</strong> — Added <code>renderHub()</code> that generates hub sections from GROUPS/PAGES. Added <code>desc</code> field to all PAGES entries for short hub descriptions. Called in <code>init()</code>.</li>
+                <li><strong>system/index.html — hub auto-generation</strong> — Replaced 3 hardcoded <code>.hub-part</code> sections with <code>&lt;div id="hub-groups"&gt;&lt;/div&gt;</code>. Adding a page to nav.js now auto-updates sidebar, header, and workbench hub.</li>
+                <li><strong>session-end.md — line 10 fix</strong> — Corrected summary: was "syncs to main", now "commit only — push via /day-end".</li>
+                <li><strong>Memory — question format rule</strong> — New feedback rule: discrete option questions use <code>AskUserQuestion</code> tool (clickable), never a numbered text list.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — all changes uncommitted pending review.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Decisions</p>
+              <ul>
+                <li><strong>process.html not commands.html</strong> — page covers commands + rules + file architecture; name reflects full scope.</li>
+                <li><strong>Workbench driven by nav.js</strong> — <code>desc</code> field added to PAGES (distinct from <code>deck</code>); hub generated via <code>renderHub()</code>; adding to GROUPS auto-updates everything.</li>
+                <li><strong>.anatomy-list for Files section</strong> — existing 2-column pattern reused; <code>.drow/.dc</code> rejected (hardcoded 3-column grid).</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-29 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-29</span>
           <span class="log-entry__title">Logbook day card system — type colors + collapse</span>
           <div class="log-entry__chips">
             <span class="log-chip">2 files</span>
