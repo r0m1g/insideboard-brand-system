@@ -22,39 +22,52 @@
 
         <div class="roadmap-filters">
           <span class="rf-label">Show</span>
-          <button class="rf-btn rf-btn--done active"   data-filter="done">✓ Complete</button>
-          <button class="rf-btn rf-btn--active active" data-filter="active">◔ Active</button>
-          <button class="rf-btn rf-btn--future active" data-filter="future">… Future</button>
+          <button class="rf-btn rf-btn--done active"    data-filter="done">✓ Complete</button>
+          <button class="rf-btn rf-btn--active active"  data-filter="active">◔ Active</button>
+          <button class="rf-btn rf-btn--planned active" data-filter="planned">○ Planned</button>
+          <button class="rf-btn rf-btn--onradar active" data-filter="onradar">… On radar</button>
+        </div>
+
+        <div class="phases-done-drawer" id="phases-done-drawer">
+          <button class="phases-done-toggle" id="phases-done-toggle" aria-expanded="false">
+            <span class="phase-tag phase-tag--done" style="margin:0">✓</span>
+            <span class="phases-done-label">4 phases complete</span>
+            <span class="phases-done-chevron" aria-hidden="true">›</span>
+          </button>
+          <div class="phases-done-body" id="phases-done-body" hidden>
+            <div class="phases-done-track">
+              <button class="phase-card phase-card--done" data-phase="1a" data-status="done">
+                <span class="phase-tag phase-tag--done">✓ Complete</span>
+                <span class="phase-card-num">Phase 1A</span>
+                <span class="phase-card-name">Design system foundation</span>
+              </button>
+              <span class="roadmap-connector" aria-hidden="true"></span>
+              <button class="phase-card phase-card--done" data-phase="1b" data-status="done">
+                <span class="phase-tag phase-tag--done">✓ Complete</span>
+                <span class="phase-card-num">Phase 1B</span>
+                <span class="phase-card-name">Tokens W3C migration</span>
+              </button>
+              <span class="roadmap-connector" aria-hidden="true"></span>
+              <button class="phase-card phase-card--done" data-phase="1c" data-status="done">
+                <span class="phase-tag phase-tag--done">✓ Complete</span>
+                <span class="phase-card-num">Phase 1C</span>
+                <span class="phase-card-name">3-tier token architecture</span>
+              </button>
+              <span class="roadmap-connector" aria-hidden="true"></span>
+              <button class="phase-card phase-card--done" data-phase="1d" data-status="done">
+                <span class="phase-tag phase-tag--done">✓ Complete</span>
+                <span class="phase-card-num">Phase 1D</span>
+                <span class="phase-card-name">Component doc anatomy</span>
+              </button>
+            </div>
+            <div class="roadmap-detail" id="roadmap-detail-done" hidden></div>
+          </div>
         </div>
 
         <div class="roadmap-scroll">
           <div class="roadmap-track">
-            <button class="phase-card phase-card--done" data-phase="1a" data-status="done">
-              <span class="phase-tag phase-tag--done">✓ Complete</span>
-              <span class="phase-card-num">Phase 1A</span>
-              <span class="phase-card-name">Design system foundation</span>
-            </button>
-            <span class="roadmap-connector" aria-hidden="true"></span>
-            <button class="phase-card phase-card--done" data-phase="1b" data-status="done">
-              <span class="phase-tag phase-tag--done">✓ Complete</span>
-              <span class="phase-card-num">Phase 1B</span>
-              <span class="phase-card-name">Tokens W3C migration</span>
-            </button>
-            <span class="roadmap-connector" aria-hidden="true"></span>
-            <button class="phase-card phase-card--done" data-phase="1c" data-status="done">
-              <span class="phase-tag phase-tag--done">✓ Complete</span>
-              <span class="phase-card-num">Phase 1C</span>
-              <span class="phase-card-name">3-tier token architecture</span>
-            </button>
-            <span class="roadmap-connector" aria-hidden="true"></span>
-            <button class="phase-card phase-card--done" data-phase="1d" data-status="done">
-              <span class="phase-tag phase-tag--done">✓ Complete</span>
-              <span class="phase-card-num">Phase 1D</span>
-              <span class="phase-card-name">Component doc anatomy</span>
-            </button>
-            <span class="roadmap-connector" aria-hidden="true"></span>
-            <button class="phase-card phase-card--future" data-phase="2" data-status="future">
-              <span class="phase-tag phase-tag--future">… Future</span>
+            <button class="phase-card phase-card--planned" data-phase="2" data-status="planned">
+              <span class="phase-tag phase-tag--planned">○ Planned</span>
               <span class="phase-card-num">Phase 2</span>
               <span class="phase-card-name">Figma sync</span>
             </button>
@@ -65,8 +78,8 @@
               <span class="phase-card-name">Iconography system</span>
             </button>
             <span class="roadmap-connector" aria-hidden="true"></span>
-            <button class="phase-card phase-card--future" data-phase="4" data-status="future">
-              <span class="phase-tag phase-tag--future">… Future</span>
+            <button class="phase-card phase-card--onradar" data-phase="4" data-status="onradar">
+              <span class="phase-tag phase-tag--onradar">… On radar</span>
               <span class="phase-card-num">Phase 4</span>
               <span class="phase-card-name">Asset library</span>
             </button>
@@ -77,8 +90,8 @@
               <span class="phase-card-name">GitLab process</span>
             </button>
             <span class="roadmap-connector" aria-hidden="true"></span>
-            <button class="phase-card phase-card--future" data-phase="future" data-status="future">
-              <span class="phase-tag phase-tag--future">… Future</span>
+            <button class="phase-card phase-card--onradar" data-phase="onradar" data-status="onradar">
+              <span class="phase-tag phase-tag--onradar">… On radar</span>
               <span class="phase-card-num"></span>
               <span class="phase-card-name">On the radar</span>
             </button>
@@ -398,10 +411,10 @@ const phasesData = {
     name: 'Phase 1D · Component documentation anatomy',
     desc: 'Define a consistent spec-block structure for all entries in components.html, patterns.html, and foundations.html. Pilot with .chapter, then migrate remaining entries.',
     steps: [
-      { id: '1D.1', s: 'done',    label: 'Define spec-block anatomy and slot structure (ADR-006)' },
-      { id: '1D.2', s: 'done',    label: 'Add <code>spec-*</code> CSS classes to <code>brandOS-components.css</code>' },
-      { id: '1D.3', s: 'done',    label: 'Pilot implementation — <code>.chapter</code> as reference entry' },
-      { id: '1D.4', s: 'done',    label: 'Migrate remaining entries in components.html, patterns.html, foundations.html' },
+      { id: '1D.1', s: 'done', label: 'Define spec-block anatomy and slot structure (ADR-006)' },
+      { id: '1D.2', s: 'done', label: 'Add <code>spec-*</code> CSS classes to <code>brandOS-components.css</code>' },
+      { id: '1D.3', s: 'done', label: 'Pilot implementation — <code>.chapter</code> as reference entry' },
+      { id: '1D.4', s: 'done', label: 'Migrate remaining entries in components.html, patterns.html, foundations.html' },
     ],
     note: 'Decisions: ADR-006'
   },
@@ -425,7 +438,7 @@ const phasesData = {
       { id: '3.4', s: 'planned', label: 'Optimize and register first batch of brand icons (Figma exports)' },
       { id: '3.5', s: 'planned', label: 'Optimize and register first batch of platform icons (Figma exports)' },
       { id: '3.6', s: 'done',    label: '<code>system/icons.html</code> — searchable visual gallery, color context, active state toggle, download + copy SVG' },
-      { id: '3.7', s: 'future',  label: 'Functional Mapping reverse index — auto-regenerated from <code>icons.md</code> for AI content generation' },
+      { id: '3.7', s: 'onradar', label: 'Functional Mapping reverse index — auto-regenerated from <code>icons.md</code> for AI content generation' },
     ],
     note: 'Protocol: <code>/svg</code> command. Registry: <code>assets/icons/icons.md</code>.'
   },
@@ -433,12 +446,12 @@ const phasesData = {
     name: 'Phase 4 · Asset library (médiathèque)',
     desc: 'Generalize the iconography pattern (anatomical naming + registry + functional mapping + gallery + reverse index) to all non-token brand assets — logos, illustrations, photos, motion, patterns, templates, sonic identity.',
     steps: [
-      { id: '4.1', s: 'future', label: 'Lock unified registry format (per-type files, shared functional vocabulary schema)' },
-      { id: '4.2', s: 'future', label: 'Define authoring-protocol skeleton — what every <code>/asset-type</code> command must validate' },
-      { id: '4.3', s: 'future', label: '<code>system/library.html</code> — médiathèque with type filter, category filter, functional search, download/copy' },
-      { id: '4.4', s: 'future', label: 'Cross-asset functional reverse index — <code>functional-map.json</code> for AI asset retrieval by feature' },
-      { id: '4.5', s: 'future', label: 'Migrate iconography into unified system — <code>icons.md</code> becomes first canonical registry, <code>icons.html</code> retires' },
-      { id: '4.6', s: 'future', label: 'Onboard next asset families (logos → illustrations → motion)' },
+      { id: '4.1', s: 'onradar', label: 'Lock unified registry format (per-type files, shared functional vocabulary schema)' },
+      { id: '4.2', s: 'onradar', label: 'Define authoring-protocol skeleton — what every <code>/asset-type</code> command must validate' },
+      { id: '4.3', s: 'onradar', label: '<code>system/library.html</code> — médiathèque with type filter, category filter, functional search, download/copy' },
+      { id: '4.4', s: 'onradar', label: 'Cross-asset functional reverse index — <code>functional-map.json</code> for AI asset retrieval by feature' },
+      { id: '4.5', s: 'onradar', label: 'Migrate iconography into unified system — <code>icons.md</code> becomes first canonical registry, <code>icons.html</code> retires' },
+      { id: '4.6', s: 'onradar', label: 'Onboard next asset families (logos → illustrations → motion)' },
     ],
     note: 'Starts after Phase 3 closes. Uncommitted. Foundation: ADR-007.'
   },
@@ -450,27 +463,27 @@ const phasesData = {
       { id: 'G.2', s: 'planned', label: 'Configure Google Workspace SSO — employees access Brand OS via company Google mail' },
       { id: 'G.3', s: 'planned', label: 'Push full history to GitLab (both branches)' },
       { id: 'G.4', s: 'planned', label: 'Update Figma Tokens Studio — swap GitHub PAT for GitLab access token (Phase 2 prerequisite)' },
-      { id: 'G.5', s: 'done', label: 'Consolidate branches — merge <code>feat/ui-exploration</code> into <code>main</code>. Single source of truth, all files on <code>main</code>.' },
-      { id: 'G.6', s: 'done', label: 'Update <code>CLAUDE.md</code> + <code>PROCESS.md</code> — new strategy: work on <code>main</code>, use <code>experiment/*</code> for risky explorations' },
+      { id: 'G.5', s: 'done',    label: 'Consolidate branches — merge <code>feat/ui-exploration</code> into <code>main</code>. Single source of truth, all files on <code>main</code>.' },
+      { id: 'G.6', s: 'done',    label: 'Update <code>CLAUDE.md</code> + <code>PROCESS.md</code> — new strategy: work on <code>main</code>, use <code>experiment/*</code> for risky explorations' },
       { id: 'G.7', s: 'planned', label: 'Deprecate sync tooling — delete <code>scripts/syncmain.sh</code> and <code>/syncmain</code> command' },
       { id: 'G.8', s: 'planned', label: 'Verify GitLab Pages — confirm <code>index.html</code> is served, update any hardcoded URL references' },
     ],
     note: 'Prerequisite: G.2 (SSO) confirmed before G.3 (push) — no content on GitLab before access control is in place. Exploration model after G.5: <code>experiment/&lt;name&gt;</code> branches off <code>main</code>, temporary, full source copy, merge or close.'
   },
-  'future': {
-    name: 'Future — uncommitted',
+  'onradar': {
+    name: 'On radar',
     steps: [
-      { id: '', s: 'future', label: "Layer 6–9 content — Do/Don't, Design Language, Component System, Automation" },
-      { id: '', s: 'future', label: 'AI generation pipeline for brand assets' },
-      { id: '', s: 'future', label: 'Public component library from <code>brandOS-components.css</code>' },
-      { id: '', s: 'future', label: 'Visual regression testing (Percy / Chromatic)' },
+      { id: '', s: 'onradar', label: "Layer 6–9 content — Do/Don't, Design Language, Component System, Automation" },
+      { id: '', s: 'onradar', label: 'AI generation pipeline for brand assets' },
+      { id: '', s: 'onradar', label: 'Public component library from <code>brandOS-components.css</code>' },
+      { id: '', s: 'onradar', label: 'Visual regression testing (Percy / Chromatic)' },
     ]
   }
 };
 
 const detail = document.getElementById('roadmap-detail');
-const cards  = [...document.querySelectorAll('.phase-card')];
-const conns  = [...document.querySelectorAll('.roadmap-connector')];
+const cards  = [...document.querySelectorAll('.roadmap-track .phase-card')];
+const conns  = [...document.querySelectorAll('.roadmap-track .roadmap-connector')];
 let current  = null;
 
 function syncConnectors() {
@@ -478,8 +491,6 @@ function syncConnectors() {
     const hide = cards[i].classList.contains('rf-hidden') || cards[i + 1].classList.contains('rf-hidden');
     c.classList.toggle('rf-hidden', hide);
   });
-  // If hidden cards create a break between two visible groups, mark the
-  // first visible card after the break with .rf-gapped so it gets a visual gap.
   cards.forEach((card, i) => {
     if (card.classList.contains('rf-hidden')) return;
     const prevVisible = cards.slice(0, i).filter(c => !c.classList.contains('rf-hidden')).pop();
@@ -488,46 +499,85 @@ function syncConnectors() {
   });
 }
 
+function renderDetail(phase, card) {
+  const detailDone  = document.getElementById('roadmap-detail-done');
+  const isDone      = card.dataset.status === 'done';
+  const target      = isDone ? detailDone : detail;
+  const other       = isDone ? detail : detailDone;
+
+  if (current === phase) {
+    document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('selected'));
+    current = null;
+    target.hidden = true;
+    return;
+  }
+  document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  current = phase;
+  other.hidden = true;
+  const d = phasesData[phase];
+  let html = `<p class="phase-name" style="margin:0 0 var(--s3)">${d.name}</p>`;
+  if (d.desc) html += `<p class="phase-desc">${d.desc}</p>`;
+  html += `<ul class="phase-steps">`;
+  d.steps.forEach(step => {
+    const dotClass = step.s === 'done' ? 'done' : step.s === 'planned' ? 'planned' : 'future';
+    const dot = step.s === 'done' ? '✓' : '';
+    html += `<li class="phase-step"><span class="step-id">${step.id}</span><span class="step-dot step-dot--${dotClass}">${dot}</span><span>${step.label}</span></li>`;
+  });
+  html += `</ul>`;
+  if (d.note) html += `<p class="phase-note">${d.note}</p>`;
+  target.innerHTML = html;
+  target.hidden = false;
+}
+
+cards.forEach(card => {
+  card.addEventListener('click', () => renderDetail(card.dataset.phase, card));
+});
+
+document.querySelectorAll('.phases-done-track .phase-card').forEach(card => {
+  card.addEventListener('click', () => renderDetail(card.dataset.phase, card));
+});
+
+document.getElementById('phases-done-toggle').addEventListener('click', () => {
+  const toggle     = document.getElementById('phases-done-toggle');
+  const body       = document.getElementById('phases-done-body');
+  const detailDone = document.getElementById('roadmap-detail-done');
+  const expanded   = toggle.getAttribute('aria-expanded') === 'true';
+  toggle.setAttribute('aria-expanded', String(!expanded));
+  body.hidden = expanded;
+  if (expanded) {
+    detailDone.hidden = true;
+    if (['1a','1b','1c','1d'].includes(current)) {
+      document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('selected'));
+      current = null;
+    }
+  }
+});
+
 document.querySelectorAll('.rf-btn[data-filter]').forEach(btn => {
   btn.addEventListener('click', () => {
     btn.classList.toggle('active');
     const filter = btn.dataset.filter;
-    cards.filter(c => c.dataset.status === filter).forEach(card => {
-      card.classList.toggle('rf-hidden', !btn.classList.contains('active'));
-      if (card.classList.contains('rf-hidden') && card.dataset.phase === current) {
-        card.classList.remove('selected');
+    if (filter === 'done') {
+      const drawer = document.getElementById('phases-done-drawer');
+      const hiding = !btn.classList.contains('active');
+      drawer.classList.toggle('rf-hidden', hiding);
+      if (hiding && ['1a','1b','1c','1d'].includes(current)) {
+        document.querySelectorAll('.phase-card').forEach(c => c.classList.remove('selected'));
         current = null;
         detail.hidden = true;
       }
-    });
-    syncConnectors();
-  });
-});
-
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const phase = card.dataset.phase;
-    if (current === phase) {
-      card.classList.remove('selected');
-      current = null;
-      detail.hidden = true;
-      return;
+    } else {
+      cards.filter(c => c.dataset.status === filter).forEach(card => {
+        card.classList.toggle('rf-hidden', !btn.classList.contains('active'));
+        if (card.classList.contains('rf-hidden') && card.dataset.phase === current) {
+          card.classList.remove('selected');
+          current = null;
+          detail.hidden = true;
+        }
+      });
+      syncConnectors();
     }
-    cards.forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    current = phase;
-    const d = phasesData[phase];
-    let html = `<p class="phase-name" style="margin:0 0 var(--s3)">${d.name}</p>`;
-    if (d.desc) html += `<p class="phase-desc">${d.desc}</p>`;
-    html += `<ul class="phase-steps">`;
-    d.steps.forEach(step => {
-      const dot = step.s === 'done' ? '✓' : '';
-      html += `<li class="phase-step"><span class="step-id">${step.id}</span><span class="step-dot step-dot--${step.s === 'planned' ? 'planned' : step.s}">${dot}</span><span>${step.label}</span></li>`;
-    });
-    html += `</ul>`;
-    if (d.note) html += `<p class="phase-note">${d.note}</p>`;
-    detail.innerHTML = html;
-    detail.hidden = false;
   });
 });
 

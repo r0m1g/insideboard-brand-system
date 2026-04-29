@@ -12,7 +12,7 @@
 - `✓` Done — shipped, validated
 - `◔` In progress — actively being worked on
 - `○` Planned — committed, not started
-- `…` Future — on the radar, not committed
+- `…` On radar — on the radar, not committed
 - `✗` Cancelled / Superseded
 
 ---
@@ -152,7 +152,7 @@ An `experiment/*` branch is created from `main` when you want to break things wi
 
 ---
 
-## Future (uncommitted)
+## On radar
 
 - `…` Layer 6–9 content (Do/Don't, Design Language, Component System, Automation Layer) — currently shown as "in progress" in the Brand OS but not authored
 - `…` AI generation pipeline — automate creation of brand assets that respect tokens and components
