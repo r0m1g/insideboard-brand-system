@@ -248,7 +248,7 @@ These 40 lines are stable. Do not modify, move, or rewrite them.
 - `## Layer 00` → `#s00`
 - `## Layer 1` → `#s11` through `#s17`
 - `## Layer 2` → `#s21` through `#s27`
-- `## Layer 3` → `#s01` through `#s10`
+- `## Layer 3` → `#s01`, `#s02`, `#s02b`, `#s03` through `#s10`
 - `## Section 04` → `#s40`
 - `## Section 05` → `#s50`
 

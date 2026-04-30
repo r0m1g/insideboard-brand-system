@@ -234,7 +234,9 @@ Two locations to keep in sync:
 |---|---|---|---|
 | `✓` Done | `done` | `phase-card--done` | `✓ Complete` |
 | `◔` In progress | `active` | `phase-card--active` | `◔ Active` |
-| `○` Planned or `…` Future | `future` | `phase-card--future` | `… Future` |
+| `○` Planned (committed, not started) | `planned` | `phase-card--planned` | `○ Planned` |
+| `…` On radar (uncommitted) | `onradar` | `phase-card--onradar` | `… On radar` |
+| `○` or `…` generic fallback | `future` | `phase-card--future` | `… Future` |
 
 **Rule:** never update `system/docs.html` roadmap data without first updating `docs/ROADMAP.md`. The markdown is the source; the HTML is the derived view.
 
@@ -283,7 +285,7 @@ A component is done when every item on this checklist is true. No exceptions.
 
 - [ ] **CSS externalized** — all styles in `brandOS-components.css` under a named `SYSTEM·<name>` block. No `<style>` tag in any HTML file.
 - [ ] **Content-first** — every visible string exists verbatim in `brandOS-content.md` before it appears in any HTML file.
-- [ ] **Nav link** — if a new `system/*.html` page was created, its nav `<li>` entry exists in all 6 existing system pages.
+- [ ] **Nav link** — if a new `system/*.html` page was created, its nav `<li>` entry exists in all existing system pages.
 - [ ] **Icon registry** — if an icon was added, its entry is in `assets/icons/icons.md`. Run `node scripts/check-icons.js` — exit 0.
 - [ ] **Tokens not hand-edited** — if a token was added or changed, `tokens.json` was edited and `node scripts/build-tokens.js` was re-run. `brandOS-tokens.css` was not hand-edited.
 - [ ] **Layer 1 clean** — no new derived artifact is out of date (tokens CSS matches generator output, content ↔ HTML sections bijective).
