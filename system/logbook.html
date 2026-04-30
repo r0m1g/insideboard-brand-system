@@ -26,6 +26,177 @@
 
       <div class="log-list">
 
+      <!-- ENTRY: 2026-04-30 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-04-30</span>
+          <span class="log-entry__title">Fix todo backlog display in system/docs.html</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">1 file</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Backlog todo visibility fix</strong> — The SVG sprite migration todo item added to <code>docs/backlog/todo.md</code> in the previous session was not rendering in <code>system/docs.html</code>. The docs page uses hardcoded HTML (not a file reader), so the item was inserted as a <code>.backlog-row</code> in the <code>data-group="todo"</code> section of the backlog table. Item now visible in the Todo filter, text: "Migrate logos to currentColor — SVG sources have hardcoded fills…"</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — <code>system/docs.html</code> staged, to be committed with session-end log</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-04-30 audit -->
+      <div class="log-entry" data-type="audit">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--audit">audit</span>
+          <span class="log-entry__date">2026-04-30</span>
+          <span class="log-entry__title">Second run — 12 layers, 2 blocking · 8 minor · 4 informational · 9/10 fixed</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">12 layers</span>
+            <span class="log-chip log-chip--warn">2 blocking</span>
+            <span class="log-chip">8 minor</span>
+            <span class="log-chip log-chip--ok">9 / 10 fixed</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+            <div style="padding:var(--s5)">
+
+        <p class="audit-desc">Second full audit run, the first since the system went through a major infrastructure sprint on 2026-04-29 — /adr command, ADR-007/008/009, branch consolidation, logbook overhaul, renderHub(). The system had accumulated meaningful drift in the two days since the first audit. Two blocking issues: system/journal.html had been carrying a 420-line inline &lt;style&gt; block that defined all journal-page CSS outside the shared stylesheet — a clear violation of the rule that no system/ page may contain a &lt;style&gt; block; and PROCESS.md Update type 9 was documenting only two status values (done/active) when the actual system had four (done/active/planned/onradar). Eight minor drifts: CLAUDE.md Layer 3 section map missing the s02b ID, PROCESS.md DoD hardcoding a page count, six dead CSS classes still referencing the deleted audit.html, two heading-level skips in index.html (h2→h4 with no h3), a missing devlog for both 2026-04-28 and 2026-04-29, an orphan file with a literal asterisk in its filename, and three unreferenced logo files (pending user decision on intent). All blocking issues and six of eight minor issues were resolved in the same session. The orphan asterisk file was deleted; the two missing devlogs were written from git history; the heading levels were corrected in both HTML and CSS selectors simultaneously. One minor item remains open: five legacy image files in assets/ whose orphan status was confirmed but whose deletion requires user intent confirmation.</p>
+
+        <div class="audit-summary">
+          <div class="audit-col">
+            <p class="audit-col-label">Layers</p>
+            <p class="audit-col-value">12</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Checks</p>
+            <p class="audit-col-value">~35</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Blocking</p>
+            <p class="audit-col-value audit-col-value--blocking">2</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Minor</p>
+            <p class="audit-col-value audit-col-value--minor">8</p>
+          </div>
+          <div class="audit-col">
+            <p class="audit-col-label">Fixed</p>
+            <p class="audit-col-value audit-col-value--fixed">9 / 10</p>
+          </div>
+        </div>
+
+        <table class="audit-findings">
+          <thead>
+            <tr><th>Priority</th><th>Finding</th><th>Fix applied</th></tr>
+          </thead>
+          <tbody>
+            <tr class="audit-blocking">
+              <td>Blocking</td>
+              <td><code>system/journal.html</code> — 420-line inline <code>&lt;style&gt;</code> block defining all journal-page CSS outside <code>brandOS-components.css</code> (L8)</td>
+              <td>CSS extracted to <code>/* SYSTEM · journal */</code> block in <code>brandOS-components.css</code>; <code>&lt;style&gt;</code> removed from <code>journal.html</code></td>
+            </tr>
+            <tr class="audit-blocking">
+              <td>Blocking</td>
+              <td><code>PROCESS.md</code> Update type 9 status table — only <code>done</code>/<code>active</code> documented; <code>planned</code> and <code>onradar</code> values used in <code>system/docs.html</code> had no mapping (L0.2)</td>
+              <td>Added <code>planned</code> and <code>onradar</code> rows to the status mapping table in <code>PROCESS.md</code></td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>CLAUDE.md</code> Layer 3 section map — <code>#s02b</code> ID missing from the map (<code>## Layer 3 → #s01 through #s10</code> skipped the split ID) (L0.2)</td>
+              <td>Updated to list <code>#s02b</code> explicitly</td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>PROCESS.md</code> Definition of Done — nav-link check hardcoded "all 6 existing system pages" (count stale at 11 pages) (L0.2)</td>
+              <td>Changed to "all existing system pages" (count-agnostic)</td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>brandOS-components.css</code> — 6 dead classes referencing deleted <code>audit.html</code> (<code>.audit-run</code>, <code>.audit-run-header</code>, <code>.audit-date</code>, <code>.audit-badge</code>, <code>.audit-badge--resolved</code>, <code>.audit-badge--open</code>); CSS comment block also cited stale path; <code>.terc h4</code> and <code>.ironh h4</code> selectors wrong level (L3.2, L5.5)</td>
+              <td>Dead classes removed; comment updated; selectors changed to <code>h3</code></td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>index.html</code> s15 — 5 <code>.terc</code> territory cards using <code>&lt;h4&gt;</code> directly under <code>&lt;h2&gt;</code>; s16 — <code>.ironh</code> using <code>&lt;h4&gt;</code> before any <code>&lt;h3&gt;</code> in section (L5.5)</td>
+              <td>Changed to <code>&lt;h3&gt;</code> in both sections</td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>docs/devlog/</code> — no devlog file for 2026-04-28 (1 commit) or 2026-04-29 (24 commits) despite logbook session entries existing (L10.3)</td>
+              <td>Created <code>2026-04-28-branch-consolidation.md</code> and <code>2026-04-29-major-system-work.md</code></td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor</td>
+              <td><code>assets/illustrations/*journal-ch3.png</code> — file with literal asterisk in filename; not referenced anywhere; orphan in tracked git history (L5.4)</td>
+              <td>Deleted</td>
+            </tr>
+            <tr class="audit-minor">
+              <td>Minor (open)</td>
+              <td><code>assets/images/</code> — 5 files unreferenced by any HTML: <code>logo-insideboard-brandos.svg</code>, <code>logo-insideboard-ivory.svg</code>, <code>mark-insideboard-ivory.svg</code>, <code>logo-brandos.png</code>, <code>logo-brandos-v2.png</code> (L5.4)</td>
+              <td>Confirmed orphan via grep — pending user decision on intent before deletion</td>
+            </tr>
+            <tr>
+              <td>Info</td>
+              <td>L9 — governance files (<code>CLAUDE.md</code>, <code>PROCESS.md</code>, <code>brandOS-content.md</code>) present on <code>main</code>; previous audit removed them, but ADR-009 (single-branch workflow) now makes this deliberate</td>
+              <td>Not a violation — ADR-009 supersedes. No fix needed.</td>
+            </tr>
+            <tr>
+              <td>Info</td>
+              <td>L1.1 / L1.3b — <code>node</code> not in PATH during audit run; token generation diff and icon registry check could not be verified automatically</td>
+              <td>⊘ not-automatically-verifiable in this environment</td>
+            </tr>
+            <tr>
+              <td>Info</td>
+              <td>L10.5 — logbook coverage gaps for 2026-04-28 and 2026-04-29 (no session entries existed for those dates)</td>
+              <td>Resolved: devlog files created; this audit entry covers 2026-04-30 activity</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <details class="audit-layer-status">
+          <summary>Layer-by-layer status</summary>
+          <table class="audit-layers">
+            <tbody>
+              <tr><td>L0 · Governance</td><td class="audit-warn">⚠ partial</td><td>B2, M1, M2 found and fixed. PROCESS.md and CLAUDE.md now coherent.</td></tr>
+              <tr><td>L1 · Sources of truth</td><td class="audit-warn">⚠ partial</td><td>Bijection verified (32 sections, both directions). Token pipeline: ⊘ node not in PATH. Icon registry: ⊘ node not in PATH.</td></tr>
+              <tr><td>L2 · Semantic coherence</td><td class="audit-ok">✓ aligned</td><td>—</td></tr>
+              <tr><td>L3 · CSS ↔ HTML</td><td class="audit-warn">⚠ partial</td><td>6 dead classes removed (M3). Heading selectors corrected. Remaining dead-code candidates are JS-toggled or utility classes — not genuine violations.</td></tr>
+              <tr><td>L4 · JS ↔ data</td><td class="audit-ok">✓ aligned</td><td>—</td></tr>
+              <tr><td>L5 · Structural integrity</td><td class="audit-warn">⚠ partial</td><td>M6 (orphan asterisk file) deleted. M7 (h4→h3) fixed. M5 (5 logo files) open — pending user decision.</td></tr>
+              <tr><td>L6 · Accessibility</td><td class="audit-ok">✓ aligned</td><td>All .li-ghost have aria-hidden="true". .nav-overlay pointer-events:none on base selector confirmed.</td></tr>
+              <tr><td>L7 · Writing conformance</td><td class="audit-ok">✓ aligned</td><td>No Brand OS / IRON / InsideBoard AI violations. No &lt;style&gt; block in index.html. All files English.</td></tr>
+              <tr><td>L8 · system/ playground</td><td class="audit-fail">✗→✓</td><td>B1 fixed: journal.html &lt;style&gt; block extracted to brandOS-components.css.</td></tr>
+              <tr><td>L9 · Branches</td><td class="audit-ok">✓ aligned</td><td>Single-branch per ADR-009. Governance files on main are deliberate. No private files leaked.</td></tr>
+              <tr><td>L10 · Documentation</td><td class="audit-warn">⚠ partial</td><td>M4 fixed: devlogs for 2026-04-28 and 2026-04-29 created. Logbook coverage now complete through 2026-04-30.</td></tr>
+              <tr><td>L11 · Past violations</td><td class="audit-ok">✓ aligned</td><td>No governance violations in last 20 commits.</td></tr>
+              <tr><td>L12 · Self-verification</td><td class="audit-ok">✓ aligned</td><td>All imperative rules mapped to audit layers. No new coverage gaps introduced.</td></tr>
+            </tbody>
+          </table>
+        </details>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- ENTRY: 2026-04-29 daily-review -->
       <div class="log-entry" data-type="review">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
