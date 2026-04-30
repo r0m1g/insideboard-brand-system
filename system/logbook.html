@@ -26,6 +26,74 @@
 
       <div class="log-list">
 
+      <!-- ENTRY: 2026-04-30 daily-review -->
+      <div class="log-entry" data-type="review">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--review">daily review</span>
+          <span class="log-entry__date">2026-04-30</span>
+          <span class="log-entry__title">7 commits — audit run L0–12, dependency map, cascade hooks</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">7 commits</span>
+            <span class="log-chip">2 log(session)</span>
+            <span class="log-chip">2 log(daily)</span>
+            <span class="log-chip">1 docs(claude)</span>
+            <span class="log-chip log-chip--warn">uncommitted changes</span>
+            <span class="log-chip log-chip--warn">M5 open</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Résumé</p>
+              <p>Heavy session focused on a full audit run across layers 0–12. Two blocking findings were resolved: B1 extracted 420 lines of inline CSS from <code>system/journal.html</code> into a <code>/* SYSTEM · journal */</code> block in <code>brandOS-components.css</code>; B2 patched the PROCESS.md Update type 9 status-mapping gap (added <code>planned</code> and <code>onradar</code> rows). Three structural issues were also fixed — heading level skips in s15/s16 (M7), deletion of the illegally named <code>assets/illustrations/*journal-ch3.png</code> (M6), and retrospective writing of the two missing devlog files for 2026-04-28 and 2026-04-29 (M4).</p>
+              <p>Seven commits landed today: two log(session) for 2026-04-30, two catch-up log(daily) entries for 2026-04-26 and 2026-04-29, one docs(claude) for the dependency map and pre-commit cascade hooks addition, plus earlier session-end tooling commits (05:00 rule, warn chip resolution, open-items backlog). At end-of-day, a large set of files (<code>CLAUDE.md</code>, <code>PROCESS.md</code>, <code>brandOS-components.css</code>, <code>index.html</code>, <code>system/assets.html</code>, <code>system/journal.html</code>, <code>docs/backlog/todo.md</code>) remains uncommitted in the working tree, along with three untracked devlog files.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Analyse</p>
+              <ul>
+                <li><strong>Uncommitted changes at day-end.</strong> 8 modified/deleted files and 3 untracked devlog files are not yet committed. The audit fixes are complete but haven't been packaged into a commit — risk of drift if next session opens without committing first.</li>
+                <li><strong>M5 still open.</strong> Five files in <code>assets/logos/</code> (<code>logo-insideboard-brandos.svg</code>, <code>logo-insideboard-ivory.svg</code>, <code>logo-insideboard-white.svg</code>, <code>mark-insideboard-ivory.svg</code>, <code>mark-insideboard-white.svg</code>) are confirmed unreferenced. Awaiting user decision — already showing as deleted in working tree but not staged.</li>
+                <li><strong>ADR signal.</strong> 7 commits since last ADR (2026-04-29). The dependency map, cascade rules, and pre-commit hook additions may warrant a new ADR.</li>
+                <li><strong>Roadmap signal.</strong> 7 commits since last roadmap update (2026-04-29). Audit phase completion and new governance tooling should be reflected.</li>
+                <li><strong>Positive: audit now fully integrated.</strong> The audit command, devlog backfill, and cascade-rule system are all in place. The pre-commit hook enforces cascade rules on every future commit.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Décisions</p>
+              <ul>
+                <li>Dependency map added to <code>CLAUDE.md</code> — every source/derived file pair and its cascade rule is now explicitly documented.</li>
+                <li>Pre-commit hook (<code>scripts/pre-commit.sh</code>) adopted as the enforcement layer for all cascade rules — runs automatically on every <code>git commit</code>.</li>
+                <li><code>planned</code> and <code>onradar</code> added as valid status values in PROCESS.md Update type 9 — closes the gap between what <code>system/docs.html</code> already used and what the protocol documented.</li>
+                <li>Heading hierarchy rule enforced in s15 and s16 — <code>h4</code> elements under <code>h2</code> with no intervening <code>h3</code> are a violation; fix required both HTML and CSS selector updates.</li>
+                <li>Devlog backfill policy: missing devlogs for significant sessions should be written retrospectively from git history — not left blank.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Actions</p>
+              <ul>
+                <li>Ran full audit (layers 0–12) via <code>/audit</code> — 2 blocking, 8 minor, 4 informational findings.</li>
+                <li>Extracted inline <code>&lt;style&gt;</code> block (420 lines) from <code>system/journal.html</code> into <code>brandOS-components.css</code> (B1).</li>
+                <li>Patched PROCESS.md Update type 9 status table — added <code>planned</code> and <code>onradar</code> rows (B2).</li>
+                <li>Fixed heading levels in s15 and s16: <code>h4</code> → <code>h3</code> in <code>index.html</code>; updated CSS selectors in <code>brandOS-components.css</code> (M7).</li>
+                <li>Deleted <code>assets/illustrations/*journal-ch3.png</code> — illegal filename, no references found (M6).</li>
+                <li>Written <code>docs/devlog/2026-04-28-branch-consolidation.md</code> and <code>docs/devlog/2026-04-29-major-system-work.md</code> retrospectively (M4).</li>
+                <li>Written <code>docs/devlog/2026-04-30-audit-run.md</code> for this session.</li>
+                <li>Added dependency map and cascade rules to <code>CLAUDE.md</code>; added <code>scripts/pre-commit.sh</code> hook.</li>
+                <li>Added warn chip resolution system and <code>docs/backlog/open-items.md</code> support to session-end / day-end commands.</li>
+                <li>Added 05:00 day-boundary rule to session-end and day-end commands.</li>
+                <li>Fixed todo backlog display in <code>system/docs.html</code>.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- ENTRY: 2026-04-30 session -->
       <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
