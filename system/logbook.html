@@ -26,6 +26,62 @@
 
       <div class="log-list">
 
+      <!-- ENTRY: 2026-05-05 daily-review -->
+      <div class="log-entry" data-type="review">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--review">daily review</span>
+          <span class="log-entry__date">2026-05-05</span>
+          <span class="log-entry__title">3 commits — journal removal, logbook spacing fix</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">3 commits</span>
+            <span class="log-chip">1 chore</span>
+            <span class="log-chip">2 log(session)</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Résumé</p>
+              <p>Two short, targeted sessions. The first removed the journal entirely from the system/ workbench: <code>system/journal.html</code>, the <code>.claude/commands/journal-chapter.md</code> command, the <code>journal/</code> source directory, and associated illustration assets were all excised and the <code>nav.js</code> registry updated to match. The second session fixed a logbook day-card layout bug — in the grouped "All" view, an audit entry appearing after the sessions wrapper had no top margin, causing it to visually collide with the session block.</p>
+              <p>Three commits landed today: one <code>chore(journal)</code> for the structural removal, plus two <code>log(session)</code> entries produced by the two <code>/session-end</code> runs. Both sessions were clean — no open items remain.</p>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Analyse</p>
+              <ul>
+                <li><strong>Journal removal was self-contained.</strong> The journal page had no cross-references to other system/ pages (nav.js was the only registry). Removal did not break any dependency or cascade rule. Cleanest possible excision.</li>
+                <li><strong>CSS fix used the adjacent sibling combinator.</strong> <code>.log-day__sessions + .log-entry</code> is precise and unambiguous — it only targets a <code>.log-entry</code> that immediately follows the sessions wrapper, which is exactly the audit entry. No JS change required, no risk of regression.</li>
+                <li><strong>ADR and roadmap both stale at 25 commits.</strong> Neither <code>docs/ROADMAP.md</code> nor <code>docs/decisions/</code> has been updated since 2026-04-29. Multiple changes (journal removal, logbook overhaul, CSS system) may warrant review.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Décisions</p>
+              <ul>
+                <li><strong>Journal removed from system/ workbench.</strong> The <code>system/journal.html</code> page and its supporting command (<code>journal-chapter.md</code>) were retired — journal as a format is no longer active in this project. Source files and illustrations removed from the repo.</li>
+                <li><strong>Logbook spacing fixed in CSS, not JS.</strong> The missing gap between the sessions wrapper and the audit entry in the grouped day-card view was resolved via a single CSS adjacent-sibling rule rather than restructuring the <code>buildGroupedView()</code> function — minimally invasive, no HTML changes needed.</li>
+              </ul>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Actions</p>
+              <ul>
+                <li><strong><code>system/journal.html</code></strong> — removed from the system/ workbench; <code>nav.js</code> GROUPS and PAGES entries removed.</li>
+                <li><strong><code>.claude/commands/journal-chapter.md</code></strong> — deleted; no longer referenced in PROCESS.md.</li>
+                <li><strong><code>journal/</code> directory</strong> — removed: <code>journal.md</code> + 6 illustration files (<code>journal-ch1.png</code> through <code>journal-ch6.png</code>).</li>
+                <li><strong><code>assets/illustrations/*journal-ch3.png</code></strong> — orphan file with literal asterisk in name, already flagged in prior audit, now deleted.</li>
+                <li><strong><code>brandOS-components.css</code></strong> — added <code>.log-day__sessions + .log-entry { margin-top: var(--s3); }</code> to restore spacing between session and audit entries in the grouped logbook view.</li>
+                <li><strong><code>system/logbook.html</code></strong> — two session entries appended for 2026-05-05.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- ENTRY: 2026-05-05 session -->
       <div class="log-entry" data-type="session">
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
