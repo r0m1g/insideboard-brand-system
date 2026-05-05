@@ -31,6 +31,40 @@
         <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
           <span class="log-type log-type--session">session</span>
           <span class="log-entry__date">2026-05-05</span>
+          <span class="log-entry__title">Fix logbook display — audit after session gap</span>
+          <div class="log-entry__chips">
+            <span class="log-chip">1 file</span>
+            <span class="log-chip">0 commits</span>
+            <span class="log-chip log-chip--ok">shipped</span>
+          </div>
+          <svg class="log-entry__toggle" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4,6 8,10 12,6"/></svg>
+        </div>
+        <div class="log-entry__body">
+          <div class="log-entry__body-inner">
+
+            <div class="log-section">
+              <p class="log-section__label">Work done</p>
+              <ol>
+                <li><strong>Logbook day-card spacing fix</strong> — In the grouped "All" view, when a day has a daily review + session + audit, the audit <code>.log-entry</code> was rendered with no top margin after the <code>.log-day__sessions</code> wrapper. Root cause: <code>.log-day__sessions</code> has <code>margin-top</code> but no <code>margin-bottom</code>, and the following audit entry has no <code>margin-top</code>. Fix: one CSS rule added to <code>brandOS-components.css</code> — <code>.log-day__sessions + .log-entry { margin-top: var(--s3); }</code> — uses the adjacent sibling selector to restore the correct gap without touching JS or HTML.</li>
+              </ol>
+            </div>
+
+            <div class="log-section">
+              <p class="log-section__label">Commits</p>
+              <ul>
+                <li>No commits this session — <code>brandOS-components.css</code> staged, to be committed with session-end log</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTRY: 2026-05-05 session -->
+      <div class="log-entry" data-type="session">
+        <div class="log-entry__head" role="button" tabindex="0" aria-expanded="false">
+          <span class="log-type log-type--session">session</span>
+          <span class="log-entry__date">2026-05-05</span>
           <span class="log-entry__title">Remove journal from repo and GitHub</span>
           <div class="log-entry__chips">
             <span class="log-chip">13 files</span>

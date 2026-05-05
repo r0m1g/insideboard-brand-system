@@ -1852,6 +1852,7 @@ input.color-custom { width:20px; height:20px; border-radius:3px; border:1px soli
 .proc-rule-group li::before{content:'—';font-size:11px;color:var(--gray-300);flex-shrink:0;}
 .proc-rule-group li b{color:var(--ink);font-weight:500;}
 .log-day__sessions .log-entry { margin-bottom:var(--s2); }
+.log-day__sessions + .log-entry { margin-top:var(--s3); }
 
 /* DISABLED 2026-05-05 · Journal narrative page — removed
    SYSTEM · journal — journal narrative page (system/journal.html)
